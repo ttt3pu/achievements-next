@@ -1,4 +1,35 @@
-// Ref: https://github.com/nuxt-community/vuetify-module#customvariables
-//
-// The variables you want to modify
-// $font-size-root: 20px;
+@mixin z-map($z-map) {
+  $before-index: -1;
+
+  @each $name, $value in $z-map {
+    $result-z: null;
+
+    @if $value == auto {
+      $result-z: $before-index + 1;
+    }
+
+    @else {
+      $result-z: $value;
+    }
+
+    $before-index: $result-z;
+
+    #{$name}: $result-z;
+  }
+}
+
+:root {
+  // font settings
+  --line-height: 1.875;
+  --line-height--heading: 1.5;
+  --font-family--en: 'Poppins', sans-serif;
+  --font-family--jp: 'Noto Sans JP', sans-serif;
+  --color-white: #eeeeee;
+  --color-yellow: #fed94f;
+  --vh: 1vh;
+
+  @include z-map((
+    --z-init: auto,
+    --z-layer: auto,
+  ));
+}
