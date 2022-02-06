@@ -29,10 +29,9 @@ export default {
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
-    // https://go.nuxtjs.dev/typescript
     '@nuxt/typescript-build',
-    // https://go.nuxtjs.dev/stylelint
     '@nuxtjs/stylelint-module',
+    '@nuxtjs/composition-api/module',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -47,8 +46,8 @@ export default {
       families: [
         'Poppins:400,500',
         'Noto Sans JP:400&display=swap',
-      ]
-    }
+      ],
+    },
   },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -59,8 +58,7 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
-
   privateRuntimeConfig: {
     MICROCMS_API_KEY: process.env.MICROCMS_API_KEY,
   },
-}
+};

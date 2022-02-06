@@ -42,12 +42,6 @@ html {
 
   @include z-map((
     --z-init: auto,
-    --z-cat: auto,
-    --z-cat-layer: auto,
-    --z-title: auto,
-    --z-sns: auto,
-    --z-scroll: auto,
-    --z-language: auto,
   ));
 
   font-family: var(--font-family--jp);

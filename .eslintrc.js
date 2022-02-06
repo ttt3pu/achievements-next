@@ -7,9 +7,13 @@ module.exports = {
   extends: [
     '@nuxtjs/eslint-config-typescript',
     'plugin:nuxt/recommended',
-    'prettier',
+    'airbnb',
+    // 'prettier',
   ],
   plugins: [],
   // add your custom rules here
-  rules: {},
-}
+  rules: {
+    'no-shadow': 'off',
+    'import/no-extraneous-dependencies': 'off',
+  },
+};
