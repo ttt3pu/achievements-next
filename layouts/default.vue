@@ -11,7 +11,4 @@ export default {
 </script>
 
 <style lang="scss">
-.wrapper{
-  background-color: #121212;
-}
 </style>

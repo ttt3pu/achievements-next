@@ -24,12 +24,22 @@
   --line-height--heading: 1.5;
   --font-family--en: 'Poppins', sans-serif;
   --font-family--jp: 'Noto Sans JP', sans-serif;
+  // colors
   --color-white: #eeeeee;
   --color-yellow: #fed94f;
+  --color-blue: #6956dc;
+  --color-red: #d6636b;
+  // bg-colors
+  --bg-color-lv1: #060b1a;
+  --bg-color-lv2: #1b1d31;
+  // etc
+  --box-shadow: 0 6px 12px rgba(0, 0, 0, .32);
   --vh: 1vh;
+  --border-radius: 10px;
 
   @include z-map((
     --z-init: auto,
     --z-layer: auto,
+    --z-layer2  : auto,
   ));
 }
