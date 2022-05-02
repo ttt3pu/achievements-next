@@ -1,0 +1,53 @@
+name: cd
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  cd:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.14.0]
+    env:
+      NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+      NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+      MICROCMS_API_KEY: ${{ secrets.MICROCMS_API_KEY }}
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6.20.3
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Lint JS
+        run: pnpm lint:js
+
+      - name: Lint Style
+        run: pnpm lint:style
+
+      - name: Generate
+        run: pnpm build
+
+      - name: Netlify Draft Deploy
+        if: github.ref != 'refs/heads/main'
+        run: npx netlify-cli deploy --dir=./dist
+
+      - name: Netlify Production Deploy
+        if: github.ref == 'refs/heads/main'
+        run: npx netlify-cli deploy --prod --dir=./dist
+
+
