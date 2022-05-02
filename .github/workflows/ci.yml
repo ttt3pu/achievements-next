@@ -14,8 +14,6 @@ jobs:
       matrix:
         node-version: [16.14.0]
     env:
-      NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-      NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
       MICROCMS_API_KEY: ${{ secrets.MICROCMS_API_KEY }}
 
     steps:
@@ -41,13 +39,4 @@ jobs:
 
       - name: Generate
         run: pnpm build
-
-      - name: Netlify Draft Deploy
-        if: github.ref != 'refs/heads/main'
-        run: npx netlify-cli deploy --dir=./dist
-
-      - name: Netlify Production Deploy
-        if: github.ref == 'refs/heads/main'
-        run: npx netlify-cli deploy --prod --dir=./dist
-
 
