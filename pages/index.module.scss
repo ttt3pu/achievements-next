@@ -1,3 +1,8 @@
+.wrapper {
+  padding: 20px;
+  overflow: hidden;
+}
+
 .h1 {
   text-align: center;
   padding: 30px 0;
@@ -6,84 +11,40 @@
 .itemContainer {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px;
+  display: grid;
+  gap: 20px;
+
+  @media (min-width: 768px) {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  }
+
+  @media (max-width: 767px) {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 .item {
-  $this: &;
-
   margin: 0 auto;
-  width: 100%;
-  display: flex;
-  border-radius: var(--border-radius);
   overflow: hidden;
   box-shadow: var(--box-shadow);
   background-color: var(--bg-color-lv2);
-  margin-bottom: 20px;
-}
-
-.itemHeading {
-  position: relative;
-  z-index: var(--z-layer);
-}
-
-.itemBanner {
-  transition: 0.3s;
+  border-radius: var(--border-radius);
+  display: flex;
+  align-items: center;
 
   @media (min-width: 768px) {
-    height: 120px;
-    margin-right: 30px;
-  }
-
-  @media (max-width: 767px) {
-    width: 100%;
-  }
-}
-
-.itemInner {
-  max-width: 100%;
-  min-height: 75px;
-  display: flex;
-  align-items: center;
-  transition: 0.2s;
-
-  @media (max-width: 767px) {
-    flex-wrap: wrap;
-  }
-}
-
-.rank {
-  font-size: 24px;
-  position: relative;
-  padding: 0 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  .crown-icon {
-    display: block;
-    width: 75px;
-    height: 75px;
-
-    svg {
-      width: 100%;
-      height: 100%;
+    &:nth-child(-n+3) {
+      grid-column: span 2;
     }
   }
 
-  p {
-    color: var(--color-white);
-    font-weight: 700;
-    font-family: var(--font-family-en);
-  }
-}
-
-.rating-container {
-  @media (min-width: 768px) {
-    display: flex;
-
-    > .atom-rating {
-      margin-right: 30px;
+  @media (max-width: 767px) {
+    &:nth-child(-n+3) {
+      grid-column: span 2;
     }
+  }
+
+  &:hover {
+    z-index: var(--z-layer);
   }
 }
