@@ -8,14 +8,14 @@ export const getStaticProps: GetStaticProps = async() => {
   const res = await createClient({
     serviceDomain: 'attt',
     apiKey: process.env.MICROCMS_API_KEY as string,
-  }).getList<Post[]>({ endpoint: 'subeome' }).then((res) => res);
+  }).getList<Post[]>({ endpoint: 'subeome', queries: { limit: 50 } }).then((res) => res);
 
   return {
     props: {
       posts: res.contents,
-    }
-  }
-}
+    },
+  };
+};
 
 export default function Home({ posts }: {posts: Post[]}) {
   return (
@@ -26,9 +26,6 @@ export default function Home({ posts }: {posts: Post[]}) {
         {posts.map((post, i) => {
           return (
             <div className={styles.item} key={i}>
-              <div className={styles.rank}>
-                <p>{ i + 1 }</p>
-              </div>
               <div className={styles.itemInner}>
                 <Image className={styles.itemBanner} src={`https://cdn.cloudflare.steamstatic.com/steam/apps/${post.steamId}/header.jpg`} alt="" width="460" height="215" />
                 <div>
@@ -43,4 +40,4 @@ export default function Home({ posts }: {posts: Post[]}) {
       </div>
     </div>
   );
-};
+}
