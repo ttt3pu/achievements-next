@@ -1,19 +1,14 @@
-import { createClient } from 'microcms-js-sdk';
 import { GetStaticProps } from 'next';
 import Image from 'next/image';
+import Link from 'next/link';
 import { createRef, useEffect, useRef } from 'react';
 import VanillaTilt from 'vanilla-tilt';
 import { Post } from '../types';
+import getPostsAll from '../utils/getPostsAll';
 import styles from './index.module.scss';
 
 export const getStaticProps: GetStaticProps = async() => {
-  const res = await createClient({
-    serviceDomain: 'attt',
-    apiKey: process.env.MICROCMS_API_KEY as string,
-  }).getList<Post[]>({
-    endpoint: 'subeome',
-    queries: { limit: 50 },
-  }).then((res) => res);
+  const res = await getPostsAll();
 
   return {
     props: {
@@ -54,13 +49,15 @@ export default function Home({ posts }: Props) {
               key={i}
               ref={postRefs.current[i]}
             >
-              <Image
-                className={styles.itemBanner}
-                src={`https://cdn.cloudflare.steamstatic.com/steam/apps/${post.steamId}/header.jpg`}
-                width="460"
-                height="215"
-                alt=""
-              />
+              <Link href={`/${post.id}`} passHref>
+                <Image
+                  className={styles.itemBanner}
+                  src={`https://cdn.cloudflare.steamstatic.com/steam/apps/${post.steamId}/header.jpg`}
+                  width="460"
+                  height="215"
+                  alt=""
+                />
+              </Link>
             </div>
           );
         })}
