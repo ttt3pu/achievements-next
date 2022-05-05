@@ -1,0 +1,48 @@
+.rating {
+  padding: 15px 0 40px;
+  position: relative;
+}
+
+.scales {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.scale {
+  position: absolute;
+  background-color: var(--color-white);
+  width: 1px;
+  height: 100%;
+
+  &:nth-child(1) {
+    left: 20%;
+  }
+
+  &:nth-child(2) {
+    left: 40%;
+  }
+
+  &:nth-child(3) {
+    left: 60%;
+  }
+
+  &:nth-child(4) {
+    left: 80%;
+  }
+}
+
+.graphs {
+  position: relative;
+  z-index: var(--z-layer);
+}
+
+.h3 {
+  margin-bottom: 10px;
+
+  &:not(:first-child) {
+    margin-top: 10px;
+  }
+}

@@ -1,3 +1,5 @@
+@use "sass:color";
+
 @mixin z-map($z-map) {
   $before-index: -1;
 
@@ -24,10 +26,13 @@
   --font-family-jp: "Noto Sans JP", sans-serif;
 
   // colors
+  --color-accent: #e07b6d;
   --color-white: #eee;
   --color-yellow: #fed94f;
   --color-blue: #6956dc;
   --color-red: #d6636b;
+  --txt-color-link: #fff7d6;
+  --txt-color-link-hover: #{color.adjust(#fff7d6, $lightness: 10)};
 
   // bg-colors
   --bg-color-lv1: #1c2135;

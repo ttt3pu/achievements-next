@@ -2,7 +2,6 @@ import { format } from 'date-fns';
 import MarkdownIt from 'markdown-it';
 import { createClient } from 'microcms-js-sdk';
 import { GetStaticProps } from 'next';
-import Box from '../components/atoms/Box';
 import HeadingLv2 from '../components/atoms/HeadingLv2';
 import SteamBanner from '../components/atoms/SteamBanner';
 import DetailTable from '../components/molecules/DetailTable';
@@ -56,10 +55,7 @@ export default function PostId({ post }: Props) {
 
   return (
     <div className={styles.wrapper}>
-      <h1>{title}</h1>
-
-      {idleGame}
-
+      {/*
       <div className={styles.boxLayout}>
         <Box>
           <SteamBanner steamId={steamId} />
@@ -72,9 +68,22 @@ export default function PostId({ post }: Props) {
           <HeadingLv2>評価</HeadingLv2>
           <Rating rating={rating} yarikomiRating={yarikomiRating} subeomeDifficulty={subeomeDifficulty} />
         </Box>
+      </div> */}
+
+      <div className={styles.summary}>
+        <div className={styles.summaryInner}>
+          <h1>{title}</h1>
+          <SteamBanner steamId={steamId} />
+          <DetailTable items={detailTableItems}/>
+
+          <HeadingLv2>評価</HeadingLv2>
+          <Rating rating={rating} yarikomiRating={yarikomiRating} subeomeDifficulty={subeomeDifficulty} />
+        </div>
       </div>
 
-      <div className={styles.content} dangerouslySetInnerHTML={{ __html: contentHtml }} />
+      <div className={styles.content}>
+        <div className={styles.contentInner} dangerouslySetInnerHTML={{ __html: contentHtml }} />
+      </div>
     </div>
   );
 }
