@@ -1,8 +1,8 @@
 import { GetStaticProps } from 'next';
-import Image from 'next/image';
 import Link from 'next/link';
 import { createRef, useEffect, useRef } from 'react';
 import VanillaTilt from 'vanilla-tilt';
+import SteamBanner from '../components/atoms/SteamBanner';
 import { Post } from '../types';
 import getPostsAll from '../utils/getPostsAll';
 import styles from './index.module.scss';
@@ -44,21 +44,17 @@ export default function Home({ posts }: Props) {
       <div className={styles.itemContainer}>
         {posts.map((post, i) => {
           return (
-            <div
-              className={styles.item}
-              key={i}
-              ref={postRefs.current[i]}
-            >
-              <Link href={`/${post.id}`} passHref>
-                <Image
+            <Link key={i} href={`/${post.id}`}>
+              <a
+                className={styles.item}
+                ref={postRefs.current[i]}
+              >
+                <SteamBanner
                   className={styles.itemBanner}
-                  src={`https://cdn.cloudflare.steamstatic.com/steam/apps/${post.steamId}/header.jpg`}
-                  width="460"
-                  height="215"
-                  alt=""
+                  steamId={post.steamId}
                 />
-              </Link>
-            </div>
+              </a>
+            </Link>
           );
         })}
       </div>

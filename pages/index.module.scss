@@ -9,7 +9,7 @@
 }
 
 .itemContainer {
-  max-width: 1200px;
+  max-width: var(--contents-width);
   margin: 0 auto;
   display: grid;
   gap: 20px;
