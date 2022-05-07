@@ -1,5 +1,9 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## Palette
+
+https://mycolor.space/?hex=%231C2135&sub=1#2E3255&sub=1#001731&sub=1
+
 ## Getting Started
 
 First, run the development server:
