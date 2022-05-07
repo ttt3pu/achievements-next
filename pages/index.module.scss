@@ -5,7 +5,7 @@
 
 .h1 {
   text-align: center;
-  padding: 30px 0;
+  padding: 20px 0;
 }
 
 .itemContainer {
@@ -30,8 +30,11 @@
   background-color: var(--bg-color-lv2);
   border-radius: var(--border-radius);
   display: flex;
-  align-items: center;
+  flex-direction: column;
   cursor: pointer;
+  color: var(--color-white);
+  text-align: center;
+  font-weight: 500;
 
   @media (min-width: 768px) {
     &:nth-child(-n+3) {
@@ -46,6 +49,59 @@
   }
 
   &:hover {
+    text-decoration: none;
     z-index: var(--z-layer);
+  }
+
+  p {
+    padding: 4px;
+    background-color: var(--bg-color-lv3);
+  }
+
+  &:nth-child(1) p {
+    background-color: #ff3848;
+  }
+
+  &:nth-child(2) p {
+    background-color: #f87841;
+  }
+
+  &:nth-child(3) p {
+    background-color: #f1c039;
+  }
+}
+
+.sortContainer {
+  max-width: var(--contents-width);
+  margin: 0 auto 40px;
+  padding-bottom: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--bg-color-lv4);
+}
+
+.sortItem {
+  margin-top: 20px;
+
+  &:not(:last-child) {
+    margin-right: 20px;
+  }
+}
+
+.sortButton {
+  border: 1px solid var(--bg-color-lv4);
+  box-shadow: var(--box-shadow);
+  border-radius: 24px;
+  padding: 6px 24px;
+  background-color: var(--bg-color-lv3);
+  color: var(--color-white);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: 0.2s;
+
+  &[data-is-selected="true"] {
+    font-weight: 500;
+    background-color: var(--bg-color-lv4);
   }
 }
