@@ -11,6 +11,7 @@ specifiers:
   next: 12.1.5
   react: 18.1.0
   react-dom: 18.1.0
+  react-icons: ^4.3.1
   sass: ^1.51.0
   stylelint: ^14.8.1
   stylelint-config-standard: ^25.0.0
@@ -32,6 +33,7 @@ devDependencies:
   eslint-config-next: 12.1.5_58df5dd09292b00352ef003be3866f25
   markdown-it: 13.0.1
   microcms-js-sdk: 2.0.0
+  react-icons: 4.3.1_react@18.1.0
   sass: 1.51.0
   stylelint: 14.8.1
   stylelint-config-standard: 25.0.0_stylelint@14.8.1
@@ -2068,6 +2070,14 @@ packages:
       react: 18.1.0
       scheduler: 0.22.0
     dev: false
+
+  /react-icons/4.3.1_react@18.1.0:
+    resolution: {integrity: sha512-cB10MXLTs3gVuXimblAdI71jrJx8njrJZmNMEMC+sQu5B/BIOmlsAjskdqpn81y8UBVEGuHODd7/ci5DvoSzTQ==}
+    peerDependencies:
+      react: '*'
+    dependencies:
+      react: 18.1.0
+    dev: true
 
   /react-is/16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}

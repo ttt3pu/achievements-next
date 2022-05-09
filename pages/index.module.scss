@@ -82,19 +82,11 @@
 
 .sortItem {
   margin-top: 20px;
-
-  &:not(:last-child) {
-    margin-right: 20px;
-  }
-}
-
-.sortButton {
   border: 1px solid var(--bg-color-lv4);
   box-shadow: var(--box-shadow);
   border-radius: 24px;
   padding: 6px 24px;
   background-color: var(--bg-color-lv3);
-  color: var(--color-white);
   cursor: pointer;
   position: relative;
   overflow: hidden;
@@ -104,4 +96,16 @@
     font-weight: 500;
     background-color: var(--bg-color-lv4);
   }
+
+  &:not(:last-child) {
+    margin-right: 20px;
+  }
+}
+
+.sortButton {
+  border: none;
+  background: none;
+  font: inherit;
+  color: var(--color-white);
+  cursor: pointer;
 }

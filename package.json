@@ -22,6 +22,7 @@
     "eslint-config-next": "12.1.5",
     "markdown-it": "^13.0.1",
     "microcms-js-sdk": "^2.0.0",
+    "react-icons": "^4.3.1",
     "sass": "^1.51.0",
     "stylelint": "^14.8.1",
     "stylelint-config-standard": "^25.0.0",

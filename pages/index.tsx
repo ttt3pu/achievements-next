@@ -1,6 +1,7 @@
 import { GetStaticProps } from 'next';
 import Link from 'next/link';
 import { createRef, useEffect, useRef, useState } from 'react';
+import { GoTriangleDown } from 'react-icons/go';
 import VanillaTilt from 'vanilla-tilt';
 import SteamBanner from '../components/atoms/SteamBanner';
 import { Post } from '../types';
@@ -59,10 +60,14 @@ export default function Home({ posts }: Props) {
       <div className={styles.sortContainer}>
         {sortMenuItems.map((item, i) => {
           return (
-            <div key={i} className={styles.sortItem}>
+            <div
+              key={i}
+              className={styles.sortItem}
+              data-is-selected={sortingKey === item.key}
+            >
+              <GoTriangleDown />
               <button
                 onClick={() => onClickedSortButton(item.key)}
-                data-is-selected={sortingKey === item.key}
                 className={styles.sortButton}
               >{item.text}</button>
             </div>
