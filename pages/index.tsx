@@ -29,6 +29,7 @@ export default function Home({ posts }: Props) {
   });
 
   const [sortingKey, setSortingKey] = useState('default');
+  const [sortingDirection, setSortingDirection] = useState<'asc' | 'desc'>('asc');
 
   useEffect(() => {
     postRefs.current.forEach((ref) => {
@@ -50,19 +51,24 @@ export default function Home({ posts }: Props) {
   ];
 
   function onClickedSortButton(key: string) {
+    if (sortingKey === key) {
+      setSortingDirection(sortingDirection === 'asc' ? 'desc' : 'asc');
+      return;
+    }
+
     setSortingKey(key);
+    setSortingDirection('asc');
   }
 
   return (
     <div className={styles.wrapper}>
-      <h1 className={styles.h1}>すべての実績を解除しました！おめでとう！</h1>
-
       <div className={styles.sortContainer}>
         {sortMenuItems.map((item, i) => {
           return (
             <div
               key={i}
               className={styles.sortItem}
+              data-direction={sortingKey === item.key && sortingDirection === 'desc' ? 'desc' : 'asc'}
               data-is-selected={sortingKey === item.key}
             >
               <GoTriangleDown />

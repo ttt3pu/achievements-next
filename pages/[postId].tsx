@@ -2,8 +2,8 @@ import { format } from 'date-fns';
 import MarkdownIt from 'markdown-it';
 import { createClient } from 'microcms-js-sdk';
 import { GetStaticProps } from 'next';
+import Box from '../components/atoms/Box';
 import HeadingLv2 from '../components/atoms/HeadingLv2';
-import SteamBanner from '../components/atoms/SteamBanner';
 import DetailTable from '../components/molecules/DetailTable';
 import Rating from '../components/molecules/Rating';
 import { Post } from '../types';
@@ -55,26 +55,18 @@ export default function PostId({ post }: Props) {
 
   return (
     <div className={styles.wrapper}>
-      {/*
-      <div className={styles.boxLayout}>
-        <Box>
-          <SteamBanner steamId={steamId} />
-        </Box>
-        <Box>
-          <DetailTable items={detailTableItems}/>
-        </Box>
-
-        <Box>
-          <HeadingLv2>評価</HeadingLv2>
-          <Rating rating={rating} yarikomiRating={yarikomiRating} subeomeDifficulty={subeomeDifficulty} />
-        </Box>
-      </div> */}
-
       <div className={styles.summary}>
         <div className={styles.summaryInner}>
           <h1>{title}</h1>
-          <SteamBanner steamId={steamId} />
-          <DetailTable items={detailTableItems}/>
+
+          <div className={styles.boxLayout}>
+            <Box>
+              <iframe src={`https://store.steampowered.com/widget/${steamId}/`} frameBorder="0" width="646" height="190"></iframe>
+            </Box>
+            <Box>
+              <DetailTable items={detailTableItems}/>
+            </Box>
+          </div>
 
           <HeadingLv2>評価</HeadingLv2>
           <Rating rating={rating} yarikomiRating={yarikomiRating} subeomeDifficulty={subeomeDifficulty} />

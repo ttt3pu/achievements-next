@@ -3,11 +3,6 @@
   overflow: hidden;
 }
 
-.h1 {
-  text-align: center;
-  padding: 20px 0;
-}
-
 .itemContainer {
   max-width: var(--contents-width);
   margin: 0 auto;
@@ -82,19 +77,24 @@
 
 .sortItem {
   margin-top: 20px;
-  border: 1px solid var(--bg-color-lv4);
-  box-shadow: var(--box-shadow);
-  border-radius: 24px;
-  padding: 6px 24px;
-  background-color: var(--bg-color-lv3);
-  cursor: pointer;
   position: relative;
-  overflow: hidden;
-  transition: 0.2s;
 
-  &[data-is-selected="true"] {
-    font-weight: 500;
-    background-color: var(--bg-color-lv4);
+  svg {
+    position: absolute;
+    top: 1px;
+    bottom: 0;
+    left: 16px;
+    margin: auto;
+    z-index: var(--z-layer);
+    transition: 0.2s;
+  }
+
+  &[data-direction="desc"] svg {
+    transform: rotate(-180deg);
+  }
+
+  &[data-is-selected="true"] svg {
+    fill: var(--color-yellow);
   }
 
   &:not(:last-child) {
@@ -103,9 +103,20 @@
 }
 
 .sortButton {
-  border: none;
-  background: none;
+  border: 1px solid var(--bg-color-lv4);
+  box-shadow: var(--box-shadow);
+  border-radius: var(--border-radius);
+  padding: 6px 20px 6px calc(24px + 1em);
+  background-color: var(--bg-color-lv3);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: 0.2s;
   font: inherit;
   color: var(--color-white);
-  cursor: pointer;
+
+  [data-is-selected="true"] & {
+    font-weight: 500;
+    background-color: var(--bg-color-lv4);
+  }
 }
