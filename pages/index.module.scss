@@ -1,11 +1,13 @@
 .wrapper {
-  padding: 20px;
+  padding: 0 20px 20px;
   overflow: hidden;
 }
 
 .itemContainer {
   max-width: var(--contents-width);
-  margin: 0 auto;
+  margin: 20px auto 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--bg-color-lv4);
   display: grid;
   gap: 20px;
 
@@ -68,18 +70,19 @@
 
 .sortContainer {
   max-width: var(--contents-width);
-  margin: 0 auto 40px;
-  padding-bottom: 24px;
+  margin: 0 auto 20px;
+  padding: 8px;
   display: flex;
   flex-wrap: wrap;
-  border-bottom: 1px solid var(--bg-color-lv4);
+  background-color: var(--bg-color-lv2);
+  border-radius: var(--border-radius);
 }
 
 .sortItem {
-  margin-top: 20px;
   position: relative;
 
   svg {
+    pointer-events: none;
     position: absolute;
     top: 1px;
     bottom: 0;
@@ -87,36 +90,31 @@
     margin: auto;
     z-index: var(--z-layer);
     transition: 0.2s;
+    fill: var(--color-yellow);
   }
 
   &[data-direction="desc"] svg {
     transform: rotate(-180deg);
   }
-
-  &[data-is-selected="true"] svg {
-    fill: var(--color-yellow);
-  }
-
-  &:not(:last-child) {
-    margin-right: 20px;
-  }
 }
 
 .sortButton {
-  border: 1px solid var(--bg-color-lv4);
-  box-shadow: var(--box-shadow);
   border-radius: var(--border-radius);
-  padding: 6px 20px 6px calc(24px + 1em);
-  background-color: var(--bg-color-lv3);
   cursor: pointer;
   position: relative;
   overflow: hidden;
-  transition: 0.2s;
   font: inherit;
-  color: var(--color-white);
+  background-color: transparent;
+  color: var(--bg-color-lv4);
+  border: none;
+  padding: 6px 20px;
+  transition: 0.2s;
 
   [data-is-selected="true"] & {
-    font-weight: 500;
+    padding-left: calc(24px + 1em);
+    box-shadow: var(--box-shadow);
     background-color: var(--bg-color-lv4);
+    font-weight: 500;
+    color: var(--color-white);
   }
 }

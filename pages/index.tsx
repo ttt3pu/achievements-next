@@ -64,14 +64,15 @@ export default function Home({ posts }: Props) {
     <div className={styles.wrapper}>
       <div className={styles.sortContainer}>
         {sortMenuItems.map((item, i) => {
+          const isSelected = sortingKey === item.key;
           return (
             <div
               key={i}
               className={styles.sortItem}
-              data-direction={sortingKey === item.key && sortingDirection === 'desc' ? 'desc' : 'asc'}
-              data-is-selected={sortingKey === item.key}
+              data-direction={sortingDirection === 'desc' ? 'desc' : 'asc'}
+              data-is-selected={isSelected}
             >
-              <GoTriangleDown />
+              { isSelected && <GoTriangleDown /> }
               <button
                 onClick={() => onClickedSortButton(item.key)}
                 className={styles.sortButton}
