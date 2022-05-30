@@ -15,7 +15,7 @@ export async function getStaticPaths() {
 
   return {
     paths: posts.contents.map((post) => ({ params: {postId: post.id} })),
-    fallback: true,
+    fallback: 'blocking',
   };
 }
 
