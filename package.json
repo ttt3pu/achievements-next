@@ -18,7 +18,7 @@
   "devDependencies": {
     "@types/node": "^17.0.31",
     "@types/react": "^18.0.8",
-    "eslint": "8.16.0",
+    "eslint": "8.17.0",
     "eslint-config-next": "12.1.6",
     "markdown-it": "^13.0.1",
     "microcms-js-sdk": "^2.0.0",
