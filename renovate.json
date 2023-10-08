@@ -4,5 +4,11 @@
   "ignorePresets": [":prHourlyLimit2"],
   "timezone": "Asia/Tokyo",
   "dependencyDashboard": false,
-  "branchConcurrentLimit": 0
+  "branchConcurrentLimit": 0,
+  "packageRules": [
+    {
+      "matchPackagePatterns": ["lint", "prettier", "actions/checkout", "pnpm/action-setup", "actions/setup-node"],
+      "automerge": true
+    }
+  ]
 }
