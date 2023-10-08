@@ -34,13 +34,13 @@
   font-weight: 500;
 
   @media (min-width: 768px) {
-    &:nth-child(-n+3) {
+    &:nth-child(-n + 3) {
       grid-column: span 2;
     }
   }
 
   @media (max-width: 767px) {
-    &:nth-child(-n+3) {
+    &:nth-child(-n + 3) {
       grid-column: span 2;
     }
   }
@@ -93,7 +93,7 @@
     fill: var(--color-yellow);
   }
 
-  &[data-direction="desc"] svg {
+  &[data-direction='desc'] svg {
     transform: rotate(-180deg);
   }
 }
@@ -110,7 +110,7 @@
   padding: 6px 20px;
   transition: 0.2s;
 
-  [data-is-selected="true"] & {
+  [data-is-selected='true'] & {
     padding-left: calc(24px + 1em);
     box-shadow: var(--box-shadow);
     background-color: var(--bg-color-lv4);

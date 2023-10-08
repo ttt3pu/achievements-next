@@ -5,7 +5,7 @@ type Props = {
   rating: number;
   yarikomiRating: number;
   subeomeDifficulty: number;
-}
+};
 
 export default function Rating({ rating, yarikomiRating, subeomeDifficulty }: Props) {
   return (

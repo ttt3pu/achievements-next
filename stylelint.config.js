@@ -1,11 +1,7 @@
 module.exports = {
-  plugins: [
-    'stylelint-scss',
-  ],
-  extends: [
-    'stylelint-config-standard-scss',
-  ],
+  plugins: ['stylelint-scss'],
+  extends: ['stylelint-config-standard-scss'],
   rules: {
-    "selector-class-pattern": null,
+    'selector-class-pattern': null,
   },
 };

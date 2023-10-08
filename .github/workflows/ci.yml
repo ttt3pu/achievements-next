@@ -39,4 +39,3 @@ jobs:
 
       - name: Generate
         run: pnpm build
-

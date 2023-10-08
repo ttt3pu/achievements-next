@@ -8,7 +8,7 @@ import { Post } from '../types';
 import getPostsAll from '../utils/getPostsAll';
 import styles from './index.module.scss';
 
-export const getStaticProps: GetStaticProps = async() => {
+export const getStaticProps: GetStaticProps = async () => {
   const res = await getPostsAll();
 
   return {
@@ -20,7 +20,7 @@ export const getStaticProps: GetStaticProps = async() => {
 
 type Props = {
   posts: Post[];
-}
+};
 
 export default function Home({ posts }: Props) {
   const postRefs = useRef([]);
@@ -42,12 +42,12 @@ export default function Home({ posts }: Props) {
   });
 
   const sortMenuItems = [
-    {text: '頑張った度', key: 'default'},
-    {text: 'かかった時間', key: 'hours'},
-    {text: '総合評価', key: 'rating'},
-    {text: '実績集めの楽しさ', key: 'subeomeRating'},
-    {text: '難易度', key: 'subeomeDifficulty'},
-    {text: '達成日', key: 'subeomeDate'},
+    { text: '頑張った度', key: 'default' },
+    { text: 'かかった時間', key: 'hours' },
+    { text: '総合評価', key: 'rating' },
+    { text: '実績集めの楽しさ', key: 'subeomeRating' },
+    { text: '難易度', key: 'subeomeDifficulty' },
+    { text: '達成日', key: 'subeomeDate' },
   ];
 
   function onClickedSortButton(key: string) {
@@ -72,11 +72,10 @@ export default function Home({ posts }: Props) {
               data-direction={sortingDirection === 'desc' ? 'desc' : 'asc'}
               data-is-selected={isSelected}
             >
-              { isSelected && <GoTriangleDown /> }
-              <button
-                onClick={() => onClickedSortButton(item.key)}
-                className={styles.sortButton}
-              >{item.text}</button>
+              {isSelected && <GoTriangleDown />}
+              <button onClick={() => onClickedSortButton(item.key)} className={styles.sortButton}>
+                {item.text}
+              </button>
             </div>
           );
         })}
@@ -86,14 +85,8 @@ export default function Home({ posts }: Props) {
         {posts.map((post, i) => {
           return (
             <Link key={i} href={`/${post.id}`}>
-              <a
-                className={styles.item}
-                ref={postRefs.current[i]}
-              >
-                <SteamBanner
-                  className={styles.itemBanner}
-                  steamId={post.steamId}
-                />
+              <a className={styles.item} ref={postRefs.current[i]}>
+                <SteamBanner className={styles.itemBanner} steamId={post.steamId} />
                 <p>{i + 1}</p>
               </a>
             </Link>

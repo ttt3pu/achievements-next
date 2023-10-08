@@ -1,7 +1,4 @@
 {
-  "stylelint.validate": [
-    "css",
-    "scss"
-  ],
+  "stylelint.validate": ["css", "scss"],
   "nuxt.isNuxtApp": false
 }

@@ -3,7 +3,7 @@ import Image from 'next/image';
 type Props = {
   steamId: number;
   className?: string;
-}
+};
 
 export default function SteamBanner({ steamId, className = '' }: Props) {
   return (

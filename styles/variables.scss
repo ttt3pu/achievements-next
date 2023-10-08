@@ -1,4 +1,4 @@
-@use "sass:color";
+@use 'sass:color';
 
 @mixin z-map($z-map) {
   $before-index: -1;
@@ -22,8 +22,8 @@
   // font settings
   --line-height: 1.875;
   --line-height-heading: 1.5;
-  --font-family-en: "Poppins", sans-serif;
-  --font-family-jp: "Noto Sans JP", sans-serif;
+  --font-family-en: 'Poppins', sans-serif;
+  --font-family-jp: 'Noto Sans JP', sans-serif;
 
   // colors
   --color-accent: #ff6f91;
@@ -47,9 +47,11 @@
   --vh: 1vh;
   --border-radius: 4px;
 
-  @include z-map((
-    --z-init: auto,
-    --z-layer: auto,
-    --z-layer2  : auto,
-  ));
+  @include z-map(
+    (
+      --z-init: auto,
+      --z-layer: auto,
+      --z-layer2: auto,
+    )
+  );
 }
