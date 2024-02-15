@@ -1,37 +1,3 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:base", ":preserveSemverRanges"],
-  "ignorePresets": [":prHourlyLimit2"],
-  "timezone": "Asia/Tokyo",
-  "dependencyDashboard": false,
-  "branchConcurrentLimit": 0,
-  "packageRules": [
-    {
-      "matchPackagePatterns": [
-        "lint",
-        "prettier",
-        "@types",
-        "^actions/checkout$",
-        "^pnpm/action-setup$",
-        "^actions/setup-node$"
-      ],
-      "automerge": true
-    },
-    {
-      "matchUpdateTypes": ["minor", "patch"],
-      "matchPackagePatterns": [
-        "^vanilla-tilt$",
-        "^typescript$",
-        "^sass$",
-        "^react-icons$",
-        "^microcms-js-sdk$",
-        "^markdown-it$",
-        "^date-fns$",
-        "^react$",
-        "^react-dom$",
-        "^next$"
-      ],
-      "automerge": true
-    }
-  ]
+  "extends": ["github>ttt3pu/renovate-settings"]
 }
