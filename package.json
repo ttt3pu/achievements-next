@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": "18.18.0"
+    "node": "20.11.1"
   },
   "scripts": {
     "dev": "next dev",
@@ -21,7 +21,7 @@
     "react-dom": "18.2.0"
   },
   "devDependencies": {
-    "@types/node": "^18.0.0",
+    "@types/node": "^20.0.0",
     "@types/react": "^18.0.8",
     "eslint": "8.56.0",
     "eslint-config-next": "13.5.6",
