@@ -5,7 +5,7 @@ import styles from './Header.module.scss';
 export default function Header() {
   return (
     <header className={styles.header}>
-      <Link href="/">
+      <Link href="/" legacyBehavior>
         <a className={styles.a}>
           <h1 className={styles.h1}>
             <GiAchievement className={styles.badge} />

@@ -84,7 +84,7 @@ export default function Home({ posts }: Props) {
       <div className={styles.itemContainer}>
         {posts.map((post, i) => {
           return (
-            <Link key={i} href={`/${post.id}`}>
+            <Link key={i} href={`/${post.id}`} legacyBehavior>
               <a className={styles.item} ref={postRefs.current[i]}>
                 <SteamBanner className={styles.itemBanner} steamId={post.steamId} />
                 <p>{i + 1}</p>
