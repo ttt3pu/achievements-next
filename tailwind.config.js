@@ -16,6 +16,9 @@ module.exports = {
         red: {
           DEFAULT: '#d6636b',
         },
+        white: {
+          DEFAULT: '#eee',
+        },
         bg: {
           100: '#1c2135',
           200: '#202940',
