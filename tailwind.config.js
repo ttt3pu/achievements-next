@@ -3,6 +3,9 @@ module.exports = {
   content: ['./pages/**/*.{js,ts,jsx,tsx,mdx}', './components/**/*.{js,ts,jsx,tsx,mdx}'],
   theme: {
     extend: {
+      maxWidth: {
+        'contents-with-p': 'calc(var(--contents-width) + 40px)',
+      },
       colors: {
         yellow: {
           DEFAULT: '#fed94f',
