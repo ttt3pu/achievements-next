@@ -1,5 +1,3 @@
-import styles from './Graph.module.scss';
-
 type Props = {
   rating: number;
   color: 'yellow' | 'blue' | 'red';
@@ -8,5 +6,18 @@ type Props = {
 export default function Graph({ rating, color }: Props) {
   const width = (100 / 5) * rating + '%';
 
-  return <div className={styles.graph} data-color={color} style={{ width }} />;
+  const bgColorClass = (() => {
+    switch (color) {
+      case 'yellow':
+        return 'bg-yellow';
+      case 'blue':
+        return 'bg-blue';
+      case 'red':
+        return 'bg-red';
+      default:
+        return '';
+    }
+  })();
+
+  return <div className={`h-5 ${bgColorClass}`} style={{ width }} />;
 }

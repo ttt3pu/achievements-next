@@ -4,6 +4,15 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        yellow: {
+          DEFAULT: '#fed94f',
+        },
+        blue: {
+          DEFAULT: '#6956dc',
+        },
+        red: {
+          DEFAULT: '#d6636b',
+        },
         bg: {
           100: '#1c2135',
           200: '#202940',
