@@ -5,6 +5,7 @@ module.exports = {
     extend: {
       maxWidth: {
         'contents-with-p': 'calc(var(--contents-width) + 40px)',
+        contents: 'var(--contents-width)',
       },
       colors: {
         yellow: {

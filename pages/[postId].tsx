@@ -8,7 +8,6 @@ import DetailTable from '../components/molecules/DetailTable';
 import Rating from '../components/molecules/Rating';
 import { Post } from '../types';
 import getPostsAll from '../utils/getPostsAll';
-import styles from './[postId].module.scss';
 
 export async function getStaticPaths() {
   const posts = await getPostsAll();
@@ -57,12 +56,12 @@ export default function PostId({ post }: Props) {
   }
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.summary}>
-        <div className={styles.summaryInner}>
+    <div>
+      <div className="max-w-contents mx-auto">
+        <div className="px-5 py-14">
           <h1>{title}</h1>
 
-          <div className={styles.boxLayout}>
+          <div className="flex">
             <Box>
               <iframe
                 src={`https://store.steampowered.com/widget/${steamId}/`}
@@ -81,8 +80,10 @@ export default function PostId({ post }: Props) {
         </div>
       </div>
 
-      <div className={styles.content}>
-        <div className={styles.contentInner} dangerouslySetInnerHTML={{ __html: contentHtml }} />
+      <div className="bg-bg-200 ">
+        <div className="max-w-contents mx-auto">
+          <div className="px-5 py-14" dangerouslySetInnerHTML={{ __html: contentHtml }} />
+        </div>
       </div>
     </div>
   );
