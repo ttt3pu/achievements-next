@@ -1,15 +1,14 @@
 import Link from 'next/link';
 import { GiAchievement } from 'react-icons/gi';
-import styles from './Header.module.scss';
 
 export default function Header() {
   return (
-    <header className={styles.header}>
+    <header className="text-center p-5">
       <Link href="/" legacyBehavior>
-        <a className={styles.a}>
-          <h1 className={styles.h1}>
-            <GiAchievement className={styles.badge} />
-            <span className={styles.text}>すべての実績を解除しました！おめでとう！</span>
+        <a className="text-inherit hover:opacity-80">
+          <h1 className="text-center py-5 inline-flex items-center">
+            <GiAchievement className="w-[2em] h-[2em] shrink-0" />
+            <span>すべての実績を解除しました！おめでとう！</span>
           </h1>
         </a>
       </Link>
