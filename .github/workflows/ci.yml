@@ -10,8 +10,6 @@ on:
 jobs:
   cd:
     runs-on: ubuntu-latest
-    env:
-      MICROCMS_API_KEY: ${{ secrets.MICROCMS_API_KEY }}
 
     steps:
       - uses: actions/checkout@v4

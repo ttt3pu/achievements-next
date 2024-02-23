@@ -1,33 +1,31 @@
 import { format } from 'date-fns';
 import MarkdownIt from 'markdown-it';
-import { createClient } from 'microcms-js-sdk';
 import { GetStaticProps } from 'next';
 import Box from '../components/atoms/Box';
 import HeadingLv2 from '../components/atoms/HeadingLv2';
 import DetailTable from '../components/molecules/DetailTable';
 import Rating from '../components/molecules/Rating';
-import { Post } from '../types';
-import getPostsAll from '../utils/getPostsAll';
+import { AchievementPost } from '@prisma/client';
+import { fetchIsr } from '../utils/fetchIsr';
 
 export async function getStaticPaths() {
-  const posts = await getPostsAll();
+  const posts = await fetchIsr<AchievementPost[]>('/api/v1/achievement_post');
+  const paths = posts.map((post) => {
+    return {
+      params: {
+        postId: String(post.id),
+      },
+    };
+  });
 
   return {
-    paths: posts.contents.map((post) => ({ params: { postId: post.id } })),
+    paths,
     fallback: 'blocking',
   };
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const post = await createClient({
-    serviceDomain: 'attt',
-    apiKey: process.env.MICROCMS_API_KEY as string,
-  })
-    .get<Post>({
-      endpoint: 'subeome',
-      contentId: params.postId as string,
-    })
-    .then((res) => res);
+  const post = await fetchIsr<AchievementPost>(`/api/v1/achievement_post/${params.postId}`);
 
   return {
     props: {
@@ -37,21 +35,30 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 };
 
 type Props = {
-  post: Post;
+  post: AchievementPost;
 };
 
 export default function PostId({ post }: Props) {
-  const { title, content, steamId, rating, yarikomiRating, subeomeDifficulty, idleGame, totalHours, subeomeDate } =
-    post;
+  const {
+    title,
+    content,
+    steam_id,
+    rating,
+    yarikomi_rating,
+    difficulty_rating,
+    is_idle_game,
+    total_hours,
+    completed_at,
+  } = post;
 
   const contentHtml = new MarkdownIt({ breaks: true }).render(content);
 
   const detailTableItems = [
-    { heading: '実績コンプした日', text: format(new Date(subeomeDate), 'yyyy 年 MM 月 dd 日') },
-    { heading: 'かかった時間', text: `${totalHours} 時間` },
+    { heading: '実績コンプした日', text: format(new Date(completed_at), 'yyyy 年 MM 月 dd 日') },
+    { heading: 'かかった時間', text: `${total_hours} 時間` },
   ];
 
-  if (idleGame) {
+  if (is_idle_game) {
     detailTableItems.unshift({ heading: '放置ゲー', text: '○' });
   }
 
@@ -64,7 +71,7 @@ export default function PostId({ post }: Props) {
           <div className="flex">
             <Box>
               <iframe
-                src={`https://store.steampowered.com/widget/${steamId}/`}
+                src={`https://store.steampowered.com/widget/${steam_id}/`}
                 frameBorder="0"
                 width="646"
                 height="190"
@@ -76,7 +83,7 @@ export default function PostId({ post }: Props) {
           </div>
 
           <HeadingLv2>評価</HeadingLv2>
-          <Rating rating={rating} yarikomiRating={yarikomiRating} subeomeDifficulty={subeomeDifficulty} />
+          <Rating rating={rating} yarikomi_rating={yarikomi_rating} difficulty_rating={difficulty_rating} />
         </div>
       </div>
 

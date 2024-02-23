@@ -4,26 +4,27 @@ import { createRef, useEffect, useRef, useState } from 'react';
 import { GoTriangleDown } from 'react-icons/go';
 import VanillaTilt from 'vanilla-tilt';
 import SteamBanner from '../components/atoms/SteamBanner';
-import { Post } from '../types';
-import getPostsAll from '../utils/getPostsAll';
 import styles from './index.module.scss';
+import { AchievementPost } from '@prisma/client';
+import { fetchIsr } from '../utils/fetchIsr';
 
 export const getStaticProps: GetStaticProps = async () => {
-  const res = await getPostsAll();
+  const posts = await fetchIsr<AchievementPost[]>('/api/v1/achievement_post');
 
   return {
     props: {
-      posts: res.contents,
+      posts,
     },
   };
 };
 
 type Props = {
-  posts: Post[];
+  posts: AchievementPost[];
 };
 
 export default function Home({ posts }: Props) {
   const postRefs = useRef([]);
+
   posts.forEach((_, i) => {
     postRefs.current[i] = createRef();
   });
@@ -95,7 +96,7 @@ export default function Home({ posts }: Props) {
                 className={`${styles.gridItem} mx-auto shadow bg-bg-200 rounded flex flex-col cursor-pointer text-white text-center font-medium overflow-hidden max-md:col-span-2 hover:z-10`}
                 ref={postRefs.current[i]}
               >
-                <SteamBanner steamId={post.steamId} className="w-full h-full object-cover" />
+                <SteamBanner steamId={post.steam_id} className="w-full h-full object-cover" />
                 <p className="p-1 bg-bg-300">{i + 1}</p>
               </a>
             </Link>
