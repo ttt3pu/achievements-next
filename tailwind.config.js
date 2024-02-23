@@ -7,7 +7,15 @@ module.exports = {
         'contents-with-p': 'calc(var(--contents-width) + 40px)',
         contents: 'var(--contents-width)',
       },
+      fontFamily: {
+        en: "'Poppins', sans-serif",
+        jp: "'Noto Sans JP', sans-serif",
+      },
       colors: {
+        link: {
+          DEFAULT: '#fff7d6',
+          500: '#fffbef',
+        },
         yellow: {
           DEFAULT: '#fed94f',
         },

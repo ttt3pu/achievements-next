@@ -1,20 +1,4 @@
-@use 'sass:color';
-
 :root {
-  // font settings
-  --line-height: 1.875;
-  --line-height-heading: 1.5;
-  --font-family-en: 'Poppins', sans-serif;
-  --font-family-jp: 'Noto Sans JP', sans-serif;
-
-  // colors
-  --color-white: #eee;
-  --txt-color-link: #fff7d6;
-  --txt-color-link-hover: #{color.adjust(#fff7d6, $lightness: 10)};
-
-  // bg-colors
-  --bg-color-lv1: #1c2135;
-
   // etc
   --contents-width: 1200px;
   --vh: 1vh;

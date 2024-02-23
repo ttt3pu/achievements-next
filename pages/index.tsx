@@ -63,7 +63,7 @@ export default function Home({ posts }: Props) {
 
   return (
     <div className="px-5 pb-5 overflow-hidden">
-      <div className="max-w-contents mx-auto mt-0 mb-5 p-2 flex flex-wrap bg-bg-200 rounded">
+      <div className="max-w-contents mx-auto mt-0 mb-5 p-2 flex flex-wrap bg-bg-200 rou1nded">
         {sortMenuItems.map((item, i) => {
           const isSelected = sortingKey === item.key;
           return (
@@ -77,8 +77,8 @@ export default function Home({ posts }: Props) {
               )}
               <button
                 onClick={() => onClickedSortButton(item.key)}
-                className={`rounded cursor-pointer relative overflow-hidden bg-transparent text-bg border-0 px-5 py-1 transition-all${
-                  isSelected ? 'shadow bg-bg font-medium text-white pl-10' : ''
+                className={`rounded cursor-pointer relative overflow-hidden border-0 px-5 py-1 transition-all ${
+                  isSelected ? 'shadow bg-bg font-medium text-white pl-10' : 'bg-transparent text-bg'
                 }`}
               >
                 {item.text}

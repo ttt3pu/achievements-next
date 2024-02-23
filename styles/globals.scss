@@ -3,53 +3,22 @@
 @tailwind utilities;
 
 html {
-  font-family: var(--font-family-jp);
-  font-size: 16px;
-  word-spacing: 1px;
-  text-size-adjust: 100%;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
-  line-height: var(--line-height);
-  scroll-behavior: smooth;
-  color: var(--color-white);
-  background-color: var(--bg-color-lv1);
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-weight: 500;
+  @apply scroll-smooth;
+  @apply leading-7;
+  @apply font-jp;
+  @apply text-white;
+  @apply bg-bg-100;
 }
 
 body {
   min-height: calc(100 * var(--vh));
 }
 
-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
 a {
-  text-decoration: none;
-  color: var(--txt-color-link);
-
-  &:hover {
-    text-decoration: underline;
-    color: var(--txt-color-link-hover);
-    text-decoration-color: var(--txt-color-link-hover);
-    text-underline-offset: 4px;
-  }
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
+  @apply no-underline;
+  @apply text-link;
+  @apply hover:text-link-500;
+  @apply hover:decoration-link-500;
+  @apply hover:underline-offset-4;
+  @apply hover:underline;
 }
