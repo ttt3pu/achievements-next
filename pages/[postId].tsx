@@ -6,7 +6,7 @@ import HeadingLv2 from '../components/atoms/HeadingLv2';
 import DetailTable from '../components/molecules/DetailTable';
 import Rating from '../components/molecules/Rating';
 import { AchievementPost } from '@prisma/client';
-import { fetchIsr } from '../utils/fetchIsr';
+import { fetchIsr } from 'utils/fetch';
 
 export async function getStaticPaths() {
   const posts = await fetchIsr<AchievementPost[]>('/api/v1/achievement_post');

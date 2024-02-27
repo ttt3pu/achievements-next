@@ -6,7 +6,7 @@ import VanillaTilt from 'vanilla-tilt';
 import SteamBanner from '../components/atoms/SteamBanner';
 import styles from './index.module.scss';
 import { AchievementPost } from '@prisma/client';
-import { fetchIsr } from '../utils/fetchIsr';
+import { fetchIsr } from 'utils/fetch';
 
 export const getStaticProps: GetStaticProps = async () => {
   const posts = await fetchIsr<AchievementPost[]>('/api/v1/achievement_post');
