@@ -1,4 +1,6 @@
-import Graph from '../atoms/Graph';
+import { MdOutlineStarBorder } from 'react-icons/md';
+import { MdOutlineStar } from 'react-icons/md';
+import DetailItem from 'components/molecules/DetailItem';
 
 type Props = {
   rating: number;
@@ -7,14 +9,44 @@ type Props = {
 };
 
 export default function Rating({ rating, yarikomi_rating, difficulty_rating }: Props) {
+  function createArr(rating: number): boolean[] {
+    return Array(5)
+      .fill(false)
+      .map((_, index) => index < rating);
+  }
+
+  const ratingArr = createArr(rating);
+  const yarikomiArr = createArr(yarikomi_rating);
+  const difficultyArr = createArr(difficulty_rating);
+
+  const items = [
+    {
+      title: '総合評価',
+      ratingArr: ratingArr,
+    },
+    {
+      title: 'やりこみ評価',
+      ratingArr: yarikomiArr,
+    },
+    {
+      title: '難易度',
+      ratingArr: difficultyArr,
+    },
+  ];
+
   return (
-    <div>
-      <h3>総合</h3>
-      <Graph color="yellow" rating={rating} />
-      <h3 className="mt-4">実績コンプの楽しさ</h3>
-      <Graph color="blue" rating={yarikomi_rating} />
-      <h3 className="mt-4">実績コンプの難易度</h3>
-      <Graph color="red" rating={difficulty_rating} />
+    <div className="flex flex-wrap mb-3">
+      {items.map((item, i) => {
+        return (
+          <DetailItem key={i} title={item.title}>
+            <span className="flex">
+              {item.ratingArr.map((fill, i2) => {
+                return fill ? <MdOutlineStar key={i2} /> : <MdOutlineStarBorder key={i} />;
+              })}
+            </span>
+          </DetailItem>
+        );
+      })}
     </div>
   );
 }
