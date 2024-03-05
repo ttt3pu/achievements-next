@@ -36,7 +36,7 @@
     "stylelint": "16.2.1",
     "stylelint-config-standard": "36.0.0",
     "stylelint-config-standard-scss": "13.0.0",
-    "stylelint-scss": "6.2.0",
+    "stylelint-scss": "6.2.1",
     "tailwindcss": "3.4.1",
     "typescript": "5.3.3",
     "vanilla-tilt": "1.8.1"
