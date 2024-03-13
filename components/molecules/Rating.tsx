@@ -3,9 +3,9 @@ import { MdOutlineStar } from 'react-icons/md';
 import DetailItem from 'components/molecules/DetailItem';
 
 type Props = {
-  rating: number;
-  yarikomi_rating: number;
-  difficulty_rating: number;
+  rating: string;
+  yarikomi_rating: string;
+  difficulty_rating: string;
 };
 
 export default function Rating({ rating, yarikomi_rating, difficulty_rating }: Props) {
@@ -15,9 +15,9 @@ export default function Rating({ rating, yarikomi_rating, difficulty_rating }: P
       .map((_, index) => index < rating);
   }
 
-  const ratingArr = createArr(rating);
-  const yarikomiArr = createArr(yarikomi_rating);
-  const difficultyArr = createArr(difficulty_rating);
+  const ratingArr = createArr(Number(rating));
+  const yarikomiArr = createArr(Number(yarikomi_rating));
+  const difficultyArr = createArr(Number(difficulty_rating));
 
   const items = [
     {

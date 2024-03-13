@@ -63,7 +63,7 @@ export default function Home({ posts }: Props) {
 
   return (
     <div className="px-5 pb-5 overflow-hidden">
-      <div className="max-w-contents mx-auto mt-0 mb-5 p-2 flex flex-wrap bg-bg-200 rou1nded">
+      <div className="max-w-contents mx-auto mt-0 mb-5 p-2 flex flex-wrap bg-bg-200 rounded">
         {sortMenuItems.map((item, i) => {
           const isSelected = sortingKey === item.key;
           return (

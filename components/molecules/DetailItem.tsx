@@ -3,11 +3,12 @@ import styles from 'components/molecules/Detailitem.module.scss';
 import { BiSolidCalendarCheck } from 'react-icons/bi';
 import { BiSolidCalendarEdit } from 'react-icons/bi';
 import { FaClock } from 'react-icons/fa6';
+import { CgSandClock } from 'react-icons/cg';
 
 type Props = {
   title: string;
   children: ReactNode;
-  icon?: 'calendar-check' | 'calendar-edit' | 'clock';
+  icon?: 'calendar-check' | 'calendar-edit' | 'clock' | 'sand-clock';
 };
 
 export default function Box({ title, children, icon }: Props) {
@@ -19,14 +20,16 @@ export default function Box({ title, children, icon }: Props) {
         return BiSolidCalendarEdit;
       case 'clock':
         return FaClock;
+      case 'sand-clock':
+        return CgSandClock;
     }
   })();
 
   return (
-    <p className={`${styles.detailItem} flex items-center text-sm mb-3`}>
+    <div className={`${styles.detailItem} flex items-center text-sm mb-3`}>
       {icon && <CustomTag size="1.5em" className="mr-3" />}
-      <span className="mr-3 font-medium">{title}:</span>
-      <span className="text-yellow">{children}</span>
-    </p>
+      <div className="mr-3 font-medium">{title}:</div>
+      <div className="text-yellow">{children}</div>
+    </div>
   );
 }
