@@ -20,6 +20,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       is_idle_game: req.query.is_idle_game === 'true',
       completed_at: new Date(req.query.completed_at as string),
       content: req.query.content as string,
+      updated_at: new Date(),
     },
   });
 
