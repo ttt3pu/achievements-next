@@ -4,6 +4,8 @@ import { fetchIsr } from 'utils/fetch';
 import PostView from 'components/organisms/PostView';
 import { PostEditSubmitPayload } from 'types/PostEditSubmitPayload';
 import { toast } from 'react-toastify';
+import Button from 'components/atoms/Button';
+import router from 'next/router';
 
 export async function getStaticPaths() {
   const posts = await fetchIsr<AchievementPost[]>('/api/v1/achievement_post');
@@ -41,5 +43,26 @@ export default function PostId({ post }: Props) {
     toast.success('Saved!');
   }
 
-  return <PostView post={post} editMode={true} handleSubmit={submit} />;
+  async function onClickedDelete() {
+    if (window.confirm('削除して良いですか？')) {
+      await fetch(`/api/v1/achievement_post/${post.id}/delete`);
+      toast.success('Deleted!');
+      router.push('/admin');
+    }
+  }
+
+  return (
+    <>
+      <PostView post={post} editMode={true} handleSubmit={submit} />
+      <div className="bg-bg-200">
+        <div className="max-w-contents mx-auto text-right">
+          <div className="px-5 pb-8">
+            <Button color="red" onClick={onClickedDelete}>
+              Delete
+            </Button>
+          </div>
+        </div>
+      </div>
+    </>
+  );
 }
