@@ -12,7 +12,18 @@ import Button from 'components/atoms/Button';
 import { PostEditSubmitPayload } from 'types/PostEditSubmitPayload';
 
 type Props = {
-  post: AchievementPost;
+  post: {
+    steam_id: string | number;
+    title: string;
+    total_hours: string | number;
+    rating: string | number;
+    yarikomi_rating: string | number;
+    difficulty_rating: string | number;
+    is_idle_game: boolean;
+    completed_at: Date;
+    content: string;
+    updated_at: Date;
+  };
   editMode?: Boolean;
   handleSubmit?: Function;
 };

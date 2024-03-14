@@ -39,6 +39,9 @@ export default function Home() {
             </Button>
           )}
         </div>
+        <Button icon="pencil" to="/admin/new" className="mb-6">
+          New
+        </Button>
         {posts.map((post, i) => {
           return (
             <div key={i} className="relative">

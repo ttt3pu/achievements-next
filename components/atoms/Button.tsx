@@ -1,4 +1,6 @@
+import Link from 'next/link';
 import { ReactNode } from 'react';
+import { BsPencilSquare } from 'react-icons/bs';
 
 type Color = 'yellow';
 
@@ -6,12 +8,13 @@ type Props = {
   to?: string;
   className?: string;
   children: ReactNode;
-  onClick: () => void;
+  onClick?: () => void;
   color?: Color;
+  icon?: 'pencil';
 };
 
-export default function Button({ to, children, className, onClick, color }: Props) {
-  const CustomTag = to ? 'a' : 'button';
+export default function Button({ to, children, className, onClick = () => {}, color, icon }: Props) {
+  const CustomTag = to ? Link : 'button';
 
   const colorClasses = (() => {
     switch (color) {
@@ -24,10 +27,16 @@ export default function Button({ to, children, className, onClick, color }: Prop
 
   return (
     <CustomTag
-      className={`cursor-pointer radius px-4 py-2 inline-flex font-medium ${colorClasses} ${className}`}
+      className={`cursor-pointer radius px-4 py-2 inline-flex items-center font-medium ${colorClasses} ${className}`}
       onClick={onClick}
+      href={to}
     >
-      {children}
+      {icon && (
+        <span className="mr-2">
+          <BsPencilSquare />
+        </span>
+      )}
+      <span>{children}</span>
     </CustomTag>
   );
 }
