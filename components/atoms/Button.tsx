@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { ReactNode } from 'react';
 import { BsPencilSquare } from 'react-icons/bs';
 
-type Color = 'yellow' | 'red';
+type Color = 'yellow' | 'red' | 'blue' | 'orange' | 'white';
 
 type Props = {
   to?: string;
@@ -22,8 +22,14 @@ export default function Button({ to, children, className, onClick = () => {}, co
         return 'bg-red';
       case 'yellow':
         return 'bg-yellow';
-      default:
+      case 'blue':
+        return 'bg-blue';
+      case 'orange':
+        return 'bg-orange';
+      case 'white':
         return 'bg-white text-bg-100';
+      default:
+        return 'bg-bg';
     }
   })();
 

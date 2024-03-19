@@ -1,12 +1,13 @@
 const prisma = new PrismaClient();
-
-import { AchievementPost, PrismaClient } from '@prisma/client';
-
+import { PrismaClient } from '@prisma/client';
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { isAdmin } from 'utils/api/isAdmin';
 
-type ResponseData = AchievementPost;
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (!(await isAdmin(req, res))) {
+    return res.status(401).end();
+  }
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) {
   const id = Number(req.query.id);
   const newSortOrder = Number(req.query.new_sort_order);
 

@@ -28,6 +28,9 @@ module.exports = {
         white: {
           DEFAULT: '#eee',
         },
+        orange: {
+          DEFAULT: '#f87841',
+        },
         bg: {
           100: '#1c2135',
           200: '#202940',
