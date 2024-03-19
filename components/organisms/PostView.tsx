@@ -112,7 +112,7 @@ export default function PostView({ post, editMode, handleSubmit }: Props) {
             <DetailItem title="総合評価">
               <FormInput value={rating} handleChange={setRating} />
             </DetailItem>
-            <DetailItem title="やりこみ評価">
+            <DetailItem title="実績集めの楽しさ">
               <FormInput value={yarikomiRating} handleChange={setYarikomiRating} />
             </DetailItem>
             <DetailItem title="難易度">

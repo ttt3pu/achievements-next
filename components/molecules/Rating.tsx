@@ -1,6 +1,5 @@
-import { MdOutlineStarBorder } from 'react-icons/md';
-import { MdOutlineStar } from 'react-icons/md';
 import DetailItem from 'components/molecules/DetailItem';
+import RatingStar from './RatingStar';
 
 type Props = {
   rating: string;
@@ -9,28 +8,18 @@ type Props = {
 };
 
 export default function Rating({ rating, yarikomi_rating, difficulty_rating }: Props) {
-  function createArr(rating: number): boolean[] {
-    return Array(5)
-      .fill(false)
-      .map((_, index) => index < rating);
-  }
-
-  const ratingArr = createArr(Number(rating));
-  const yarikomiArr = createArr(Number(yarikomi_rating));
-  const difficultyArr = createArr(Number(difficulty_rating));
-
   const items = [
     {
       title: '総合評価',
-      ratingArr: ratingArr,
+      rating: Number(rating),
     },
     {
-      title: 'やりこみ評価',
-      ratingArr: yarikomiArr,
+      title: '実績集めの楽しさ',
+      rating: Number(yarikomi_rating),
     },
     {
       title: '難易度',
-      ratingArr: difficultyArr,
+      rating: Number(difficulty_rating),
     },
   ];
 
@@ -40,9 +29,7 @@ export default function Rating({ rating, yarikomi_rating, difficulty_rating }: P
         return (
           <DetailItem key={i} title={item.title}>
             <span className="flex">
-              {item.ratingArr.map((fill, i2) => {
-                return fill ? <MdOutlineStar key={i2} /> : <MdOutlineStarBorder key={i} />;
-              })}
+              <RatingStar rating={item.rating} />
             </span>
           </DetailItem>
         );
