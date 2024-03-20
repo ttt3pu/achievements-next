@@ -39,6 +39,3 @@ jobs:
 
       - name: Lint Style
         run: pnpm lint:style
-
-      - name: Generate
-        run: pnpm build
