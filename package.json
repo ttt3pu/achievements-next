@@ -15,7 +15,8 @@
     "lint:js": "next lint",
     "lint:style": "stylelint \"**/*.{css,scss,sass}\" --ignore-path .gitignore",
     "prettier": "prettier . --check --ignore-path .gitignore",
-    "prettier:fix": "prettier . --write --ignore-path .gitignore"
+    "prettier:fix": "prettier . --write --ignore-path .gitignore",
+    "postinstall": "pnpm prisma generate"
   },
   "dependencies": {
     "date-fns": "3.6.0",
