@@ -20,9 +20,10 @@
   "dependencies": {
     "date-fns": "3.6.0",
     "next": "14.1.4",
+    "next-auth": "4.24.7",
     "prisma": "5.10.2",
     "react": "18.2.0",
-    "react-datepicker": "^6.3.0",
+    "react-datepicker": "6.3.0",
     "react-dom": "18.2.0",
     "react-toastify": "^10.0.4"
   },
