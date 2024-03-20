@@ -7,6 +7,9 @@ on:
   pull_request:
     types: [opened, synchronize]
 
+env:
+  DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
 jobs:
   cd:
     runs-on: ubuntu-latest
