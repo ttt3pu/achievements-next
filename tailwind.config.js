@@ -7,18 +7,29 @@ module.exports = {
         'contents-with-p': 'calc(var(--contents-width) + 40px)',
         contents: 'var(--contents-width)',
       },
+      fontFamily: {
+        en: "'Poppins', sans-serif",
+        jp: "'Noto Sans JP', sans-serif",
+      },
       colors: {
+        link: {
+          DEFAULT: '#fff7d6',
+          500: '#fffbef',
+        },
         yellow: {
-          DEFAULT: '#fed94f',
+          DEFAULT: '#f1c039',
         },
         blue: {
           DEFAULT: '#6956dc',
         },
         red: {
-          DEFAULT: '#d6636b',
+          DEFAULT: '#ff3848',
         },
         white: {
           DEFAULT: '#eee',
+        },
+        orange: {
+          DEFAULT: '#f87841',
         },
         bg: {
           100: '#1c2135',

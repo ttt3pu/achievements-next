@@ -7,14 +7,17 @@ on:
   pull_request:
     types: [opened, synchronize]
 
+env:
+  DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
 jobs:
   cd:
     runs-on: ubuntu-latest
-    env:
-      MICROCMS_API_KEY: ${{ secrets.MICROCMS_API_KEY }}
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: true
       - uses: pnpm/action-setup@v3.0.0
         with:
           version: 8
@@ -27,6 +30,9 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install
+
+      - name: Prisma generate types and etc
+        run: pnpm prisma generate
 
       - name: Lint JS
         run: pnpm lint:js

@@ -1,35 +1,35 @@
-import { GetStaticProps } from 'next';
 import Link from 'next/link';
-import { createRef, useEffect, useRef, useState } from 'react';
+import { createRef, useCallback, useEffect, useRef, useState } from 'react';
 import { GoTriangleDown } from 'react-icons/go';
 import VanillaTilt from 'vanilla-tilt';
 import SteamBanner from '../components/atoms/SteamBanner';
-import { Post } from '../types';
-import getPostsAll from '../utils/getPostsAll';
 import styles from './index.module.scss';
+import { AchievementPost } from '@prisma/client';
+import { fetchSpa } from 'utils/fetch';
+import { format } from 'date-fns';
+import RatingStar from 'components/molecules/RatingStar';
 
-export const getStaticProps: GetStaticProps = async () => {
-  const res = await getPostsAll();
-
-  return {
-    props: {
-      posts: res.contents,
-    },
-  };
-};
-
-type Props = {
-  posts: Post[];
-};
-
-export default function Home({ posts }: Props) {
+export default function Home() {
   const postRefs = useRef([]);
+  const [posts, setPosts] = useState<AchievementPost[]>([]);
+
   posts.forEach((_, i) => {
     postRefs.current[i] = createRef();
   });
 
-  const [sortingKey, setSortingKey] = useState('default');
+  const [sortingKey, setSortingKey] = useState('sort_order');
   const [sortingDirection, setSortingDirection] = useState<'asc' | 'desc'>('asc');
+
+  const getPosts = useCallback(async () => {
+    const postsRes = await fetchSpa<AchievementPost[]>(
+      `/api/v1/achievement_post?sort_direction=${sortingDirection}&sort_key=${sortingKey}`,
+    );
+    setPosts(postsRes);
+  }, [sortingKey, sortingDirection]);
+
+  useEffect(() => {
+    getPosts();
+  }, [getPosts]);
 
   useEffect(() => {
     postRefs.current.forEach((ref) => {
@@ -42,23 +42,39 @@ export default function Home({ posts }: Props) {
   });
 
   const sortMenuItems = [
-    { text: '頑張った度', key: 'default' },
-    { text: 'かかった時間', key: 'hours' },
+    { text: '頑張った度', key: 'sort_order' },
+    { text: 'かかった時間', key: 'total_hours' },
     { text: '総合評価', key: 'rating' },
-    { text: '実績集めの楽しさ', key: 'subeomeRating' },
-    { text: '難易度', key: 'subeomeDifficulty' },
-    { text: '達成日', key: 'subeomeDate' },
+    { text: '実績集めの楽しさ', key: 'yarikomi_rating' },
+    { text: '難易度', key: 'difficulty_rating' },
+    { text: '達成日', key: 'completed_at' },
   ];
 
   function onClickedSortButton(key: string) {
     if (sortingKey === key) {
       setSortingDirection(sortingDirection === 'asc' ? 'desc' : 'asc');
-      return;
+    } else {
+      setSortingKey(key);
+      setSortingDirection('asc');
     }
-
-    setSortingKey(key);
-    setSortingDirection('asc');
   }
+
+  const postText = (post: AchievementPost, i: number) => {
+    switch (sortingKey) {
+      case 'sort_order':
+        return sortingDirection === 'asc' ? i + 1 : posts.length - i;
+      case 'total_hours':
+        return post.total_hours + ' h';
+      case 'rating':
+        return <RatingStar className="justify-center py-1.5" rating={post.rating} />;
+      case 'yarikomi_rating':
+        return <RatingStar className="justify-center py-1.5" rating={post.yarikomi_rating} />;
+      case 'difficulty_rating':
+        return <RatingStar className="justify-center py-1.5" rating={post.difficulty_rating} />;
+      case 'completed_at':
+        return format(post.completed_at, 'yyyy-MM-dd');
+    }
+  };
 
   return (
     <div className="px-5 pb-5 overflow-hidden">
@@ -76,8 +92,8 @@ export default function Home({ posts }: Props) {
               )}
               <button
                 onClick={() => onClickedSortButton(item.key)}
-                className={`rounded cursor-pointer relative overflow-hidden bg-transparent text-bg border-0 px-5 py-1 transition-all${
-                  isSelected ? 'shadow bg-bg font-medium text-white pl-10' : ''
+                className={`rounded cursor-pointer relative overflow-hidden border-0 px-5 py-1 transition-all ${
+                  isSelected ? 'shadow bg-bg font-medium text-white pl-10' : 'bg-transparent text-bg'
                 }`}
               >
                 {item.text}
@@ -95,8 +111,8 @@ export default function Home({ posts }: Props) {
                 className={`${styles.gridItem} mx-auto shadow bg-bg-200 rounded flex flex-col cursor-pointer text-white text-center font-medium overflow-hidden max-md:col-span-2 hover:z-10`}
                 ref={postRefs.current[i]}
               >
-                <SteamBanner steamId={post.steamId} className="w-full h-full object-cover" />
-                <p className="p-1 bg-bg-300">{i + 1}</p>
+                <SteamBanner steamId={post.steam_id} className="w-full h-full object-cover" />
+                <p className="p-1 bg-bg-300">{postText(post, i)}</p>
               </a>
             </Link>
           );
