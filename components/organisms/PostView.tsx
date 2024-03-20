@@ -1,7 +1,6 @@
 import { format } from 'date-fns';
 import MarkdownIt from 'markdown-it';
 import Rating from 'components/molecules/Rating';
-import { AchievementPost } from '@prisma/client';
 import DetailItem from 'components/molecules/DetailItem';
 import FormInput from 'components/atoms/FormInput';
 import { useState } from 'react';
