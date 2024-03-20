@@ -26,6 +26,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Prisma generate types and etc
+        run: pnpm prisma generate
+
       - name: Lint JS
         run: pnpm lint:js
 
