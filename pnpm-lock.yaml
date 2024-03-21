@@ -27,7 +27,7 @@ dependencies:
     specifier: 18.2.0
     version: 18.2.0(react@18.2.0)
   react-toastify:
-    specifier: ^10.0.4
+    specifier: 10.0.4
     version: 10.0.4(react-dom@18.2.0)(react@18.2.0)
 
 devDependencies:
@@ -44,7 +44,7 @@ devDependencies:
     specifier: 18.2.67
     version: 18.2.67
   '@types/react-datepicker':
-    specifier: ^6.2.0
+    specifier: 6.2.0
     version: 6.2.0(react-dom@18.2.0)(react@18.2.0)
   autoprefixer:
     specifier: 10.4.19
