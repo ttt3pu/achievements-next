@@ -21,8 +21,8 @@ dependencies:
     specifier: 18.2.0
     version: 18.2.0
   react-datepicker:
-    specifier: 6.5.0
-    version: 6.5.0(react-dom@18.2.0)(react@18.2.0)
+    specifier: 6.6.0
+    version: 6.6.0(react-dom@18.2.0)(react@18.2.0)
   react-dom:
     specifier: 18.2.0
     version: 18.2.0(react@18.2.0)
@@ -1113,10 +1113,6 @@ packages:
       readdirp: 3.6.0
     optionalDependencies:
       fsevents: 2.3.3
-
-  /classnames@2.5.1:
-    resolution: {integrity: sha512-saHYOzhIQs6wy2sVxTM6bUDsQO4F50V9RQ22qBpEdCW+I+/Wmke2HOl6lS6dTpdxVhb88/I6+Hs+438c3lfUow==}
-    dev: false
 
   /client-only@0.0.1:
     resolution: {integrity: sha512-IV3Ou0jSMzZrd3pZ48nLkT9DA7Ag1pnPzaiQhpW7c3RbcqqzvzzVu+L8gfqMp/8IM2MQtSiqaCxrrcfu8I8rMA==}
@@ -2976,14 +2972,14 @@ packages:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
     dev: true
 
-  /react-datepicker@6.5.0(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-VXufB/CH04O9K/puRxr7BGBD+2Hf9mSSwG9HMa6ZP+LXckCpibllOPuRYxk4kW8W22AfLps4MY04NJAgk4JpJg==}
+  /react-datepicker@6.6.0(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-ERC0/Q4pPC9bNIcGUpdCbHc+oCxhkU3WI3UOGHkyJ3A9fqALCYpEmLc5S5xvAd7DuCDdbsyW97oRPM6pWWwjww==}
     peerDependencies:
       react: ^16.9.0 || ^17 || ^18
       react-dom: ^16.9.0 || ^17 || ^18
     dependencies:
       '@floating-ui/react': 0.26.9(react-dom@18.2.0)(react@18.2.0)
-      classnames: 2.5.1
+      clsx: 2.1.0
       date-fns: 3.6.0
       prop-types: 15.8.1
       react: 18.2.0
