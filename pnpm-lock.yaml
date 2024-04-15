@@ -21,8 +21,8 @@ dependencies:
     specifier: 18.2.0
     version: 18.2.0
   react-datepicker:
-    specifier: 6.7.0
-    version: 6.7.0(react-dom@18.2.0)(react@18.2.0)
+    specifier: 6.7.1
+    version: 6.7.1(react-dom@18.2.0)(react@18.2.0)
   react-dom:
     specifier: 18.2.0
     version: 18.2.0(react@18.2.0)
@@ -2970,8 +2970,8 @@ packages:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
     dev: true
 
-  /react-datepicker@6.7.0(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-ysdHvNWyAiDidJmseAPteygwXrCrdE3kK7tVraL3Dqln50ltT8f8V6rSTJuscpeVns3zeFovXMku2YqEzs4QvA==}
+  /react-datepicker@6.7.1(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-W6mBZR+3aLTblFs5AFQ5Yp+OltipEtmLnNl0bnsPTuTDanufyz+5ndN7jwhD7EXEQGX4PUnEztWu0CpY+jyNwQ==}
     peerDependencies:
       react: ^16.9.0 || ^17 || ^18
       react-dom: ^16.9.0 || ^17 || ^18
