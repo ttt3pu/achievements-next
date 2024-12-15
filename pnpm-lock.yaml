@@ -43,8 +43,8 @@ importers:
         specifier: 20.16.10
         version: 20.16.10
       '@types/react':
-        specifier: 18.3.14
-        version: 18.3.14
+        specifier: 18.3.16
+        version: 18.3.16
       '@types/react-datepicker':
         specifier: 6.2.0
         version: 6.2.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -583,8 +583,8 @@ packages:
   '@types/react-datepicker@6.2.0':
     resolution: {integrity: sha512-+JtO4Fm97WLkJTH8j8/v3Ldh7JCNRwjMYjRaKh4KHH0M3jJoXtwiD3JBCsdlg3tsFIw9eQSqyAPeVDN2H2oM9Q==}
 
-  '@types/react@18.3.14':
-    resolution: {integrity: sha512-NzahNKvjNhVjuPBQ+2G7WlxstQ+47kXZNHlUvFakDViuIEfGY926GqhMueQFZ7woG+sPiQKlF36XfrIUVSUfFg==}
+  '@types/react@18.3.16':
+    resolution: {integrity: sha512-oh8AMIC4Y2ciKufU8hnKgs+ufgbA/dhPTACaZPM86AbwX9QwnFtSoPWEeRUj8fge+v6kFt78BXcDhAU1SrrAsw==}
 
   '@types/semver@7.5.8':
     resolution: {integrity: sha512-I8EUhyrgfLrcTkzV3TSsGyl1tSuPrEDzr0yd5m90UgNxQkyDXULk3b6MlQqTCpZpNtWe1K0hzclnZkTcLBe2UQ==}
@@ -2657,13 +2657,13 @@ snapshots:
   '@types/react-datepicker@6.2.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@floating-ui/react': 0.26.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@types/react': 18.3.14
+      '@types/react': 18.3.16
       date-fns: 3.6.0
     transitivePeerDependencies:
       - react
       - react-dom
 
-  '@types/react@18.3.14':
+  '@types/react@18.3.16':
     dependencies:
       '@types/prop-types': 15.7.8
       csstype: 3.1.2
