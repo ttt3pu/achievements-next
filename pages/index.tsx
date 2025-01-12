@@ -1,17 +1,28 @@
 import Link from 'next/link';
-import { createRef, useCallback, useEffect, useRef, useState } from 'react';
+import { createRef, useEffect, useRef, useState } from 'react';
 import { GoTriangleDown } from 'react-icons/go';
 import VanillaTilt from 'vanilla-tilt';
 import SteamBanner from '../components/atoms/SteamBanner';
 import styles from './index.module.scss';
 import { AchievementPost } from '@prisma/client';
-import { fetchSpa } from 'utils/fetch';
+import { fetchSsr } from 'utils/fetch';
 import { format } from 'date-fns';
 import RatingStar from 'components/molecules/RatingStar';
+import { GetStaticProps } from 'next';
 
-export default function Home() {
+export const getStaticProps: GetStaticProps = async () => {
+  const posts = await fetchSsr<AchievementPost[]>('/api/v1/achievement_post');
+
+  return {
+    props: {
+      posts,
+    },
+  };
+};
+
+export default function Home({ posts: propsPosts }: { posts: AchievementPost[] }) {
   const postRefs = useRef([]);
-  const [posts, setPosts] = useState<AchievementPost[]>([]);
+  const [posts] = useState<AchievementPost[]>(propsPosts);
 
   posts.forEach((_, i) => {
     postRefs.current[i] = createRef();
@@ -20,16 +31,35 @@ export default function Home() {
   const [sortingKey, setSortingKey] = useState('sort_order');
   const [sortingDirection, setSortingDirection] = useState<'asc' | 'desc'>('asc');
 
-  const getPosts = useCallback(async () => {
-    const postsRes = await fetchSpa<AchievementPost[]>(
-      `/api/v1/achievement_post?sort_direction=${sortingDirection}&sort_key=${sortingKey}`,
-    );
-    setPosts(postsRes);
-  }, [sortingKey, sortingDirection]);
+  function filteredPosts() {
+    const result = [...posts];
 
-  useEffect(() => {
-    getPosts();
-  }, [getPosts]);
+    switch (sortingKey) {
+      case 'sort_order':
+        break;
+      case 'total_hours':
+        result.sort((a, b) => a.total_hours - b.total_hours);
+        break;
+      case 'rating':
+        result.sort((a, b) => a.rating - b.rating);
+        break;
+      case 'yarikomi_rating':
+        result.sort((a, b) => a.yarikomi_rating - b.yarikomi_rating);
+        break;
+      case 'difficulty_rating':
+        result.sort((a, b) => a.difficulty_rating - b.difficulty_rating);
+        break;
+      case 'completed_at':
+        result.sort((a, b) => new Date(a.completed_at).getTime() - new Date(b.completed_at).getTime());
+        break;
+    }
+
+    if (sortingDirection === 'desc') {
+      result.reverse();
+    }
+
+    return result;
+  }
 
   useEffect(() => {
     postRefs.current.forEach((ref) => {
@@ -104,7 +134,7 @@ export default function Home() {
       </div>
 
       <div className="max-w-contents mx-auto mt-5 mb-0 pt-5 border-t border-t-bg grid grid-cols-6 gap-5 max-md:grid-cols-2">
-        {posts.map((post, i) => {
+        {filteredPosts().map((post, i) => {
           return (
             <Link key={i} href={`/${post.id}`} legacyBehavior>
               <a
