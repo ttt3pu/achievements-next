@@ -23,6 +23,8 @@ type Props = {
 
 export default function PostId({ post }: Props) {
   async function submit(payload: PostEditSubmitPayload) {
+    // FIXME
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     await fetch(`/api/v1/achievement_post/${post.id}/edit?${new URLSearchParams(payload as any).toString()}`);
     toast.success('Saved!');
   }

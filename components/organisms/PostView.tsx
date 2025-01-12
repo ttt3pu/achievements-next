@@ -23,8 +23,8 @@ type Props = {
     content: string;
     updated_at: Date;
   };
-  editMode?: Boolean;
-  handleSubmit?: Function;
+  editMode?: boolean;
+  handleSubmit?: (payload: PostEditSubmitPayload) => void;
 };
 
 export default function PostView({ post, editMode, handleSubmit }: Props) {

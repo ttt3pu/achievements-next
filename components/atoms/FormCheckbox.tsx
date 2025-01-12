@@ -1,5 +1,5 @@
 type Props = {
-  handleChange: Function;
+  handleChange: (checked: boolean) => void;
   value: boolean;
 };
 
