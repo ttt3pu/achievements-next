@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import type { Config } from 'tailwindcss';
 
 export default {
@@ -13,6 +14,9 @@ export default {
         jp: "'Noto Sans JP', sans-serif",
       },
       colors: {
+        toast: {
+          success: 'var(--toastify-icon-color-success)',
+        },
         link: {
           DEFAULT: '#fff7d6',
           500: '#fffbef',
