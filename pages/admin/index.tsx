@@ -5,6 +5,7 @@ import { AchievementPost } from '@prisma/client';
 import { RxSpaceBetweenVertically } from 'react-icons/rx';
 import Button from 'components/atoms/Button';
 import { fetchSpa } from 'utils/fetch';
+import { toast } from 'react-toastify';
 
 export default function Home() {
   const [posts, setPosts] = useState<AchievementPost[]>([]);
@@ -29,6 +30,34 @@ export default function Home() {
     await getPosts();
   }
 
+  const deploySuccessToastComponent = () => {
+    const deploymentsLink = 'https://vercel.com/attt-team/achievements-next/deployments';
+
+    return (
+      <div>
+        <p>Deploy started!</p>
+        <a
+          href={deploymentsLink}
+          target="_blank"
+          rel="noopener"
+          className="text-toast-success hover:text-toast-success"
+        >
+          {deploymentsLink}
+        </a>
+      </div>
+    );
+  };
+
+  async function deploy() {
+    const { ok } = await fetch('/api/v1/deploy', { method: 'POST' });
+
+    if (ok) {
+      return toast.success(deploySuccessToastComponent);
+    }
+
+    toast.error('Failed to deploy');
+  }
+
   return (
     <div className="px-5 pb-5">
       <div className="max-w-contents mx-auto pt-5 border-t border-t-bg">
@@ -39,9 +68,14 @@ export default function Home() {
             </Button>
           )}
         </div>
-        <Button icon="pencil" to="/admin/new" className="mb-6">
-          New
-        </Button>
+        <div className="mb-6">
+          <Button icon="pencil" to="/admin/new" className="mr-4">
+            New
+          </Button>
+          <Button icon="rocket" color="orange" onClick={deploy}>
+            Deploy
+          </Button>
+        </div>
         {posts.map((post, i) => {
           return (
             <div key={i} className="relative">
