@@ -1,4 +1,4 @@
-name: cd
+name: ci
 
 on:
   push:
@@ -11,7 +11,7 @@ env:
   DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
 jobs:
-  cd:
+  ci:
     runs-on: ubuntu-latest
 
     steps:
