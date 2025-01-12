@@ -2,7 +2,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 type Props = {
-  handleChange: Function;
+  handleChange: (date: Date) => void;
   value: Date;
 };
 

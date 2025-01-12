@@ -1,5 +1,5 @@
 type Props = {
-  handleChange: Function;
+  handleChange: (value: string) => void;
   value: string;
   className?: string;
 };

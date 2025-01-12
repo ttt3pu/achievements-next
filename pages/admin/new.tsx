@@ -5,6 +5,8 @@ import router from 'next/router';
 
 export default function NewPost() {
   async function submit(payload: PostEditSubmitPayload) {
+    // FIXME
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     await fetch(`/api/v1/achievement_post/new?${new URLSearchParams(payload as any).toString()}`);
     toast.success('Saved!');
     router.push('/admin');
