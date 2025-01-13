@@ -1,13 +1,13 @@
-import { PrismaClient } from '@prisma/client';
+import { createPrismaClient } from 'utils/api/createPrismaClient';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { isAdmin } from 'utils/api/isAdmin';
-
-const prisma = new PrismaClient();
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (!(await isAdmin(req, res))) {
     return res.status(401).end();
   }
+
+  const prisma = createPrismaClient();
 
   const findMaxSortOrder = await prisma.achievementPost.aggregate({
     _max: {
