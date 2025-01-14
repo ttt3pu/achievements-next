@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": "20.18.1"
+    "node": "22.13.0"
   },
   "packageManager": "pnpm@9.15.3",
   "prisma": {
@@ -34,7 +34,7 @@
     "@eslint/compat": "1.2.5",
     "@faker-js/faker": "8.4.1",
     "@prisma/client": "6.0.1",
-    "@types/node": "20.17.12",
+    "@types/node": "22.10.6",
     "@types/react": "18.3.18",
     "@types/react-datepicker": "6.2.0",
     "autoprefixer": "10.4.20",
