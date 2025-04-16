@@ -61,8 +61,8 @@ importers:
         specifier: 15.1.6
         version: 15.1.6(eslint@9.24.0(jiti@1.21.6))(typescript@5.7.3)
       eslint-config-prettier:
-        specifier: 10.0.1
-        version: 10.0.1(eslint@9.24.0(jiti@1.21.6))
+        specifier: 10.1.2
+        version: 10.1.2(eslint@9.24.0(jiti@1.21.6))
       markdown-it:
         specifier: 14.1.0
         version: 14.1.0
@@ -1251,8 +1251,8 @@ packages:
       typescript:
         optional: true
 
-  eslint-config-prettier@10.0.1:
-    resolution: {integrity: sha512-lZBts941cyJyeaooiKxAtzoPHTN+GbQTJFAIdQbRhA4/8whaAraEh47Whw/ZFfrjNSnlAxqfm9i0XVAEkULjCw==}
+  eslint-config-prettier@10.1.2:
+    resolution: {integrity: sha512-Epgp/EofAUeEpIdZkW60MHKvPyru1ruQJxPL+WIycnaPApuseK0Zpkrh/FwL9oIpQvIhJwV7ptOy0DWUjTlCiA==}
     hasBin: true
     peerDependencies:
       eslint: '>=7.0.0'
@@ -3723,7 +3723,7 @@ snapshots:
       - eslint-import-resolver-webpack
       - supports-color
 
-  eslint-config-prettier@10.0.1(eslint@9.24.0(jiti@1.21.6)):
+  eslint-config-prettier@10.1.2(eslint@9.24.0(jiti@1.21.6)):
     dependencies:
       eslint: 9.24.0(jiti@1.21.6)
 
