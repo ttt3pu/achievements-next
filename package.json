@@ -6,7 +6,7 @@
   "engines": {
     "node": "22.13.1"
   },
-  "packageManager": "pnpm@9.15.9",
+  "packageManager": "pnpm@10.13.1",
   "prisma": {
     "seed": "tsx prisma/seed.ts"
   },
