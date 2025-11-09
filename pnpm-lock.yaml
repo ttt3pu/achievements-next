@@ -43,8 +43,8 @@ importers:
         specifier: 6.2.1
         version: 6.2.1(prisma@6.2.1)
       '@types/node':
-        specifier: 22.18.12
-        version: 22.18.12
+        specifier: 22.19.0
+        version: 22.19.0
       '@types/react':
         specifier: 19.0.12
         version: 19.0.12
@@ -748,8 +748,8 @@ packages:
   '@types/json5@0.0.29':
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
 
-  '@types/node@22.18.12':
-    resolution: {integrity: sha512-BICHQ67iqxQGFSzfCFTT7MRQ5XcBjG5aeKh5Ok38UBbPe5fxTyE+aHFxwVrGyr8GNlqFMLKD1D3P2K/1ks8tog==}
+  '@types/node@22.19.0':
+    resolution: {integrity: sha512-xpr/lmLPQEj+TUnHmR+Ab91/glhJvsqcjB+yY0Ix9GO70H6Lb4FHH5GeqdOE5btAx7eIMwuHkp4H2MSkLcqWbA==}
 
   '@types/react-datepicker@6.2.0':
     resolution: {integrity: sha512-+JtO4Fm97WLkJTH8j8/v3Ldh7JCNRwjMYjRaKh4KHH0M3jJoXtwiD3JBCsdlg3tsFIw9eQSqyAPeVDN2H2oM9Q==}
@@ -3074,7 +3074,7 @@ snapshots:
 
   '@types/json5@0.0.29': {}
 
-  '@types/node@22.18.12':
+  '@types/node@22.19.0':
     dependencies:
       undici-types: 6.21.0
 
