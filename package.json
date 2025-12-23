@@ -24,7 +24,7 @@
     "date-fns": "4.1.0",
     "next": "15.5.8",
     "next-auth": "4.24.11",
-    "prisma": "6.19.0",
+    "prisma": "6.19.1",
     "react": "19.2.3",
     "react-datepicker": "6.9.0",
     "react-dom": "19.2.3",
@@ -33,7 +33,7 @@
   "devDependencies": {
     "@eslint/compat": "1.4.1",
     "@faker-js/faker": "9.9.0",
-    "@prisma/client": "6.19.0",
+    "@prisma/client": "6.19.1",
     "@types/node": "22.19.1",
     "@types/react": "19.0.12",
     "@types/react-datepicker": "6.2.0",
