@@ -32,6 +32,7 @@
   },
   "devDependencies": {
     "@eslint/compat": "2.0.4",
+    "@eslint/eslintrc": "^3.3.5",
     "@faker-js/faker": "9.9.0",
     "@prisma/client": "6.19.3",
     "@types/node": "22.19.17",
