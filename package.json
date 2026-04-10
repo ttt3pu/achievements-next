@@ -6,9 +6,19 @@
   "engines": {
     "node": "22.22.2"
   },
-  "packageManager": "pnpm@9.15.9",
+  "packageManager": "pnpm@10.33.0",
   "prisma": {
     "seed": "tsx prisma/seed.ts"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@parcel/watcher",
+      "@prisma/client",
+      "@prisma/engines",
+      "esbuild",
+      "prisma",
+      "sharp"
+    ]
   },
   "scripts": {
     "dev": "next dev --hostname achievements-next.lvh.me",
@@ -32,6 +42,7 @@
   },
   "devDependencies": {
     "@eslint/compat": "2.0.4",
+    "@eslint/eslintrc": "3.3.5",
     "@faker-js/faker": "9.9.0",
     "@prisma/client": "6.19.3",
     "@types/node": "22.19.17",
