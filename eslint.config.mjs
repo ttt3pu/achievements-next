@@ -1,13 +1,8 @@
 // ref: https://nextjs.org/docs/app/api-reference/config/eslint
-import { FlatCompat } from '@eslint/compat';
-import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+import { FlatCompat } from '@eslint/eslintrc';
 
 const compat = new FlatCompat({
-  baseDirectory: __dirname,
+  baseDirectory: import.meta.dirname,
 });
 
 const eslintConfig = [
