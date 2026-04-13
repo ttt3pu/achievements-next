@@ -1,6 +1,6 @@
 import Footer from '../components/molecules/Footer';
 import Header from '../components/molecules/Header';
-import '../styles/globals.scss';
+import '../styles/globals.css';
 import '../styles/variables.scss';
 import { ToastContainer } from 'react-toastify';
 import { SessionProvider } from 'next-auth/react';
