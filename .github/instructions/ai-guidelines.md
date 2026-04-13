@@ -17,7 +17,7 @@
 このプロジェクトは Next.js ベースのウェブアプリケーションです：
 
 ### 技術スタック
-> 各パッケージの正確なバージョンは `package.json` を、Node.js / pnpm のバージョンは `.tool-versions` および `package.json` の `engines` / `packageManager` フィールドを参照してください。
+> 各パッケージの正確なバージョンは `package.json` を、Node.js のバージョンは `.tool-versions`、pnpm のバージョンは `package.json` の `packageManager` フィールドを参照してください。
 
 - **フレームワーク**: Next.js (Pages Router) with TypeScript
 - **UI**: React
