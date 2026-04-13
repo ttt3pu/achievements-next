@@ -50,7 +50,6 @@
     "@types/node": "22.19.17",
     "@types/pg": "8.11.14",
     "@types/react": "19.2.14",
-    "@types/react-datepicker": "6.2.0",
     "autoprefixer": "10.4.27",
     "eslint": "9.39.4",
     "eslint-config-next": "15.5.15",

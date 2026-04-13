@@ -60,9 +60,6 @@ importers:
       '@types/react':
         specifier: 19.2.14
         version: 19.2.14
-      '@types/react-datepicker':
-        specifier: 6.2.0
-        version: 6.2.0(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       autoprefixer:
         specifier: 10.4.27
         version: 10.4.27(postcss@8.5.9)
@@ -971,9 +968,6 @@ packages:
 
   '@types/pg@8.20.0':
     resolution: {integrity: sha512-bEPFOaMAHTEP1EzpvHTbmwR8UsFyHSKsRisLIHVMXnpNefSbGA1bD6CVy+qKjGSqmZqNqBDV2azOBo8TgkcVow==}
-
-  '@types/react-datepicker@6.2.0':
-    resolution: {integrity: sha512-+JtO4Fm97WLkJTH8j8/v3Ldh7JCNRwjMYjRaKh4KHH0M3jJoXtwiD3JBCsdlg3tsFIw9eQSqyAPeVDN2H2oM9Q==}
 
   '@types/react@19.2.14':
     resolution: {integrity: sha512-ilcTH/UniCkMdtexkoCN0bI7pMcJDvmQFPvuPvmEaYA/NSfFTAgdUSLAoVjaRJm7+6PvcM+q1zYOwS4wTYMF9w==}
@@ -3805,15 +3799,6 @@ snapshots:
       '@types/node': 22.19.17
       pg-protocol: 1.13.0
       pg-types: 2.2.0
-
-  '@types/react-datepicker@6.2.0(react-dom@19.2.3(react@19.2.3))(react@19.2.3)':
-    dependencies:
-      '@floating-ui/react': 0.26.9(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
-      '@types/react': 19.2.14
-      date-fns: 3.6.0
-    transitivePeerDependencies:
-      - react
-      - react-dom
 
   '@types/react@19.2.14':
     dependencies:
