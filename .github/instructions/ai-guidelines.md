@@ -17,8 +17,10 @@
 このプロジェクトは Next.js ベースのウェブアプリケーションです：
 
 ### 技術スタック
-- **フレームワーク**: Next.js 15 (Pages Router) with TypeScript
-- **UI**: React 19
+> 各パッケージの正確なバージョンは `package.json` を、Node.js / pnpm のバージョンは `.tool-versions` および `package.json` の `engines` / `packageManager` フィールドを参照してください。
+
+- **フレームワーク**: Next.js (Pages Router) with TypeScript
+- **UI**: React
 - **スタイリング**: Tailwind CSS + SCSS
 - **データベース**: Prisma ORM（スキーマは `prisma` サブモジュールで管理）
 - **認証**: NextAuth.js
@@ -56,8 +58,9 @@
 
 ## セットアップ要件
 
-README.md に記載されている要件を確認してください：
-- Node.js 22.22.2
-- pnpm 10.33.0
-- Docker（データベースサービス用）
-- direnv（推奨）
+以下のバージョンを使用してください。正確なバージョンは各ファイルを参照してください：
+
+- **Node.js**: `.tool-versions` の `nodejs` エントリを参照
+- **pnpm**: `package.json` の `packageManager` フィールドを参照
+- **Docker**: データベースサービス用（バージョン制約なし）
+- **direnv**: 推奨（バージョン制約なし）
