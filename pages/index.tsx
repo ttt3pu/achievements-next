@@ -3,7 +3,7 @@ import { createRef, useEffect, useRef, useState } from 'react';
 import { GoTriangleDown } from 'react-icons/go';
 import VanillaTilt from 'vanilla-tilt';
 import SteamBanner from '../components/atoms/SteamBanner';
-import styles from './index.module.scss';
+import styles from './index.module.css';
 import { AchievementPost } from '@prisma/client';
 import { fetchSsr } from 'utils/fetch';
 import { format } from 'date-fns';
