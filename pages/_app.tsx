@@ -1,7 +1,7 @@
 import Footer from '../components/molecules/Footer';
 import Header from '../components/molecules/Header';
 import '../styles/globals.css';
-import '../styles/variables.scss';
+import '../styles/variables.css';
 import { ToastContainer } from 'react-toastify';
 import { SessionProvider } from 'next-auth/react';
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
