@@ -51,7 +51,7 @@
     "@types/node": "24.12.2",
     "@types/pg": "8.11.14",
     "@types/react": "19.2.14",
-    "eslint": "9.39.4",
+    "eslint": "10.2.0",
     "eslint-config-next": "15.5.15",
     "eslint-config-prettier": "10.1.8",
     "markdown-it": "14.1.1",
