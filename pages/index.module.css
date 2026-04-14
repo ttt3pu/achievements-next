@@ -1,3 +1,6 @@
+@reference "tailwindcss";
+@reference "../styles/globals.css";
+
 .gridItem {
   &:nth-child(-n + 3) {
     @apply md:col-span-2;

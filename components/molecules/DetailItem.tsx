@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import styles from 'components/molecules/Detailitem.module.scss';
+import styles from 'components/molecules/Detailitem.module.css';
 import { BiSolidCalendarCheck } from 'react-icons/bi';
 import { BiSolidCalendarEdit } from 'react-icons/bi';
 import { FaClock } from 'react-icons/fa6';

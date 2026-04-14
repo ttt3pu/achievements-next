@@ -1,12 +1,12 @@
 module.exports = {
-  plugins: ['stylelint-scss'],
-  extends: ['stylelint-config-standard-scss'],
+  extends: ['stylelint-config-standard'],
   rules: {
     'selector-class-pattern': null,
-    'scss/at-rule-no-unknown': [
+    'import-notation': 'string',
+    'at-rule-no-unknown': [
       true,
       {
-        ignoreAtRules: ['tailwind'],
+        ignoreAtRules: ['tailwind', 'apply', 'theme', 'reference'],
       },
     ],
   },
