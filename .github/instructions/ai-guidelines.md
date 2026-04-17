@@ -4,6 +4,43 @@
 
 作業を開始する前に、必ずプロジェクトのルートにある `README.md` を読んでください。このファイルには、プロジェクトの要件、セットアップ手順、技術スタック、およびディレクトリ構造に関する重要な情報が含まれています。
 
+---
+
+## ⚠️ pnpm-lock.yaml の汚染防止（最重要）
+
+**`pnpm-lock.yaml` に `packageManagerDependencies` や `@pnpm/exe` エントリが追加されてはいけません。**
+これらが混入すると Vercel デプロイが失敗します。
+
+### 原因
+corepack が有効な状態で `pnpm install` を実行すると、`packageManager` フィールド（`package.json`）を参照して `packageManagerDependencies` を lockfile に書き込む。
+
+### 対処法・再発防止
+
+1. **`pnpm install` の前に必ず corepack を無効化する**
+
+   ```bash
+   corepack disable
+   COREPACK_ENABLE_AUTO_PIN=0 pnpm install
+   ```
+
+2. **汚染されてしまった場合は lockfile を削除して再生成する**
+
+   ```bash
+   corepack disable
+   rm pnpm-lock.yaml
+   COREPACK_ENABLE_AUTO_PIN=0 pnpm install --no-frozen-lockfile
+   ```
+
+3. **コミット前に必ず確認する**
+
+   ```bash
+   grep -c 'packageManagerDependencies' pnpm-lock.yaml || echo "OK（汚染なし）"
+   ```
+
+   `0` または `OK（汚染なし）` が表示されれば問題なし。表示された数値が 1 以上の場合は上記の再生成手順を実施すること。
+
+---
+
 ## 言語について
 
 **すべての人間とのやりとり、PRのタイトル、PR概要欄、コメントへの返信は日本語で行ってください。**
