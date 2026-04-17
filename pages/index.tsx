@@ -1,7 +1,6 @@
 import Link from 'next/link';
-import { createRef, useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { GoTriangleDown } from 'react-icons/go';
-import VanillaTilt from 'vanilla-tilt';
 import SteamBanner from '../components/atoms/SteamBanner';
 import styles from './index.module.css';
 import { AchievementPost } from '@prisma/client';
@@ -9,6 +8,7 @@ import { fetchSsr } from 'utils/fetch';
 import { format } from 'date-fns';
 import RatingStar from 'components/molecules/RatingStar';
 import { GetStaticProps } from 'next';
+import React from 'react';
 
 export const getStaticProps: GetStaticProps = async () => {
   const posts = await fetchSsr<AchievementPost[]>('/api/v1/achievement_post');
@@ -21,12 +21,7 @@ export const getStaticProps: GetStaticProps = async () => {
 };
 
 export default function Home({ posts: propsPosts }: { posts: AchievementPost[] }) {
-  const postRefs = useRef([]);
   const [posts] = useState<AchievementPost[]>(propsPosts);
-
-  posts.forEach((_, i) => {
-    postRefs.current[i] = createRef();
-  });
 
   const [sortingKey, setSortingKey] = useState('sort_order');
   const [sortingDirection, setSortingDirection] = useState<'asc' | 'desc'>('asc');
@@ -61,16 +56,6 @@ export default function Home({ posts: propsPosts }: { posts: AchievementPost[] }
     return result;
   }
 
-  useEffect(() => {
-    postRefs.current.forEach((ref) => {
-      VanillaTilt.init(ref.current, {
-        glare: true,
-        speed: 1000,
-        scale: 1.2,
-      });
-    });
-  });
-
   const sortMenuItems = [
     { text: '頑張った度', key: 'sort_order' },
     { text: 'かかった時間', key: 'total_hours' },
@@ -89,22 +74,22 @@ export default function Home({ posts: propsPosts }: { posts: AchievementPost[] }
     }
   }
 
-  const postText = (post: AchievementPost, i: number) => {
+  function sortValue(post: AchievementPost): React.ReactNode {
     switch (sortingKey) {
-      case 'sort_order':
-        return sortingDirection === 'asc' ? i + 1 : posts.length - i;
       case 'total_hours':
         return post.total_hours + ' h';
       case 'rating':
-        return <RatingStar className="justify-center py-1.5" rating={post.rating} />;
+        return <RatingStar className="justify-center" rating={post.rating} />;
       case 'yarikomi_rating':
-        return <RatingStar className="justify-center py-1.5" rating={post.yarikomi_rating} />;
+        return <RatingStar className="justify-center" rating={post.yarikomi_rating} />;
       case 'difficulty_rating':
-        return <RatingStar className="justify-center py-1.5" rating={post.difficulty_rating} />;
+        return <RatingStar className="justify-center" rating={post.difficulty_rating} />;
       case 'completed_at':
         return format(post.completed_at, 'yyyy-MM-dd');
+      default:
+        return null;
     }
-  };
+  }
 
   return (
     <div className="px-5 pb-12 overflow-hidden">
@@ -133,16 +118,26 @@ export default function Home({ posts: propsPosts }: { posts: AchievementPost[] }
         })}
       </div>
 
-      <div className="max-w-contents mx-auto mt-5 mb-0 pt-5 border-t border-t-bg grid grid-cols-6 gap-5 max-md:grid-cols-2">
+      <div className="max-w-contents mx-auto mt-5 mb-0 pt-5 border-t border-t-bg grid grid-cols-8 gap-3 max-md:grid-cols-4 max-sm:grid-cols-2">
         {filteredPosts().map((post, i) => {
+          const isTop = i < 3;
+          const value = sortValue(post);
+
           return (
             <Link key={i} href={`/${post.id}`} legacyBehavior>
-              <a
-                className={`${styles.gridItem} mx-auto shadow bg-bg-200 rounded flex flex-col cursor-pointer text-white text-center font-medium overflow-hidden max-md:col-span-2 hover:z-10`}
-                ref={postRefs.current[i]}
-              >
-                <SteamBanner steamId={post.steam_id} className="w-full h-full object-cover" />
-                <p className="p-1 bg-bg-300">{postText(post, i)}</p>
+              <a className={`${styles.gridItem} cursor-pointer shadow rounded hover:z-10 text-white font-medium`}>
+                <SteamBanner steamId={post.steam_id} className="w-full h-full object-cover object-top" />
+                {isTop ? (
+                  <>
+                    <span className={styles.rankBadge}>{i + 1}</span>
+                    {value != null && <div className={styles.topInfo}>{value}</div>}
+                  </>
+                ) : (
+                  <div className={styles.overlay}>
+                    <span className={styles.overlayRank}>{i + 1}</span>
+                    {value != null && <span className={styles.overlayInfo}>{value}</span>}
+                  </div>
+                )}
               </a>
             </Link>
           );
