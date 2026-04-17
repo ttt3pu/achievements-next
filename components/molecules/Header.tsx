@@ -13,6 +13,14 @@ export default function Header() {
         </a>
       </Link>
       <p className="text-sm">自分が実績コンプしたゲームを記録するだけのサイト。一部ネタバレあるので注意。</p>
+      <nav className="mt-3 flex justify-center gap-4 text-sm">
+        <Link href="/" legacyBehavior>
+          <a className="hover:opacity-80">一覧</a>
+        </Link>
+        <Link href="/stats" legacyBehavior>
+          <a className="hover:opacity-80">統計</a>
+        </Link>
+      </nav>
     </header>
   );
 }
