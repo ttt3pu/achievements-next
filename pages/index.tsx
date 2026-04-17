@@ -134,12 +134,14 @@ export default function Home({ posts: propsPosts }: { posts: AchievementPost[] }
                 >
                   <SteamBanner steamId={post.steam_id} className="w-full h-full object-cover object-top" />
                   <div className={styles.footer}>
-                    <span className={styles.rank}>
-                      {rank === 1 && <GiCrown className={styles.rankIcon} />}
-                      {rank === 2 && <GiMedal className={styles.rankIcon} />}
-                      {rank === 3 && <GiMedal className={styles.rankIcon} />}
-                      {rank}
-                    </span>
+                    {sortingKey === 'sort_order' && (
+                      <span className={styles.rank}>
+                        {rank === 1 && <GiCrown className={styles.rankIcon} />}
+                        {rank === 2 && <GiMedal className={styles.rankIcon} />}
+                        {rank === 3 && <GiMedal className={styles.rankIcon} />}
+                        {rank}
+                      </span>
+                    )}
                     {value != null && <span className={styles.info}>{value}</span>}
                   </div>
                 </a>
