@@ -15,7 +15,3 @@ runs:
     - name: Install dependencies
       shell: bash
       run: pnpm install
-
-    - name: Reset pnpm-lock.yaml (revert packageManagerDependencies pollution)
-      shell: bash
-      run: git checkout -- pnpm-lock.yaml || true
