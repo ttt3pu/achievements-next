@@ -1,3 +1,6 @@
+---
+applyTo: "**"
+---
 # AI Guidelines for achievements-next
 
 > このファイルはすべての AI エージェント作業に適用されます。
