@@ -53,12 +53,10 @@
 
 ### ⚠️ pnpm-lock.yaml の汚染に関する注意
 
-**Copilot環境では `pnpm install` を実行すると `pnpm-lock.yaml` が変更されることがある。** これは Copilot 環境固有の問題（sass 等の optional peer依存の不在、パッケージのバージョン再解決）であり、ローカルや Renovate では発生しない。
+GitHub Actions runner は `ENABLE_EXPERIMENTAL_COREPACK=1` を設定しており、corepack の auto-pin 機能が `pnpm install` 時に `pnpm-lock.yaml` を書き換えることがある。`copilot-setup-steps.yml` で `COREPACK_ENABLE_AUTO_PIN=0` を `~/.bashrc`/`~/.profile` に永続化することで対策済み。
 
 - `pnpm-lock.yaml` の変更はコミットしないこと
-- 作業開始時に `git diff pnpm-lock.yaml` で汚染がないか確認すること
-- 汚染があった場合は `git checkout -- pnpm-lock.yaml` でリセットすること
-- `pnpm install` 後に lockfile が変更された場合、それは環境差異によるものであり修正してはいけない
+- もし `pnpm install` 後に lockfile が変更された場合は `git checkout -- pnpm-lock.yaml` でリセットすること
 
 ### PR作成時
 - タイトルと説明は日本語で記述してください
