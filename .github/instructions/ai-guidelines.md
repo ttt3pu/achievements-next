@@ -29,6 +29,7 @@
 このプロジェクトは Next.js ベースのウェブアプリケーションです：
 
 ### 技術スタック
+
 > 各パッケージの正確なバージョンは `package.json` を、Node.js のバージョンは `.tool-versions`、pnpm のバージョンは `package.json` の `packageManager` フィールドを参照してください。
 
 - **フレームワーク**: Next.js (Pages Router) with TypeScript
@@ -40,6 +41,7 @@
 - **パッケージマネージャー**: pnpm
 
 ### 重要なディレクトリ構造
+
 - `/pages/` - Next.js ページ（Pages Router）
 - `/components/atoms/` - 最小単位の UI コンポーネント
 - `/components/molecules/` - 複合コンポーネント
@@ -53,11 +55,13 @@
 ## 開発ガイドライン
 
 ### コード品質
+
 - ESLint、Prettier、Stylelint の設定に従ってください
 - TypeScript の型安全性を維持してください
 - React の関数コンポーネントを使用してください
 
 ### 変更を行う際の注意点
+
 - 最小限の変更で問題を解決してください
 - 既存の動作を壊さないよう注意してください
 - テストがある場合は必ず実行してください

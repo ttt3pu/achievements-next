@@ -117,26 +117,21 @@ export default function Home({ posts: propsPosts }: { posts: AchievementPost[] }
         })}
       </div>
 
-      <div className="max-w-contents mx-auto mt-5 mb-0 pt-5 border-t border-t-bg grid grid-cols-8 gap-3 max-md:grid-cols-4 max-sm:grid-cols-2">
+      <div className="max-w-contents mx-auto mt-5 mb-0 pt-5 border-t border-t-bg grid grid-cols-5 gap-2 max-md:grid-cols-3 max-sm:grid-cols-2">
         {filteredPosts().map((post, i) => {
-          const isTop = i < 3;
           const value = sortValue(post);
+          const rank = i + 1;
 
           return (
             <Link key={i} href={`/${post.id}`} legacyBehavior>
-              <a className={`${styles.gridItem} cursor-pointer shadow rounded hover:z-10 text-white font-medium`}>
+              <a
+                className={`${styles.gridItem} ${styles[`rank${rank <= 3 ? rank : ''}`]} cursor-pointer shadow rounded hover:z-10 text-white font-medium`}
+              >
                 <SteamBanner steamId={post.steam_id} className="w-full h-full object-cover object-top" />
-                {isTop ? (
-                  <>
-                    <span className={styles.rankBadge}>{i + 1}</span>
-                    {value != null && <div className={styles.topInfo}>{value}</div>}
-                  </>
-                ) : (
-                  <div className={styles.overlay}>
-                    <span className={styles.overlayRank}>{i + 1}</span>
-                    {value != null && <span className={styles.overlayInfo}>{value}</span>}
-                  </div>
-                )}
+                <div className={styles.footer}>
+                  <span className={styles.rank}>{rank}</span>
+                  {value != null && <span className={styles.info}>{value}</span>}
+                </div>
               </a>
             </Link>
           );

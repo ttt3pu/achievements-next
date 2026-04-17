@@ -8,9 +8,7 @@ export default function Header() {
   const navLinkClass = (href: string) => {
     const isActive = router.pathname === href;
     const base = 'rounded-full px-4 py-1.5 transition-colors no-underline hover:no-underline';
-    return isActive
-      ? `${base} bg-yellow text-bg-100 font-bold`
-      : `${base} bg-bg-300 text-link hover:bg-bg-500`;
+    return isActive ? `${base} bg-yellow text-bg-100 font-bold` : `${base} bg-bg-300 text-link hover:bg-bg-500`;
   };
 
   return (

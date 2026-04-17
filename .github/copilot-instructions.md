@@ -26,16 +26,19 @@
 ## コーディング指針
 
 ### プロジェクト構造
+
 - Next.js の Pages Router（`pages/` ディレクトリ）
 - Atomic Design: `atoms/` → `molecules/` → `organisms/`
 - TypeScript の型安全性を維持してください
 
 ### スタイリング
+
 - **Tailwind CSS v4** のユーティリティクラスを優先使用してください
 - カスタムスタイルが必要な場合は **CSS**（`.css`）を使用してください（SCSS は使用しません）
 - 既存のデザインパターンに従ってください
 
 ### データベース
+
 - Prisma スキーマは `prisma` サブモジュール（`ttt3pu/attt-prisma`）で管理
 - 生成された Prisma Client の型を使用してください
 
