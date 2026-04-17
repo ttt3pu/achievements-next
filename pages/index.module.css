@@ -38,7 +38,6 @@
 .rank1 {
   grid-column: span 2 / span 2;
   grid-row: span 2 / span 2;
-  aspect-ratio: 460 / 430;
   box-shadow:
     0 0 0 2px #f1c039,
     0 4px 16px rgb(241 192 57 / 35%);
