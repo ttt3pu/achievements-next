@@ -34,6 +34,7 @@ jobs:
       - name: Persist COREPACK_ENABLE_AUTO_PIN=0
         shell: bash
         run: |
+          echo "COREPACK_ENABLE_AUTO_PIN=0" >> "$GITHUB_ENV"
           echo "export COREPACK_ENABLE_AUTO_PIN=0" >> ~/.bashrc
           echo "export COREPACK_ENABLE_AUTO_PIN=0" >> ~/.profile
 

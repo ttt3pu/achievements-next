@@ -3,19 +3,27 @@ import StatsCharts from 'components/organisms/StatsCharts';
 import { GetStaticProps } from 'next';
 import { fetchSsr } from 'utils/fetch';
 
+type StatsAchievementPost = Omit<AchievementPost, 'content'> & {
+  content: '';
+};
+
 export const getStaticProps: GetStaticProps = async () => {
   const posts = await fetchSsr<AchievementPost[]>('/api/v1/achievement_post');
+  const lightweightPosts: StatsAchievementPost[] = posts.map((post) => ({
+    ...post,
+    content: '',
+  }));
 
   return {
     props: {
-      posts,
+      posts: lightweightPosts,
     },
     revalidate: 3600,
   };
 };
 
 type Props = {
-  posts: AchievementPost[];
+  posts: StatsAchievementPost[];
 };
 
 export default function Stats({ posts }: Props) {

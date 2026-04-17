@@ -3,12 +3,13 @@ import HoursChart from 'components/molecules/HoursChart';
 import IdleGameChart from 'components/molecules/IdleGameChart';
 import MonthlyChart from 'components/molecules/MonthlyChart';
 import RatingChart from 'components/molecules/RatingChart';
+import { ReactNode } from 'react';
 
 type Props = {
   posts: AchievementPost[];
 };
 
-function ChartSection({ title, children }: { title: string; children: React.ReactNode }) {
+function ChartSection({ title, children }: { title: string; children: ReactNode }) {
   return (
     <section className="bg-bg-200 rounded p-6">
       <h2 className="text-lg font-medium mb-4">{title}</h2>
