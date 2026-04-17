@@ -123,12 +123,13 @@ export default function Home({ posts: propsPosts }: { posts: AchievementPost[] }
         <div className="pt-4 border-t border-t-bg grid grid-cols-4 gap-2 max-md:grid-cols-3 max-sm:grid-cols-2">
           {filteredPosts().map((post, i) => {
             const value = sortValue(post);
-            const rank = sortingKey === 'sort_order' && sortingDirection === 'desc' ? posts.length - i : i + 1;
+            const position = i + 1;
+            const rank = sortingKey === 'sort_order' && sortingDirection === 'desc' ? posts.length - i : position;
 
             return (
               <Link key={i} href={`/${post.id}`} legacyBehavior>
                 <a
-                  className={`${styles.gridItem} ${rank <= 5 ? (styles[`rank${rank}`] ?? '') : ''} cursor-pointer shadow rounded hover:z-10 text-white font-medium`}
+                  className={`${styles.gridItem} ${position <= 5 ? (styles[`rank${position}`] ?? '') : ''} cursor-pointer shadow rounded hover:z-10 text-white font-medium`}
                 >
                   <SteamBanner steamId={post.steam_id} className="w-full h-full object-cover object-top" />
                   <div className={styles.footer}>
