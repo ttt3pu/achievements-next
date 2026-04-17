@@ -1,6 +1,7 @@
 import Footer from '../components/molecules/Footer';
 import Header from '../components/molecules/Header';
 import '../styles/globals.css';
+import 'react-datepicker/dist/react-datepicker.css';
 import '../styles/variables.css';
 import { ToastContainer } from 'react-toastify';
 import { SessionProvider } from 'next-auth/react';
