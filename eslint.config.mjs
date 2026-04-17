@@ -28,7 +28,7 @@ export default tsEslint.config(
       'react-hooks/exhaustive-deps': 'warn',
     },
   },
-  nextPlugin.flatConfig.coreWebVitals,
+  nextPlugin.configs['core-web-vitals'],
   ...tsEslint.configs.recommended,
   prettierConfig,
   {
