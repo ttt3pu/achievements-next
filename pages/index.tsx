@@ -123,7 +123,7 @@ export default function Home({ posts: propsPosts }: { posts: AchievementPost[] }
         <div className="pt-4 border-t border-t-bg grid grid-cols-4 gap-2 max-md:grid-cols-3 max-sm:grid-cols-2">
           {filteredPosts().map((post, i) => {
             const value = sortValue(post);
-            const rank = i + 1;
+            const rank = sortingKey === 'sort_order' && sortingDirection === 'desc' ? posts.length - i : i + 1;
 
             return (
               <Link key={i} href={`/${post.id}`} legacyBehavior>
