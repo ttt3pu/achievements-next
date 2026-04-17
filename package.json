@@ -63,7 +63,7 @@
     "stylelint-config-standard": "40.0.0",
     "tailwindcss": "4.2.2",
     "tsx": "4.21.0",
-    "typescript": "5.9.3",
+    "typescript": "6.0.3",
     "typescript-eslint": "8.58.2",
     "vanilla-tilt": "1.8.1"
   }
