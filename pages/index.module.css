@@ -62,6 +62,23 @@
     0 4px 12px rgb(205 127 50 / 25%);
 }
 
+.rank4,
+.rank5 {
+  grid-column: span 2 / span 2;
+}
+
+@media (width < 640px) {
+  .rank1,
+  .rank2,
+  .rank3,
+  .rank4,
+  .rank5 {
+    grid-column: 1 / -1;
+    grid-row: auto;
+    aspect-ratio: 460 / 215;
+  }
+}
+
 .footer {
   position: absolute;
   bottom: 0;

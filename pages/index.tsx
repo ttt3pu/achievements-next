@@ -128,7 +128,7 @@ export default function Home({ posts: propsPosts }: { posts: AchievementPost[] }
             return (
               <Link key={i} href={`/${post.id}`} legacyBehavior>
                 <a
-                  className={`${styles.gridItem} ${styles[`rank${rank <= 3 ? rank : ''}`]} cursor-pointer shadow rounded hover:z-10 text-white font-medium`}
+                  className={`${styles.gridItem} ${rank <= 5 ? (styles[`rank${rank}`] ?? '') : ''} cursor-pointer shadow rounded hover:z-10 text-white font-medium`}
                 >
                   <SteamBanner steamId={post.steam_id} className="w-full h-full object-cover object-top" />
                   <div className={styles.footer}>
