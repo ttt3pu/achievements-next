@@ -25,17 +25,4 @@ jobs:
         with:
           submodules: true
 
-      # COREPACK_ENABLE_AUTO_PIN=0 prevents corepack from auto-pinning the pnpm version
-      # and writing packageManagerDependencies to pnpm-lock.yaml.
-      # Do NOT run `corepack disable` here: pnpm/action-setup relies on corepack to install
-      # the exact pnpm version specified in package.json's "packageManager" field.
-      # Disabling corepack causes pnpm/action-setup to fall back to the latest pnpm (v11+),
-      # which writes packageManagerDependencies and breaks Vercel deployments.
-      - name: Persist COREPACK_ENABLE_AUTO_PIN=0
-        shell: bash
-        run: |
-          echo "COREPACK_ENABLE_AUTO_PIN=0" >> "$GITHUB_ENV"
-          echo "export COREPACK_ENABLE_AUTO_PIN=0" >> ~/.bashrc
-          echo "export COREPACK_ENABLE_AUTO_PIN=0" >> ~/.profile
-
       - uses: ./.github/actions/setup-project
