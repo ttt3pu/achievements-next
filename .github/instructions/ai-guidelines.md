@@ -51,6 +51,15 @@
 - テストがある場合は必ず実行してください
 - コードフォーマットツールを使用してください
 
+### ⚠️ pnpm-lock.yaml の汚染に関する注意
+
+**Copilot環境では `pnpm install` を実行すると `pnpm-lock.yaml` が変更されることがある。** これは Copilot 環境固有の問題（sass 等の optional peer依存の不在、パッケージのバージョン再解決）であり、ローカルや Renovate では発生しない。
+
+- `pnpm-lock.yaml` の変更はコミットしないこと
+- 作業開始時に `git diff pnpm-lock.yaml` で汚染がないか確認すること
+- 汚染があった場合は `git checkout -- pnpm-lock.yaml` でリセットすること
+- `pnpm install` 後に lockfile が変更された場合、それは環境差異によるものであり修正してはいけない
+
 ### PR作成時
 - タイトルと説明は日本語で記述してください
 - 変更内容を明確に説明してください
