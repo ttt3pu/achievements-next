@@ -57,21 +57,23 @@ export default function Home({ posts: propsPosts }: { posts: AchievementPost[] }
     return result;
   }
 
-  const sortMenuItems = [
-    { text: '頑張った度', key: 'sort_order' },
-    { text: 'かかった時間', key: 'total_hours' },
-    { text: '総合評価', key: 'rating' },
-    { text: '実績集めの楽しさ', key: 'yarikomi_rating' },
-    { text: '難易度', key: 'difficulty_rating' },
-    { text: '達成日', key: 'completed_at' },
+  type SortMenuItem = { text: string; key: string; defaultDirection: 'asc' | 'desc' };
+  const sortMenuItems: SortMenuItem[] = [
+    { text: '頑張った度', key: 'sort_order', defaultDirection: 'asc' },
+    { text: 'かかった時間', key: 'total_hours', defaultDirection: 'desc' },
+    { text: '総合評価', key: 'rating', defaultDirection: 'desc' },
+    { text: '実績集めの楽しさ', key: 'yarikomi_rating', defaultDirection: 'desc' },
+    { text: '難易度', key: 'difficulty_rating', defaultDirection: 'desc' },
+    { text: '達成日', key: 'completed_at', defaultDirection: 'desc' },
   ];
 
   function onClickedSortButton(key: string) {
     if (sortingKey === key) {
       setSortingDirection(sortingDirection === 'asc' ? 'desc' : 'asc');
     } else {
+      const item = sortMenuItems.find((i) => i.key === key);
       setSortingKey(key);
-      setSortingDirection('asc');
+      setSortingDirection(item?.defaultDirection ?? 'asc');
     }
   }
 
