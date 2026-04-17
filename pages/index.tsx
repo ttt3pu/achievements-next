@@ -128,16 +128,16 @@ export default function Home({ posts: propsPosts }: { posts: AchievementPost[] }
             const rank = sortingKey === 'sort_order' && sortingDirection === 'desc' ? posts.length - i : position;
 
             return (
-              <Link key={i} href={`/${post.id}`} legacyBehavior>
+              <Link key={post.id} href={`/${post.id}`} legacyBehavior>
                 <a
                   className={`${styles.gridItem} ${position <= 5 ? (styles[`rank${position}`] ?? '') : ''} cursor-pointer shadow rounded hover:z-10 text-white font-medium`}
                 >
                   <SteamBanner steamId={post.steam_id} className="w-full h-full object-cover object-top" />
                   <div className={styles.footer}>
                     <span className={styles.rank}>
-                      {position === 1 && <GiCrown className={styles.rankIcon} />}
-                      {position === 2 && <GiMedal className={styles.rankIcon} />}
-                      {position === 3 && <GiMedal className={styles.rankIcon} />}
+                      {rank === 1 && <GiCrown className={styles.rankIcon} />}
+                      {rank === 2 && <GiMedal className={styles.rankIcon} />}
+                      {rank === 3 && <GiMedal className={styles.rankIcon} />}
                       {rank}
                     </span>
                     {value != null && <span className={styles.info}>{value}</span>}
