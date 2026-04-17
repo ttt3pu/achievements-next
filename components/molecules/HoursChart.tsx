@@ -3,6 +3,7 @@ import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxi
 
 type Props = {
   posts: AchievementPost[];
+  height?: number;
 };
 
 const BINS = [
@@ -12,14 +13,14 @@ const BINS = [
   { label: '100h〜', min: 100, max: Infinity },
 ];
 
-export default function HoursChart({ posts }: Props) {
+export default function HoursChart({ posts, height = 300 }: Props) {
   const counts = BINS.map((bin) => ({
     label: bin.label,
     count: posts.filter((p) => p.total_hours >= bin.min && p.total_hours < bin.max).length,
   }));
 
   return (
-    <ResponsiveContainer width="100%" height={300}>
+    <ResponsiveContainer width="100%" height={height}>
       <BarChart data={counts} margin={{ top: 8, right: 8, left: -16, bottom: 8 }}>
         <CartesianGrid strokeDasharray="3 3" stroke="#3f3c56" />
         <XAxis dataKey="label" tick={{ fill: '#eee' }} />

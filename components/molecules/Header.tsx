@@ -12,22 +12,19 @@ export default function Header() {
   };
 
   return (
-    <header className="text-center px-5 pt-5 pb-8">
+    <header className="px-5 py-3 flex items-center gap-4 border-b border-bg-300">
       <Link href="/" legacyBehavior>
-        <a className="text-inherit hover:opacity-80">
-          <h1 className="text-center pt-5 py-3 inline-flex items-center text-xl">
-            <GiAchievement className="w-[2em] h-[2em] shrink-0" />
-            <span>すべての実績を解除しました！おめでとう！</span>
-          </h1>
+        <a className="text-inherit hover:opacity-80 flex items-center gap-2 no-underline hover:no-underline shrink-0">
+          <GiAchievement className="w-6 h-6 shrink-0" />
+          <span className="text-sm font-medium leading-tight max-sm:hidden">すべての実績を解除しました！</span>
         </a>
       </Link>
-      <p className="text-sm">自分が実績コンプしたゲームを記録するだけのサイト。一部ネタバレあるので注意。</p>
-      <nav className="mt-3 flex justify-center gap-4 text-sm">
+      <nav className="flex gap-2 text-sm ml-auto">
         <Link href="/" className={navLinkClass('/')}>
           一覧
         </Link>
         <Link href="/stats" className={navLinkClass('/stats')}>
-          統計
+          統計（詳細）
         </Link>
       </nav>
     </header>

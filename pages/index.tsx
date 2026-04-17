@@ -7,6 +7,7 @@ import { AchievementPost } from '@prisma/client';
 import { fetchSsr } from 'utils/fetch';
 import { format } from 'date-fns';
 import RatingStar from 'components/molecules/RatingStar';
+import StatsCharts from 'components/organisms/StatsCharts';
 import { GetStaticProps } from 'next';
 
 export const getStaticProps: GetStaticProps = async () => {
@@ -91,52 +92,61 @@ export default function Home({ posts: propsPosts }: { posts: AchievementPost[] }
   }
 
   return (
-    <div className="px-5 pb-12 overflow-hidden">
-      <div className="max-w-contents mx-auto mt-0 mb-5 p-2 flex flex-wrap bg-bg-200 rounded">
-        {sortMenuItems.map((item, i) => {
-          const isSelected = sortingKey === item.key;
-          return (
-            <div key={i} className="relative">
-              {isSelected && (
-                <GoTriangleDown
-                  className={`pointer-events-none absolute top-[1px] bottom-0 left-[16px] m-auto z-10 transition-all fill-yellow ${
-                    sortingDirection === 'desc' ? '-rotate-180 ' : ''
+    <div className="flex gap-4 pb-12 px-4 max-lg:flex-col">
+      {/* ゲームグリッド */}
+      <div className="flex-1 min-w-0">
+        <div className="mb-4 p-2 flex flex-wrap bg-bg-200 rounded">
+          {sortMenuItems.map((item, i) => {
+            const isSelected = sortingKey === item.key;
+            return (
+              <div key={i} className="relative">
+                {isSelected && (
+                  <GoTriangleDown
+                    className={`pointer-events-none absolute top-[1px] bottom-0 left-[16px] m-auto z-10 transition-all fill-yellow ${
+                      sortingDirection === 'desc' ? '-rotate-180 ' : ''
+                    }`}
+                  />
+                )}
+                <button
+                  onClick={() => onClickedSortButton(item.key)}
+                  className={`rounded cursor-pointer relative overflow-hidden border-0 px-5 py-1 transition-all ${
+                    isSelected ? 'shadow bg-bg font-medium text-white pl-10' : 'bg-transparent text-bg'
                   }`}
-                />
-              )}
-              <button
-                onClick={() => onClickedSortButton(item.key)}
-                className={`rounded cursor-pointer relative overflow-hidden border-0 px-5 py-1 transition-all ${
-                  isSelected ? 'shadow bg-bg font-medium text-white pl-10' : 'bg-transparent text-bg'
-                }`}
-              >
-                {item.text}
-              </button>
-            </div>
-          );
-        })}
+                >
+                  {item.text}
+                </button>
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="pt-4 border-t border-t-bg grid grid-cols-4 gap-2 max-md:grid-cols-3 max-sm:grid-cols-2">
+          {filteredPosts().map((post, i) => {
+            const value = sortValue(post);
+            const rank = i + 1;
+
+            return (
+              <Link key={i} href={`/${post.id}`} legacyBehavior>
+                <a
+                  className={`${styles.gridItem} ${styles[`rank${rank <= 3 ? rank : ''}`]} cursor-pointer shadow rounded hover:z-10 text-white font-medium`}
+                >
+                  <SteamBanner steamId={post.steam_id} className="w-full h-full object-cover object-top" />
+                  <div className={styles.footer}>
+                    <span className={styles.rank}>{rank}</span>
+                    {value != null && <span className={styles.info}>{value}</span>}
+                  </div>
+                </a>
+              </Link>
+            );
+          })}
+        </div>
       </div>
 
-      <div className="max-w-contents mx-auto mt-5 mb-0 pt-5 border-t border-t-bg grid grid-cols-5 gap-2 max-md:grid-cols-3 max-sm:grid-cols-2">
-        {filteredPosts().map((post, i) => {
-          const value = sortValue(post);
-          const rank = i + 1;
-
-          return (
-            <Link key={i} href={`/${post.id}`} legacyBehavior>
-              <a
-                className={`${styles.gridItem} ${styles[`rank${rank <= 3 ? rank : ''}`]} cursor-pointer shadow rounded hover:z-10 text-white font-medium`}
-              >
-                <SteamBanner steamId={post.steam_id} className="w-full h-full object-cover object-top" />
-                <div className={styles.footer}>
-                  <span className={styles.rank}>{rank}</span>
-                  {value != null && <span className={styles.info}>{value}</span>}
-                </div>
-              </a>
-            </Link>
-          );
-        })}
-      </div>
+      {/* チャートサイドバー */}
+      <aside className="w-72 shrink-0 max-lg:w-full">
+        <div className="mb-3 text-xs font-medium text-bg-500 uppercase tracking-wider">統計</div>
+        <StatsCharts posts={posts} compact />
+      </aside>
     </div>
   );
 }

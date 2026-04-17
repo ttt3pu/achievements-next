@@ -4,9 +4,10 @@ import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxi
 
 type Props = {
   posts: AchievementPost[];
+  height?: number;
 };
 
-export default function MonthlyChart({ posts }: Props) {
+export default function MonthlyChart({ posts, height = 300 }: Props) {
   const countsByMonth: Record<string, number> = {};
 
   posts.forEach((post) => {
@@ -19,7 +20,7 @@ export default function MonthlyChart({ posts }: Props) {
     .map(([month, count]) => ({ month, count }));
 
   return (
-    <ResponsiveContainer width="100%" height={300}>
+    <ResponsiveContainer width="100%" height={height}>
       <BarChart data={data} margin={{ top: 8, right: 8, left: -16, bottom: 48 }}>
         <CartesianGrid strokeDasharray="3 3" stroke="#3f3c56" />
         <XAxis dataKey="month" tick={{ fill: '#eee', fontSize: 11 }} angle={-45} textAnchor="end" interval={0} />
