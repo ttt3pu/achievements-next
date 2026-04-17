@@ -39,7 +39,7 @@ export default function Home() {
         <a
           href={deploymentsLink}
           target="_blank"
-          rel="noopener"
+          rel="noreferrer"
           className="text-toast-success hover:text-toast-success"
         >
           {deploymentsLink}

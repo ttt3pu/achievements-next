@@ -24,7 +24,7 @@
     "dev": "next dev --hostname achievements-next.lvh.me",
     "build": "next build",
     "start": "next start",
-    "lint:js": "next lint",
+    "lint:js": "eslint .",
     "lint:style": "stylelint \"**/*.css\" --ignore-path .gitignore",
     "prettier": "prettier . --check --ignore-path .gitignore",
     "prettier:fix": "prettier . --write --ignore-path .gitignore",
@@ -44,16 +44,17 @@
   },
   "devDependencies": {
     "@eslint/compat": "2.0.5",
-    "@eslint/eslintrc": "3.3.5",
     "@faker-js/faker": "10.4.0",
+    "@next/eslint-plugin-next": "15.5.15",
     "@prisma/client": "7.7.0",
     "@tailwindcss/postcss": "^4.2.2",
     "@types/node": "24.12.2",
     "@types/pg": "8.11.14",
     "@types/react": "19.2.14",
     "eslint": "10.2.0",
-    "eslint-config-next": "15.5.15",
     "eslint-config-prettier": "10.1.8",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "7.1.0",
     "markdown-it": "14.1.1",
     "postcss": "8.5.9",
     "prettier": "3.8.2",
@@ -63,6 +64,7 @@
     "tailwindcss": "4.2.2",
     "tsx": "4.21.0",
     "typescript": "5.9.3",
+    "typescript-eslint": "8.58.2",
     "vanilla-tilt": "1.8.1"
   }
 }
