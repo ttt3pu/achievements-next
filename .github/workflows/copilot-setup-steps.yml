@@ -17,9 +17,22 @@ jobs:
     permissions:
       contents: read
 
+    env:
+      COREPACK_ENABLE_AUTO_PIN: "0"
+
     steps:
       - uses: actions/checkout@v6
         with:
           submodules: true
+
+      # ENABLE_EXPERIMENTAL_COREPACK=1 in GitHub Actions runner overrides manage-package-manager-versions=false
+      # and causes pnpm to rewrite pnpm-lock.yaml via corepack's auto-pin feature.
+      # Persist COREPACK_ENABLE_AUTO_PIN=0 so all subsequent processes (including Copilot agent) inherit it.
+      - name: Persist COREPACK_ENABLE_AUTO_PIN=0
+        shell: bash
+        run: |
+          echo "COREPACK_ENABLE_AUTO_PIN=0" >> "$GITHUB_ENV"
+          echo "export COREPACK_ENABLE_AUTO_PIN=0" >> ~/.bashrc
+          echo "export COREPACK_ENABLE_AUTO_PIN=0" >> ~/.profile
 
       - uses: ./.github/actions/setup-project

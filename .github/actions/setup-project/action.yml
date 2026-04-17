@@ -14,4 +14,6 @@ runs:
 
     - name: Install dependencies
       shell: bash
+      env:
+        COREPACK_ENABLE_AUTO_PIN: "0"
       run: pnpm install
