@@ -44,12 +44,6 @@
     0 4px 16px rgb(241 192 57 / 35%);
 }
 
-.rank2,
-.rank3 {
-  grid-row: span 2 / span 2;
-  aspect-ratio: 460 / 430;
-}
-
 .rank2 {
   box-shadow:
     0 0 0 2px #b0b8c1,
@@ -60,11 +54,6 @@
   box-shadow:
     0 0 0 2px #cd7f32,
     0 4px 12px rgb(205 127 50 / 25%);
-}
-
-.rank4,
-.rank5 {
-  grid-column: span 2 / span 2;
 }
 
 @media (width < 640px) {
