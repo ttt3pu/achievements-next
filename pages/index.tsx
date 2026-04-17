@@ -10,6 +10,7 @@ import { format } from 'date-fns';
 import RatingStar from 'components/molecules/RatingStar';
 import StatsCharts from 'components/organisms/StatsCharts';
 import { GetStaticProps } from 'next';
+import { type SortDirection, type SortKey } from './api/v1/achievement_post/index';
 
 export const getStaticProps: GetStaticProps = async () => {
   const posts = await fetchSsr<AchievementPost[]>('/api/v1/achievement_post');
@@ -24,8 +25,8 @@ export const getStaticProps: GetStaticProps = async () => {
 export default function Home({ posts: propsPosts }: { posts: AchievementPost[] }) {
   const [posts] = useState<AchievementPost[]>(propsPosts);
 
-  const [sortingKey, setSortingKey] = useState('sort_order');
-  const [sortingDirection, setSortingDirection] = useState<'asc' | 'desc'>('asc');
+  const [sortingKey, setSortingKey] = useState<SortKey>('sort_order');
+  const [sortingDirection, setSortingDirection] = useState<SortDirection>('asc');
 
   function filteredPosts() {
     const result = [...posts];
@@ -57,7 +58,7 @@ export default function Home({ posts: propsPosts }: { posts: AchievementPost[] }
     return result;
   }
 
-  type SortMenuItem = { text: string; key: string; defaultDirection: 'asc' | 'desc' };
+  type SortMenuItem = { text: string; key: SortKey; defaultDirection: SortDirection };
   const sortMenuItems: SortMenuItem[] = [
     { text: '頑張った度', key: 'sort_order', defaultDirection: 'asc' },
     { text: 'かかった時間', key: 'total_hours', defaultDirection: 'desc' },
@@ -67,7 +68,7 @@ export default function Home({ posts: propsPosts }: { posts: AchievementPost[] }
     { text: '達成日', key: 'completed_at', defaultDirection: 'desc' },
   ];
 
-  function onClickedSortButton(key: string) {
+  function onClickedSortButton(key: SortKey) {
     if (sortingKey === key) {
       setSortingDirection(sortingDirection === 'asc' ? 'desc' : 'asc');
     } else {
