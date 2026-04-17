@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": "24.14.1"
+    "node": "24"
   },
   "packageManager": "pnpm@10.33.0",
   "prisma": {
@@ -33,7 +33,7 @@
   "dependencies": {
     "@prisma/adapter-pg": "7.7.0",
     "date-fns": "4.1.0",
-    "next": "15.5.15",
+    "next": "16.2.4",
     "next-auth": "4.24.12",
     "pg": "8.20.0",
     "prisma": "7.7.0",
@@ -45,7 +45,7 @@
   "devDependencies": {
     "@eslint/compat": "2.0.5",
     "@faker-js/faker": "10.4.0",
-    "@next/eslint-plugin-next": "15.5.15",
+    "@next/eslint-plugin-next": "16.2.4",
     "@prisma/client": "7.7.0",
     "@tailwindcss/postcss": "^4.2.2",
     "@types/node": "24.12.2",
