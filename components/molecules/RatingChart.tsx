@@ -6,15 +6,16 @@ type RatingKey = 'rating' | 'yarikomi_rating' | 'difficulty_rating';
 
 type Props = {
   posts: AchievementPost[];
+  height?: number;
 };
 
 const ratingOptions: { key: RatingKey; label: string }[] = [
   { key: 'rating', label: '総合評価' },
-  { key: 'yarikomi_rating', label: '実績集めの楽しさ' },
+  { key: 'yarikomi_rating', label: '楽しさ' },
   { key: 'difficulty_rating', label: '難易度' },
 ];
 
-export default function RatingChart({ posts }: Props) {
+export default function RatingChart({ posts, height = 300 }: Props) {
   const [selectedKey, setSelectedKey] = useState<RatingKey>('rating');
 
   const counts: Record<number, number> = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
@@ -42,7 +43,7 @@ export default function RatingChart({ posts }: Props) {
           </button>
         ))}
       </div>
-      <ResponsiveContainer width="100%" height={300}>
+      <ResponsiveContainer width="100%" height={height}>
         <BarChart data={data} margin={{ top: 8, right: 8, left: -16, bottom: 8 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="#3f3c56" />
           <XAxis dataKey="score" tick={{ fill: '#eee' }} />

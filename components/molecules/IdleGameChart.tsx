@@ -3,11 +3,12 @@ import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recha
 
 type Props = {
   posts: AchievementPost[];
+  height?: number;
 };
 
 const COLORS = ['#6956dc', '#3f3c56'];
 
-export default function IdleGameChart({ posts }: Props) {
+export default function IdleGameChart({ posts, height = 300 }: Props) {
   const idleCount = posts.filter((p) => p.is_idle_game).length;
   const normalCount = posts.length - idleCount;
 
@@ -17,14 +18,14 @@ export default function IdleGameChart({ posts }: Props) {
   ];
 
   return (
-    <ResponsiveContainer width="100%" height={300}>
+    <ResponsiveContainer width="100%" height={height}>
       <PieChart>
         <Pie
           data={data}
           cx="50%"
           cy="50%"
-          innerRadius={70}
-          outerRadius={110}
+          innerRadius={height < 250 ? 45 : 70}
+          outerRadius={height < 250 ? 70 : 110}
           dataKey="value"
           label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
           labelLine={false}
