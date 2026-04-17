@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
 import { GoTriangleDown } from 'react-icons/go';
 import SteamBanner from '../components/atoms/SteamBanner';
 import styles from './index.module.css';
@@ -8,7 +8,6 @@ import { fetchSsr } from 'utils/fetch';
 import { format } from 'date-fns';
 import RatingStar from 'components/molecules/RatingStar';
 import { GetStaticProps } from 'next';
-import React from 'react';
 
 export const getStaticProps: GetStaticProps = async () => {
   const posts = await fetchSsr<AchievementPost[]>('/api/v1/achievement_post');
@@ -74,7 +73,7 @@ export default function Home({ posts: propsPosts }: { posts: AchievementPost[] }
     }
   }
 
-  function sortValue(post: AchievementPost): React.ReactNode {
+  function sortValue(post: AchievementPost): ReactNode {
     switch (sortingKey) {
       case 'total_hours':
         return post.total_hours + ' h';
