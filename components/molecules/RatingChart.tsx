@@ -21,7 +21,7 @@ export default function RatingChart({ posts }: Props) {
   posts.forEach((post) => {
     const val = post[selectedKey];
     if (val >= 1 && val <= 5) {
-      counts[val] = (counts[val] ?? 0) + 1;
+      counts[val]++;
     }
   });
 
