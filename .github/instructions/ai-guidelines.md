@@ -11,22 +11,26 @@
 **`pnpm-lock.yaml` に `packageManagerDependencies` や `@pnpm/exe` エントリが追加されてはいけません。**
 これらが混入すると Vercel デプロイが失敗します。
 
-### 原因
-corepack が有効な状態で `pnpm install` を実行すると、`packageManager` フィールド（`package.json`）を参照して `packageManagerDependencies` を lockfile に書き込む。
+### 根本原因
+`packageManagerDependencies` が書き込まれるのは、**pnpm v11 以降が使われているとき**です。
+`package.json` の `"packageManager": "pnpm@10.33.0"` と異なるバージョンが実行されていることを意味します。
+
+`pnpm/action-setup@v6` は corepack を使って `package.json` の `packageManager` フィールドから
+正しいバージョンをインストールします。**`corepack disable` を実行すると、この仕組みが壊れて
+pnpm 最新版（v11+）がインストールされてしまいます。**
 
 ### 対処法・再発防止
 
-1. **`pnpm install` の前に必ず corepack を無効化する**
-
-   ```bash
-   corepack disable
-   COREPACK_ENABLE_AUTO_PIN=0 pnpm install
-   ```
+1. **`corepack disable` を絶対に実行しない**
+   - corepack は pnpm のバージョン管理に必要です
+   - 代わりに `COREPACK_ENABLE_AUTO_PIN=0` を使うことで auto-pin だけを防止できます
 
 2. **汚染されてしまった場合は lockfile を削除して再生成する**
 
    ```bash
-   corepack disable
+   # pnpm のバージョンを確認（10.33.0 であること）
+   pnpm --version
+   # lockfile を再生成
    rm pnpm-lock.yaml
    COREPACK_ENABLE_AUTO_PIN=0 pnpm install --no-frozen-lockfile
    ```
@@ -37,7 +41,8 @@ corepack が有効な状態で `pnpm install` を実行すると、`packageManag
    grep -c 'packageManagerDependencies' pnpm-lock.yaml || echo "OK（汚染なし）"
    ```
 
-   `0` または `OK（汚染なし）` が表示されれば問題なし。表示された数値が 1 以上の場合は上記の再生成手順を実施すること。
+   `0` または `OK（汚染なし）` が表示されれば問題なし。表示された数値が 1 以上の場合は
+   上記の再生成手順を実施すること。
 
 ---
 
