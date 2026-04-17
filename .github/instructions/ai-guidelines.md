@@ -8,41 +8,72 @@
 
 ## ⚠️ pnpm-lock.yaml の汚染防止（最重要）
 
-**`pnpm-lock.yaml` に `packageManagerDependencies` や `@pnpm/exe` エントリが追加されてはいけません。**
+**`pnpm-lock.yaml` の先頭に pnpm 自己管理用プリアンブル文書（`packageManagerDependencies` / `@pnpm/exe` エントリ）が追加されてはいけません。**
 これらが混入すると Vercel デプロイが失敗します。
 
-### 根本原因
-`packageManagerDependencies` が書き込まれるのは、**pnpm v11 以降が使われているとき**です。
-`package.json` の `"packageManager": "pnpm@10.33.0"` と異なるバージョンが実行されていることを意味します。
+### 絶対にやってはいけないこと
 
-`pnpm/action-setup@v6` は corepack を使って `package.json` の `packageManager` フィールドから
-正しいバージョンをインストールします。**`corepack disable` を実行すると、この仕組みが壊れて
-pnpm 最新版（v11+）がインストールされてしまいます。**
+- **`git checkout -- pnpm-lock.yaml` を実行してはいけない**（何度指摘されても繰り返さないこと）
+- **`setup-project/action.yml` や他のワークフローに `git checkout -- pnpm-lock.yaml` を追加してはいけない**
+- **`corepack disable` を実行してはいけない**（pnpm のバージョン管理が壊れる）
 
-### 対処法・再発防止
+### 汚染の構造と根本原因
 
-1. **`corepack disable` を絶対に実行しない**
-   - corepack は pnpm のバージョン管理に必要です
-   - 代わりに `COREPACK_ENABLE_AUTO_PIN=0` を使うことで auto-pin だけを防止できます
+`pnpm-lock.yaml` は YAML マルチドキュメント形式になっており、汚染時は以下の構造になります：
 
-2. **汚染されてしまった場合は lockfile を削除して再生成する**
+```
+---                                ← 1ドキュメント目（プリアンブル）
+lockfileVersion: '9.0'
+importers:
+  .:
+    packageManagerDependencies:   ← ← ← ここが汚染エントリ
+      '@pnpm/exe':
+        ...
+packages:
+  '@pnpm/exe@10.x.x':
+    ...
+snapshots:
+  ...
+---                                ← 2ドキュメント目（本来のロックファイル）
+lockfileVersion: '9.0'
+settings:
+  ...（本来の依存関係）
+```
+
+pnpm 10.x は `package.json` の `"packageManager"` フィールドが存在するとき、自分自身を
+`packageManagerDependencies` としてロックファイルに記録します。
+
+**GitHub Actions 環境で `corepack disable` を実行すると**、`pnpm/action-setup@v6` が
+`package.json` の `packageManager` フィールドを読めなくなり、pnpm 最新版（v11+）が
+インストールされて同様の汚染が発生します。
+
+### 正しい対処法（汚染が発生した場合）
+
+pnpm-lock.yaml の先頭の `---` ドキュメント全体（2番目の `---` の直前まで）を削除します。
+`---\nlockfileVersion: '9.0'\n\nsettings:` で始まるドキュメントのみを残してください。
+
+```bash
+# 汚染の確認（grep で `packageManagerDependencies` が見つかる = 汚染）
+head -20 pnpm-lock.yaml
+# 何行目に2番目の --- があるか確認
+grep -n '^---$' pnpm-lock.yaml
+# 例: 94行目に2番目の --- がある場合
+sed -n '94,$p' pnpm-lock.yaml > /tmp/pnpm-lock-clean.yaml
+cp /tmp/pnpm-lock-clean.yaml pnpm-lock.yaml
+# 確認
+grep 'packageManagerDependencies' pnpm-lock.yaml | wc -l   # → 0 ならOK
+```
+
+### 再発防止
+
+1. **`COREPACK_ENABLE_AUTO_PIN=0`** を GitHub Actions 環境変数に設定済み（変更不要）
+2. **`.npmrc`** に `manage-package-manager-versions=false` を設定済み（変更不要）
+3. Copilot エージェント環境で `pnpm install` を実行した後は、コミット前に必ず確認すること：
 
    ```bash
-   # pnpm のバージョンを確認（10.33.0 であること）
-   pnpm --version
-   # lockfile を再生成
-   rm pnpm-lock.yaml
-   COREPACK_ENABLE_AUTO_PIN=0 pnpm install --no-frozen-lockfile
+   head -5 pnpm-lock.yaml   # "lockfileVersion: '9.0'" で始まっていること
+   grep 'packageManagerDependencies' pnpm-lock.yaml | wc -l   # 0 であること
    ```
-
-3. **コミット前に必ず確認する**
-
-   ```bash
-   grep -c 'packageManagerDependencies' pnpm-lock.yaml || echo "OK（汚染なし）"
-   ```
-
-   `0` または `OK（汚染なし）` が表示されれば問題なし。表示された数値が 1 以上の場合は
-   上記の再生成手順を実施すること。
 
 ---
 
