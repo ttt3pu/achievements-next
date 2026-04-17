@@ -20,7 +20,7 @@ function ChartSection({ title, children, compact }: { title: string; children: R
 }
 
 export default function StatsCharts({ posts, compact = false }: Props) {
-  const chartHeight = compact ? 180 : 300;
+  const chartHeight = compact ? 220 : 300;
 
   return (
     <div className={`grid ${compact ? 'gap-3' : 'gap-6'}`}>
