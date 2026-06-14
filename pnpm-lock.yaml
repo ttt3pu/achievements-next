@@ -12,8 +12,8 @@ importers:
         specifier: 7.7.0
         version: 7.7.0
       date-fns:
-        specifier: 4.1.0
-        version: 4.1.0
+        specifier: 4.4.0
+        version: 4.4.0
       next:
         specifier: 16.2.6
         version: 16.2.6(@babel/core@7.29.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
@@ -1378,8 +1378,8 @@ packages:
     resolution: {integrity: sha512-BS8PfmtDGnrgYdOonGZQdLZslWIeCGFP9tpan0hi1Co2Zr2NKADsvGYA8XxuG/4UWgJ6Cjtv+YJnB6MM69QGlQ==}
     engines: {node: '>= 0.4'}
 
-  date-fns@4.1.0:
-    resolution: {integrity: sha512-Ukq0owbQXxa/U3EGtsdVBkR1w7KOQ5gIBqdH2hkvknzZPYvBxb/aa6E8L7tmjFtkwZBu3UXBbjIgPo/Ez4xaNg==}
+  date-fns@4.4.0:
+    resolution: {integrity: sha512-+1UMbeh68lH1SegH83CGWwpb6OHHbpSgr3+s5Eww5M4CAgswBpoWS0AjTOfEJ33HiYKz1hdj/KTFprzXHmq/6w==}
 
   debug@4.4.3:
     resolution: {integrity: sha512-RGwwWnwQvkVfavKVt22FGLw+xYSdzARwm0ru6DhTVA3umU5hZc28V3kO4stgYryrTlLpuvgI9GiijltAjNbcqA==}
@@ -4101,7 +4101,7 @@ snapshots:
       es-errors: 1.3.0
       is-data-view: 1.0.2
 
-  date-fns@4.1.0: {}
+  date-fns@4.4.0: {}
 
   debug@4.4.3:
     dependencies:
@@ -5281,7 +5281,7 @@ snapshots:
     dependencies:
       '@floating-ui/react': 0.27.19(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       clsx: 2.1.1
-      date-fns: 4.1.0
+      date-fns: 4.4.0
       react: 19.2.6
       react-dom: 19.2.6(react@19.2.6)
 
