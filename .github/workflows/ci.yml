@@ -11,9 +11,8 @@ env:
   DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
 jobs:
-  ci:
+  lint-js:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v7
         with:
@@ -21,8 +20,37 @@ jobs:
 
       - uses: ./.github/actions/setup-project
 
-      - name: Lint JS
-        run: pnpm lint:js
+      - run: pnpm lint:js
 
-      - name: Lint Style
-        run: pnpm lint:style
+  lint-style:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          submodules: true
+
+      - uses: ./.github/actions/setup-project
+
+      - run: pnpm lint:style
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          submodules: true
+
+      - uses: ./.github/actions/setup-project
+
+      - run: pnpm test
+
+  ci:
+    if: ${{ always() }}
+    needs: [lint-js, lint-style, test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check results
+        run: |
+          test "${{ needs.lint-js.result }}" = "success"
+          test "${{ needs.lint-style.result }}" = "success"
+          test "${{ needs.test.result }}" = "success"

@@ -5,12 +5,7 @@ import { createPrismaClient } from 'utils/api/createPrismaClient';
 type ResponseData = AchievementPost[];
 
 export type SortKey =
-  | 'sort_order'
-  | 'total_hours'
-  | 'rating'
-  | 'yarikomi_rating'
-  | 'difficulty_rating'
-  | 'completed_at';
+  'sort_order' | 'total_hours' | 'rating' | 'yarikomi_rating' | 'difficulty_rating' | 'completed_at';
 export type SortDirection = 'asc' | 'desc';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) {

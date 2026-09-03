@@ -17,6 +17,12 @@
 - スクリプト実行: `pnpm <script>`
 - 正確なバージョンは `package.json` の `packageManager` フィールドを参照
 
+### よく使う品質コマンドは scripts 経由
+
+`test` / `lint` / `prettier` / `check` など、すでに用意されている・しょっちゅう使うものは `pnpm exec` / `npx` / `pnpm dlx` ではなく `pnpm <script>` で実行する（例: `pnpm check`、`pnpm prettier:fix`、`pnpm test`）。
+
+何でも script に追加しない。ワンショットや稀な用途のために scripts を増やさない。
+
 ## PR作成時の必須手順
 
 **PRを作成する前に `.github/pull_request_template.md` を必ず読み、その構造に従って説明文を書いてください。**
@@ -53,7 +59,7 @@
 コード変更後は必ず以下を実行してください：
 
 ```bash
-pnpm lint:js && pnpm prettier && pnpm lint:style
+pnpm check
 ```
 
 - 既存のテストを壊さないでください

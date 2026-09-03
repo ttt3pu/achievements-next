@@ -26,8 +26,12 @@
     "start": "next start",
     "lint:js": "eslint .",
     "lint:style": "stylelint \"**/*.css\" --ignore-path .gitignore",
-    "prettier": "prettier . --check --ignore-path .gitignore",
-    "prettier:fix": "prettier . --write --ignore-path .gitignore",
+    "prettier": "prettier --check --ignore-path .gitignore --ignore-path .prettierignore .",
+    "prettier:fix": "prettier --write --ignore-path .gitignore --ignore-path .prettierignore .",
+    "check": "pnpm lint:js && pnpm prettier && pnpm lint:style && pnpm test",
+    "test": "vitest run",
+    "test:update": "vitest run --update",
+    "test:watch": "vitest",
     "postinstall": "pnpm prisma generate"
   },
   "dependencies": {
@@ -65,6 +69,7 @@
     "tailwindcss": "4.3.3",
     "tsx": "4.23.1",
     "typescript": "6.0.3",
-    "typescript-eslint": "8.64.0"
+    "typescript-eslint": "8.64.0",
+    "vitest": "4.1.11"
   }
 }
