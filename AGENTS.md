@@ -4,6 +4,15 @@
 
 セットアップ・起動・テスト実行のコマンドは [README.md](README.md) を参照。
 
+## 共有 skill（marketplace）
+
+複数リポジトリで共通の skill は [ttt3pu/ai-settings](https://github.com/ttt3pu/ai-settings) から marketplace 経由で配信している。インストール手順は同リポジトリの README を参照。現在の収録 skill は次の 2 つ。
+
+- `enable-library-automerge` — Renovate の minor/patch 自動マージを、プロダクト経路の回帰テストと CI 通過を条件に有効化する
+- `shared-testing-conventions` — テストの命名規則、テスト対象の選び方、配置とスナップショットの扱い
+
+プラグインが入っていない環境で作業する場合は、`ttt3pu/ai-settings` の該当 `SKILL.md` を直接読んでから進める。運用ルールは末尾の「エージェント設定の置き場所」に書いてある。
+
 ## 言語
 
 **人間へのやりとり・PR タイトル・PR 概要・コメントへの返信はすべて日本語。**
@@ -52,7 +61,7 @@
 - 最小限の変更で問題を解決する。既存の動作を壊さない
 - TypeScript の型安全性を維持し、React は関数コンポーネントで書く
 - 変更後は `pnpm check` を通す。整形は `pnpm prettier:fix`
-- テストを書く・直すときは共有 skill `shared-testing-conventions` に従い、このリポジトリ固有の構成は下の「テスト」を見る
+- テストを書く・直すときは下の「テスト」を見る
 
 ## テスト
 
@@ -97,19 +106,11 @@
 
 リポジトリ内 skill（`.agents/skills/`）を使わない理由は 2 つある。ツールごとに探索パスが違い（Claude Code のプロジェクト skill は `.claude/skills/` のみで `.agents/skills/` を読まない）、置いても届かないツールがある。加えて共有プラグインと同じ話題の skill が両側に存在すると、どちらがどこまで読まれるかが実行するツールと状況に依存する。`AGENTS.md` は Cursor・Claude Code・Codex・Copilot（cloud agent / CLI / VS Code）がいずれも読むので、リポジトリ固有の指示はここに集約するのが最も確実。
 
-### 共有プラグイン（marketplace）
-
-複数リポジトリで共通の skill は [ttt3pu/ai-settings](https://github.com/ttt3pu/ai-settings) から marketplace 経由で配信している。インストール手順は同リポジトリの README を参照。現在の収録 skill は次の 2 つ。
-
-- `enable-library-automerge` — Renovate の minor/patch 自動マージを、プロダクト経路の回帰テストと CI 通過を条件に有効化する
-- `shared-testing-conventions` — テストの命名規則、テスト対象の選び方、配置とスナップショットの扱い
-
-守ること。
+### 共有 skill の扱い
 
 - 共有 skill の内容をこのリポジトリのファイルに複製しない。参照するだけにする
 - 共有 skill が「適用先の構成に従う」としている箇所の答えは `AGENTS.md` に書く。同じ話題の skill をこのリポジトリに作って分割しない
 - 共有 skill を直したいときは `ttt3pu/ai-settings` 側を直す。こちらで上書きしたり、ローカル版を作って分岐させたりしない
-- プラグインが入っていない環境で作業する場合は、`ttt3pu/ai-settings` の該当 `SKILL.md` を直接読んでから進める
 
 ### ルールを追加するとき
 
