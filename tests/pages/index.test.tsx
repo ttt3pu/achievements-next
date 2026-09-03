@@ -27,7 +27,7 @@ afterEach(() => {
   cleanup();
 });
 
-describe('Home', () => {
+describe('トップページ', () => {
   it('全記事が sort_order 順に詳細ページへのリンク付きで並ぶこと', () => {
     render(<Home posts={posts} />);
 

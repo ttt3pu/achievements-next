@@ -12,6 +12,12 @@
       "matchPackageNames": ["react", "react-dom"],
       "matchUpdateTypes": ["minor", "patch"],
       "automerge": true
+    },
+    {
+      "description": "Automerge prisma / pg minor/patch when tests pass",
+      "matchPackageNames": ["prisma", "@prisma/client", "@prisma/adapter-pg", "pg"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true
     }
   ]
 }

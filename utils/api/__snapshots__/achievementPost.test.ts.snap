@@ -1,0 +1,137 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`実績記事の 1 件取得 > 詳細ページへ渡る 1 件の JSON が変わらないこと 1`] = `
+{
+  "completed_at": "2022-07-02T15:00:00.000Z",
+  "content": "# よかったところ
+- 戦闘のテンポが良い
+  - 途中でスキル構成を組み替えられる
+- サブクエストの作り込みが丁寧
+  - 収集要素が実績とかみ合っている
+
+## いまいちだったところ
+- 終盤のロードが長い
+- 一部の実績が運任せ",
+  "created_at": "2022-07-03T10:05:28.668Z",
+  "difficulty_rating": 4,
+  "id": 2,
+  "is_idle_game": false,
+  "rating": 4,
+  "sort_order": 2,
+  "steam_id": 900002,
+  "title": "Fictional Fantasy Remake",
+  "total_hours": 83,
+  "updated_at": "2022-07-03T10:05:28.668Z",
+  "yarikomi_rating": 5,
+}
+`;
+
+exports[`実績記事の一覧取得 > トップページへ渡る sort_order 昇順の JSON が変わらないこと 1`] = `
+[
+  {
+    "completed_at": "2023-04-27T15:00:00.000Z",
+    "content": "序盤はのんびり探索できるが、終盤のダンジョンで一気に難しくなる。
+隠しボスが強く、装備を整え直すまで何度も全滅した。
+実績は時限要素が多く、取り逃すと周回が必要になるのがつらい。",
+    "created_at": "2023-04-28T11:12:05.566Z",
+    "difficulty_rating": 5,
+    "id": 1,
+    "is_idle_game": false,
+    "rating": 5,
+    "sort_order": 1,
+    "steam_id": 900001,
+    "title": "テストクエスト オデッセイ",
+    "total_hours": 121,
+    "updated_at": "2023-04-28T11:12:10.945Z",
+    "yarikomi_rating": 2,
+  },
+  {
+    "completed_at": "2022-07-02T15:00:00.000Z",
+    "content": "# よかったところ
+- 戦闘のテンポが良い
+  - 途中でスキル構成を組み替えられる
+- サブクエストの作り込みが丁寧
+  - 収集要素が実績とかみ合っている
+
+## いまいちだったところ
+- 終盤のロードが長い
+- 一部の実績が運任せ",
+    "created_at": "2022-07-03T10:05:28.668Z",
+    "difficulty_rating": 4,
+    "id": 2,
+    "is_idle_game": false,
+    "rating": 4,
+    "sort_order": 2,
+    "steam_id": 900002,
+    "title": "Fictional Fantasy Remake",
+    "total_hours": 83,
+    "updated_at": "2022-07-03T10:05:28.668Z",
+    "yarikomi_rating": 5,
+  },
+  {
+    "completed_at": "2021-11-14T15:00:00.000Z",
+    "content": "放置しているだけで実績が埋まる。
+たまに強化ボタンを押すだけでよいので、他の作業と並行できた。",
+    "created_at": "2021-11-15T02:30:00.000Z",
+    "difficulty_rating": 1,
+    "id": 3,
+    "is_idle_game": true,
+    "rating": 2,
+    "sort_order": 3,
+    "steam_id": 900003,
+    "title": "放置ヒーロー クリッカー",
+    "total_hours": 300,
+    "updated_at": "2021-11-15T02:30:00.000Z",
+    "yarikomi_rating": 1,
+  },
+  {
+    "completed_at": "2024-01-08T15:00:00.000Z",
+    "content": "短時間で区切りよく遊べる。
+実績も素直な内容で、寄り道せずに全解除できた。",
+    "created_at": "2024-01-09T08:00:00.000Z",
+    "difficulty_rating": 2,
+    "id": 4,
+    "is_idle_game": false,
+    "rating": 3,
+    "sort_order": 4,
+    "steam_id": 900004,
+    "title": "Pixel Dungeon Tactics",
+    "total_hours": 42,
+    "updated_at": "2024-02-01T08:00:00.000Z",
+    "yarikomi_rating": 3,
+  },
+  {
+    "completed_at": "2020-05-19T15:00:00.000Z",
+    "content": "# 総評
+- 移動が気持ちいい
+- タイムアタック系の実績だけ難しい",
+    "created_at": "2020-05-20T13:45:00.000Z",
+    "difficulty_rating": 3,
+    "id": 5,
+    "is_idle_game": false,
+    "rating": 4,
+    "sort_order": 5,
+    "steam_id": 900005,
+    "title": "ネオ・シティ ドライバー",
+    "total_hours": 17,
+    "updated_at": "2020-05-21T13:45:00.000Z",
+    "yarikomi_rating": 2,
+  },
+  {
+    "completed_at": "2019-08-31T15:00:00.000Z",
+    "content": "ひたすら待つだけのゲーム。
+実績解除の条件も待機時間に依存している。",
+    "created_at": "2019-09-01T22:10:00.000Z",
+    "difficulty_rating": 1,
+    "id": 6,
+    "is_idle_game": true,
+    "rating": 1,
+    "sort_order": 6,
+    "steam_id": 900006,
+    "title": "Endless Farm Idle",
+    "total_hours": 9,
+    "updated_at": "2019-09-01T22:10:00.000Z",
+    "yarikomi_rating": 1,
+  },
+]
+`;
