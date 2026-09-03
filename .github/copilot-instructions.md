@@ -1,66 +1,7 @@
 # Copilot Instructions
 
-> **重要**: このファイルはすべての作業において常に適用されます。指示に従わない場合は作業が不完全とみなされます。
+指示はツール非依存の `AGENTS.md` と `.agents/skills/` に集約している。このファイルは、`AGENTS.md` を読まない Copilot 機能（github.com の Copilot Chat）向けのポインタなので、指示の本文をここに複製しない。
 
-## 言語
+@AGENTS.md
 
-**すべての返答・PRタイトル・PR概要・コメントは日本語で記述してください。**
-
-- コミットメッセージのみ英語（既存の慣例に従う）
-- コード内のコメントは日本語・英語どちらでも可
-
-## パッケージマネージャー
-
-**npm・yarn は使用禁止。必ず pnpm を使用してください。**
-
-- インストール: `pnpm install`
-- スクリプト実行: `pnpm <script>`
-- 正確なバージョンは `package.json` の `packageManager` フィールドを参照
-
-### よく使う品質コマンドは scripts 経由
-
-`test` / `lint` / `prettier` / `check` など、すでに用意されている・しょっちゅう使うものは `pnpm exec` / `npx` / `pnpm dlx` ではなく `pnpm <script>` で実行する（例: `pnpm check`、`pnpm prettier:fix`、`pnpm test`）。
-
-何でも script に追加しない。ワンショットや稀な用途のために scripts を増やさない。
-
-## PR作成時の必須手順
-
-**PRを作成する前に `.github/pull_request_template.md` を必ず読み、その構造に従って説明文を書いてください。**
-
-テンプレートのすべてのセクション見出しを維持し、各セクションに適切な内容を記入してください。空のセクションも省略せず残してください。
-
-## コーディング指針
-
-### プロジェクト構造
-
-- Next.js の Pages Router（`pages/` ディレクトリ）
-- Atomic Design: `atoms/` → `molecules/` → `organisms/`
-- TypeScript の型安全性を維持してください
-
-### スタイリング
-
-- **Tailwind CSS v4** のユーティリティクラスを優先使用してください
-- カスタムスタイルが必要な場合は **CSS**（`.css`）を使用してください（SCSS は使用しません）
-- 既存のデザインパターンに従ってください
-
-### データベース
-
-- Prisma スキーマは `prisma` サブモジュール（`ttt3pu/attt-prisma`）で管理
-- 生成された Prisma Client の型を使用してください
-
-## pnpm-lock.yaml の取り扱い（重要）
-
-- `pnpm-lock.yaml` に対して `git checkout -- pnpm-lock.yaml` を**実行しないでください**
-- `rm pnpm-lock.yaml && pnpm install` で再生成することも**禁止**です
-- lockfile が汚染された場合は `.github/instructions/ai-guidelines.md` の手順を参照してください
-
-## 品質保証
-
-コード変更後は必ず以下を実行してください：
-
-```bash
-pnpm check
-```
-
-- 既存のテストを壊さないでください
-- 新機能にはテストの追加を検討してください
+`AGENTS.md` を読み、その内容をすべての作業に適用すること。作業内容に対応する skill が `.agents/skills/`（`.github/skills` から symlink）にあれば、その `SKILL.md` も読んで従うこと。

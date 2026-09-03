@@ -1,7 +1,10 @@
 ---
-description: テストのガイドライン
-globs: **/*.test.{ts,tsx}
-alwaysApply: false
+name: testing
+description: >-
+  このリポジトリでテストを書く・直すときの命名規則、テスト対象の選び方、配置とスナップショットの扱い、実行コマンド。
+  テストファイル（*.test.ts / *.test.tsx / tests/ 配下）を追加・変更するとき、
+  スナップショットを更新するとき、既存テストの失敗を直すときに使う。
+paths: '**/*.test.ts,**/*.test.tsx,tests/**'
 ---
 
 # テストのガイドライン
