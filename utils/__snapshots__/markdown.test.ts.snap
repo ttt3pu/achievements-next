@@ -1,12 +1,12 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`renderMarkdown > Endless Farm Idle の HTML が変わらないこと 1`] = `
+exports[`実績記事の本文表示 > Endless Farm Idle の HTML が変わらないこと 1`] = `
 "<p>ひたすら待つだけのゲーム。<br>
 実績解除の条件も待機時間に依存している。</p>
 "
 `;
 
-exports[`renderMarkdown > Fictional Fantasy Remake の HTML が変わらないこと 1`] = `
+exports[`実績記事の本文表示 > Fictional Fantasy Remake の HTML が変わらないこと 1`] = `
 "<h1>よかったところ</h1>
 <ul>
 <li>戦闘のテンポが良い
@@ -28,20 +28,20 @@ exports[`renderMarkdown > Fictional Fantasy Remake の HTML が変わらない�
 "
 `;
 
-exports[`renderMarkdown > Pixel Dungeon Tactics の HTML が変わらないこと 1`] = `
+exports[`実績記事の本文表示 > Pixel Dungeon Tactics の HTML が変わらないこと 1`] = `
 "<p>短時間で区切りよく遊べる。<br>
 実績も素直な内容で、寄り道せずに全解除できた。</p>
 "
 `;
 
-exports[`renderMarkdown > テストクエスト オデッセイ の HTML が変わらないこと 1`] = `
+exports[`実績記事の本文表示 > テストクエスト オデッセイ の HTML が変わらないこと 1`] = `
 "<p>序盤はのんびり探索できるが、終盤のダンジョンで一気に難しくなる。<br>
 隠しボスが強く、装備を整え直すまで何度も全滅した。<br>
 実績は時限要素が多く、取り逃すと周回が必要になるのがつらい。</p>
 "
 `;
 
-exports[`renderMarkdown > ネオ・シティ ドライバー の HTML が変わらないこと 1`] = `
+exports[`実績記事の本文表示 > ネオ・シティ ドライバー の HTML が変わらないこと 1`] = `
 "<h1>総評</h1>
 <ul>
 <li>移動が気持ちいい</li>
@@ -50,7 +50,7 @@ exports[`renderMarkdown > ネオ・シティ ドライバー の HTML が変わ�
 "
 `;
 
-exports[`renderMarkdown > 放置ヒーロー クリッカー の HTML が変わらないこと 1`] = `
+exports[`実績記事の本文表示 > 放置ヒーロー クリッカー の HTML が変わらないこと 1`] = `
 "<p>放置しているだけで実績が埋まる。<br>
 たまに強化ボタンを押すだけでよいので、他の作業と並行できた。</p>
 "

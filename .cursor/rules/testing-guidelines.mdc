@@ -8,17 +8,19 @@ alwaysApply: false
 
 ## 命名
 
-`it` / `test` は日本語で、期待値が読み取れる「◯◯こと」の形。「◯◯する」だと動作の説明になり、何が保証されるのか分からない。`describe` はテスト対象の識別子（関数名・コンポーネント名）をそのまま使う。
+`it` / `test` は日本語で、期待値が読み取れる「◯◯こと」の形。「◯◯する」だと動作の説明になり、何が保証されるのか分からない。
+
+`describe` には関数名・コンポーネント名などの識別子を書かない。リネームしただけでテスト名が実態と合わなくなり負債になるため、プロダクトのどの振る舞いを守っているのかを日本語で書く。
 
 ```ts
 // ❌ BAD
-describe('achievement post content rendering', () => {
+describe('renderMarkdown', () => {
   it('escapes HTML embedded in post content', () => {});
   it.each(posts)('%s の HTML を維持する', () => {});
 });
 
 // ✅ GOOD
-describe('renderMarkdown', () => {
+describe('実績記事の本文表示', () => {
   it('本文に埋め込まれた HTML がエスケープされること', () => {});
   it.each(posts)('%s の HTML が変わらないこと', () => {});
 });

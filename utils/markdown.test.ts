@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { achievementPosts } from 'tests/fixtures/achievement-posts';
 import { renderMarkdown } from './markdown';
 
-describe('renderMarkdown', () => {
+describe('実績記事の本文表示', () => {
   it.each(achievementPosts.map((post) => [post.title, post.content] as const))(
     '%s の HTML が変わらないこと',
     (_title, content) => {
