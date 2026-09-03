@@ -1,6 +1,6 @@
 # achievements-next
 
-AI エージェント向けの指示は [AGENTS.md](AGENTS.md)。複数リポジトリで共通の skill は [ttt3pu/ai-settings](https://github.com/ttt3pu/ai-settings) から marketplace 経由で配信している。
+AI エージェント向けの指示は [AGENTS.md](AGENTS.md)。
 
 ## Commands
 
