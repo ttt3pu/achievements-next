@@ -53,7 +53,7 @@
 コード変更後は必ず以下を実行してください：
 
 ```bash
-pnpm lint:js && pnpm prettier && pnpm lint:style
+pnpm lint:js && pnpm prettier && pnpm lint:style && pnpm test
 ```
 
 - 既存のテストを壊さないでください

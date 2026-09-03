@@ -1,3 +1,11 @@
 {
-  "extends": ["github>ttt3pu/renovate-settings"]
+  "extends": ["github>ttt3pu/renovate-settings"],
+  "packageRules": [
+    {
+      "description": "Automerge markdown-it minor/patch when tests pass",
+      "matchPackageNames": ["markdown-it"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true
+    }
+  ]
 }

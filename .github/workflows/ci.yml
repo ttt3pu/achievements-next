@@ -26,3 +26,6 @@ jobs:
 
       - name: Lint Style
         run: pnpm lint:style
+
+      - name: Test
+        run: pnpm test

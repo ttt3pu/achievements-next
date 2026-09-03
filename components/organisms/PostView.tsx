@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-import MarkdownIt from 'markdown-it';
+import { renderMarkdown } from 'utils/markdown';
 import Rating from 'components/molecules/Rating';
 import DetailItem from 'components/molecules/DetailItem';
 import FormInput from 'components/atoms/FormInput';
@@ -40,7 +40,7 @@ export default function PostView({ post, editMode, handleSubmit }: Props) {
   const [completedAt, setCompletedAt] = useState(post.completed_at);
   const [content, setContent] = useState(post.content);
 
-  const contentHtml = new MarkdownIt({ breaks: true }).render(content);
+  const contentHtml = renderMarkdown(content);
 
   function submit() {
     const payload: PostEditSubmitPayload = {
