@@ -52,7 +52,18 @@
 - 最小限の変更で問題を解決する。既存の動作を壊さない
 - TypeScript の型安全性を維持し、React は関数コンポーネントで書く
 - 変更後は `pnpm check` を通す。整形は `pnpm prettier:fix`
-- テストを書く・直すときは skill [testing](.agents/skills/testing/SKILL.md) に従う
+- テストを書く・直すときは共有 skill `shared-testing-conventions` に従い、このリポジトリ固有の構成は下の「テスト」を見る
+
+## テスト
+
+命名規則・何をテストするか・スナップショットの扱いは共有 skill `shared-testing-conventions` に従う。同 skill が「適用先の構成に従う」としている箇所の答えはこれ。
+
+- テストランナーは Vitest。DOM が必要なファイルは先頭に `// @vitest-environment jsdom` を書き、`@testing-library/react` で描画・操作する
+- フィクスチャは `tests/fixtures/`。本文の構造は seed（`prisma/seed_constants/`）の Markdown 構造とデータの幅に合わせる
+- 実装の隣に `*.test.ts(x)` を置く。ただし `pages/` 配下は Next のルートとして扱われるため、ページのテストは `tests/` に置く
+- タイムゾーンは `vitest.config.ts` で固定済み。日付の期待値をローカル環境に合わせて書き換えない
+- 実行は `pnpm test` / `pnpm test:update`
+- Prisma 経路のテストは実 DB を通す。テーブルを空にしてからフィクスチャを流すので、開発用とは別の `TEST_DATABASE_URL`（末尾が `_test` のデータベース）が必要。未設定なら `make test-db` で用意する
 
 ## PR 作成時の必須手順
 
@@ -76,23 +87,36 @@
 
 ## エージェント設定の置き場所
 
-指示は 2 種類しかない。**常に適用されるものは `AGENTS.md` に書き、それ以外はすべて skill にする。**
+**skill は共有プラグインにだけ置く。このリポジトリの指示は `AGENTS.md` に書く。** リポジトリ内に skill を置かない。
 
-| パス                              | 役割                                                                          |
-| --------------------------------- | ----------------------------------------------------------------------------- |
-| `AGENTS.md`（このファイル）       | 常時適用の共通指示                                                            |
-| `.agents/skills/<name>/SKILL.md`  | 適用範囲が限られる指示。ルールもガイドラインも手順書もここ                    |
-| `.github/copilot-instructions.md` | github.com の Copilot Chat が `AGENTS.md` を読まないための固定ポインタ        |
-| `.github/skills`                  | `.agents/skills` へのディレクトリ symlink（Copilot code review が参照する用） |
+| パス                                | 役割                                                                      |
+| ----------------------------------- | ------------------------------------------------------------------------- |
+| `AGENTS.md`（このファイル）         | このリポジトリの指示。長くなった節だけ `docs/` へ切り出してここからリンク |
+| 共有プラグイン `ttt3pu/ai-settings` | 複数リポジトリで共通の skill。原本は向こうにあり、こちらには置かない      |
+| `.github/copilot-instructions.md`   | github.com の Copilot Chat が `AGENTS.md` を読まないための固定ポインタ    |
 
-`AGENTS.md` は Cursor・Copilot cloud agent・Copilot CLI・Codex・Claude Code が読み、`.agents/skills/` は Cursor と Copilot（CLI / VS Code / Visual Studio / cloud agent）が公式にサポートしている。ツール固有のファイルは上の 2 つだけで、**指示が増えても増えない**。
+リポジトリ内 skill（`.agents/skills/`）を使わない理由は 2 つある。ツールごとに探索パスが違い（Claude Code のプロジェクト skill は `.claude/skills/` のみで `.agents/skills/` を読まない）、置いても届かないツールがある。加えて共有プラグインと同じ話題の skill が両側に存在すると、どちらがどこまで読まれるかが実行するツールと状況に依存する。`AGENTS.md` は Cursor・Claude Code・Codex・Copilot（cloud agent / CLI / VS Code）がいずれも読むので、リポジトリ固有の指示はここに集約するのが最も確実。
+
+### 共有プラグイン（marketplace）
+
+複数リポジトリで共通の skill は [ttt3pu/ai-settings](https://github.com/ttt3pu/ai-settings) から marketplace 経由で配信している。インストール手順は同リポジトリの README を参照。現在の収録 skill は次の 2 つ。
+
+- `enable-library-automerge` — Renovate の minor/patch 自動マージを、プロダクト経路の回帰テストと CI 通過を条件に有効化する
+- `shared-testing-conventions` — テストの命名規則、テスト対象の選び方、配置とスナップショットの扱い
+
+守ること。
+
+- 共有 skill の内容をこのリポジトリのファイルに複製しない。参照するだけにする
+- 共有 skill が「適用先の構成に従う」としている箇所の答えは `AGENTS.md` に書く。同じ話題の skill をこのリポジトリに作って分割しない
+- 共有 skill を直したいときは `ttt3pu/ai-settings` 側を直す。こちらで上書きしたり、ローカル版を作って分岐させたりしない
+- プラグインが入っていない環境で作業する場合は、`ttt3pu/ai-settings` の該当 `SKILL.md` を直接読んでから進める
 
 ### ルールを追加するとき
 
-1. 常時適用なら `AGENTS.md` に節を足す
-2. 適用範囲が限られるなら `.agents/skills/<name>/` を作り、`SKILL.md` に `name`（ディレクトリ名と一致させる。ずれると読み込まれない）、`description`（何をするか・いつ使うか）、必要なら `paths`（glob）を書く
+1. このリポジトリ固有なら `AGENTS.md` に節を足す。分量が増えたら `docs/` に切り出して `AGENTS.md` からリンクする
+2. 他のリポジトリでも通用する内容なら `ttt3pu/ai-settings` に skill として追加する。このリポジトリには置かない
 3. ツール固有のファイルは作らない。`.cursor/rules/*.mdc` や `.github/instructions/*.instructions.md` に内容を複製しない
 
 ### 新しいエージェントを追加するとき
 
-`AGENTS.md` と `.agents/skills/` を読めるツールなら設定は不要。読めない場合だけ、そのツールが見る場所に**ポインタ 1 枚**かディレクトリ symlink 1 本を置く。指示の本文を複製したり、ルールごとにアダプタを作ったりしない。
+`AGENTS.md` を読めるツールなら設定は不要。読めない場合だけ、そのツールが見る場所に**ポインタ 1 枚**を置く。指示の本文を複製したり、ルールごとにアダプタを作ったりしない。
