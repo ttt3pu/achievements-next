@@ -6,6 +6,12 @@
       "matchPackageNames": ["markdown-it"],
       "matchUpdateTypes": ["minor", "patch"],
       "automerge": true
+    },
+    {
+      "description": "Automerge react / react-dom minor/patch when tests pass",
+      "matchPackageNames": ["react", "react-dom"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true
     }
   ]
 }
