@@ -26,8 +26,9 @@
     "start": "next start",
     "lint:js": "eslint .",
     "lint:style": "stylelint \"**/*.css\" --ignore-path .gitignore",
-    "prettier": "prettier . --check --ignore-path .gitignore",
-    "prettier:fix": "prettier . --write --ignore-path .gitignore",
+    "prettier": "prettier --check --ignore-path .gitignore --ignore-path .prettierignore .",
+    "prettier:fix": "prettier --write --ignore-path .gitignore --ignore-path .prettierignore .",
+    "check": "pnpm lint:js && pnpm prettier && pnpm lint:style && pnpm test",
     "test": "vitest run",
     "test:watch": "vitest",
     "postinstall": "pnpm prisma generate"

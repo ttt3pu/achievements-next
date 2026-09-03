@@ -16,6 +16,7 @@
 - インストール: `pnpm install`
 - スクリプト実行: `pnpm <script>`
 - 正確なバージョンは `package.json` の `packageManager` フィールドを参照
+- Prettier / ESLint / Stylelint / Vitest などは `pnpm exec` ではなく `package.json` の scripts 経由で実行する（例: `pnpm prettier:fix`、`pnpm test`、まとめては `pnpm check`）
 
 ## PR作成時の必須手順
 
@@ -53,7 +54,7 @@
 コード変更後は必ず以下を実行してください：
 
 ```bash
-pnpm lint:js && pnpm prettier && pnpm lint:style && pnpm test
+pnpm check
 ```
 
 - 既存のテストを壊さないでください

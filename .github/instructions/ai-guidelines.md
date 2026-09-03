@@ -1,6 +1,7 @@
 ---
-applyTo: "**"
+applyTo: '**'
 ---
+
 # AI Guidelines for achievements-next
 
 > このファイルはすべての AI エージェント作業に適用されます。
@@ -62,13 +63,14 @@ applyTo: "**"
 - ESLint、Prettier、Stylelint の設定に従ってください
 - TypeScript の型安全性を維持してください
 - React の関数コンポーネントを使用してください
+- 品質チェックは `pnpm check` を使う（個別なら `pnpm prettier` / `pnpm prettier:fix` / `pnpm test` など）。`pnpm exec` は scripts にないツールのときだけ
 
 ### 変更を行う際の注意点
 
 - 最小限の変更で問題を解決してください
 - 既存の動作を壊さないよう注意してください
 - テストがある場合は必ず実行してください
-- コードフォーマットツールを使用してください
+- コードフォーマットは `pnpm prettier:fix`
 
 ## pnpm-lock.yaml の取り扱い（重要ルール）
 

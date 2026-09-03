@@ -13,8 +13,7 @@
 <!-- 動作確認した内容をチェックしてください -->
 
 - [ ] ローカルで動作確認済み
-- [ ] ESLint / Prettier / Stylelint にエラーなし（`pnpm lint:js && pnpm prettier && pnpm lint:style`）
-- [ ] 既存のテストが通る（`pnpm test`）
+- [ ] `pnpm check` が通る（lint / prettier / stylelint / test）
 
 ## 関連Issue
 
