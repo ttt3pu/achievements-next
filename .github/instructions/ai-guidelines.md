@@ -63,7 +63,8 @@ applyTo: '**'
 - ESLint、Prettier、Stylelint の設定に従ってください
 - TypeScript の型安全性を維持してください
 - React の関数コンポーネントを使用してください
-- 品質チェックは `pnpm check` を使う（個別なら `pnpm prettier` / `pnpm prettier:fix` / `pnpm test` など）。`pnpm exec` は scripts にないツールのときだけ
+- 品質チェックは `pnpm check` を使う（個別なら `pnpm prettier` / `pnpm prettier:fix` / `pnpm test` / `pnpm test:update` など）
+- **`pnpm exec` / `npx` / `pnpm dlx` は禁止**（承認が毎回必要になるため）。足りないコマンドは `package.json` の scripts に追加してから `pnpm <script>` で実行する
 
 ### 変更を行う際の注意点
 

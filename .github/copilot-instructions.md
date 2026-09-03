@@ -16,7 +16,10 @@
 - インストール: `pnpm install`
 - スクリプト実行: `pnpm <script>`
 - 正確なバージョンは `package.json` の `packageManager` フィールドを参照
-- Prettier / ESLint / Stylelint / Vitest などは `pnpm exec` ではなく `package.json` の scripts 経由で実行する（例: `pnpm prettier:fix`、`pnpm test`、まとめては `pnpm check`）
+
+### `pnpm exec` / `npx` / `pnpm dlx` は禁止
+
+毎回の承認が必要になるため使わない。Prettier / ESLint / Stylelint / Vitest などは必ず scripts 経由（`pnpm prettier:fix`、`pnpm test`、`pnpm check` など）。必要なコマンドが無い場合は **script を追加してから** `pnpm <script>` で実行する。
 
 ## PR作成時の必須手順
 

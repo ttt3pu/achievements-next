@@ -1,0 +1,26 @@
+---
+description: Forbid pnpm exec/npx; use package.json scripts only
+alwaysApply: true
+---
+
+# pnpm scripts のみ使う
+
+`pnpm exec` / `npx` / `pnpm dlx` は**禁止**（毎回承認が必要になるため）。
+
+## やること
+
+- 既存の `package.json` scripts を使う（`pnpm check`、`pnpm prettier:fix`、`pnpm test`、`pnpm test:update` など）
+- 必要なコマンドが scripts に無いときは、**先に script を追加してから** `pnpm <script>` で実行する
+- 一時的な回避として `pnpm exec` を使わない
+
+## 対応表
+
+| やりたいこと | 使うコマンド |
+|---|---|
+| 品質一括 | `pnpm check` |
+| Prettier 確認 / 修正 | `pnpm prettier` / `pnpm prettier:fix` |
+| ESLint | `pnpm lint:js` |
+| Stylelint | `pnpm lint:style` |
+| テスト | `pnpm test` |
+| スナップショット更新 | `pnpm test:update` |
+| テスト watch | `pnpm test:watch` |
