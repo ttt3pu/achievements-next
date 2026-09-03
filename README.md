@@ -1,5 +1,7 @@
 # achievements-next
 
+AI エージェント向けの指示は [AGENTS.md](AGENTS.md)（作業別のガイドは `.agents/skills/`）。
+
 ## Commands
 
 ### Setup
