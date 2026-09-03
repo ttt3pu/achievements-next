@@ -30,6 +30,7 @@
     "prettier:fix": "prettier --write --ignore-path .gitignore --ignore-path .prettierignore .",
     "check": "pnpm lint:js && pnpm prettier && pnpm lint:style && pnpm test",
     "test": "vitest run",
+    "test:update": "vitest run --update",
     "test:watch": "vitest",
     "postinstall": "pnpm prisma generate"
   },
