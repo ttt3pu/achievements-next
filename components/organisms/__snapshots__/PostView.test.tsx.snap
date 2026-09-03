@@ -1,0 +1,663 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`PostView > Fictional Fantasy Remake の HTML が変わらないこと 1`] = `
+"<div>
+<div class="bg-bg-300">
+<div class="max-w-contents mx-auto px-5 py-8">
+<h1 class="text-2xl">Fictional Fantasy Remake</h1>
+</div>
+</div>
+<div class="bg-bg-200">
+<div class="max-w-contents mx-auto px-5 py-12">
+<iframe src="https://store.steampowered.com/widget/900002/" class="max-w-full w-[800px] h-48 mx-auto">
+</iframe>
+</div>
+</div>
+<div class="px-5 pt-12 pb-6 max-w-contents mx-auto">
+<div class="flex flex-wrap mb-3">
+<div class="_detailItem_fb8d98 flex items-center text-sm mb-3">
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" class="mr-3" height="1.5em" width="1.5em" xmlns="http://www.w3.org/2000/svg">
+<path d="M5 22h14c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2h-2V2h-2v2H9V2H7v2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2zm6-3.586-3.707-3.707 1.414-1.414L11 15.586l4.293-4.293 1.414 1.414L11 18.414zM5 7h14v2H5V7z">
+</path>
+</svg>
+<div class="mr-3 font-medium">すべおめした日<!-- -->:</div>
+<div class="text-yellow">2022-07-03</div>
+</div>
+<div class="_detailItem_fb8d98 flex items-center text-sm mb-3">
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" class="mr-3" height="1.5em" width="1.5em" xmlns="http://www.w3.org/2000/svg">
+<path d="M5 22h14c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2h-2V2h-2v2H9V2H7v2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2zm4.799-2.013H8v-1.799l4.977-4.97 1.799 1.799-4.977 4.97zm5.824-5.817-1.799-1.799L15.196 11l1.799 1.799-1.372 1.371zM5 7h14v2H5V7z">
+</path>
+</svg>
+<div class="mr-3 font-medium">最終更新日<!-- -->:</div>
+<div class="text-yellow">2022-07-03</div>
+</div>
+<div class="_detailItem_fb8d98 flex items-center text-sm mb-3">
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" class="mr-3" height="1.5em" width="1.5em" xmlns="http://www.w3.org/2000/svg">
+<path d="M256 0a256 256 0 1 1 0 512A256 256 0 1 1 256 0zM232 120l0 136c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2 280 120c0-13.3-10.7-24-24-24s-24 10.7-24 24z">
+</path>
+</svg>
+<div class="mr-3 font-medium">かかった時間<!-- -->:</div>
+<div class="text-yellow">83 h</div>
+</div>
+</div>
+<div class="flex flex-wrap mb-3">
+<div class="_detailItem_fb8d98 flex items-center text-sm mb-3">
+<div class="mr-3 font-medium">総合評価<!-- -->:</div>
+<div class="text-yellow">
+<span class="flex">
+<span class="flex undefined">
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+<g fill="none">
+<path d="M0 0h24v24H0z">
+</path>
+<path d="M0 0h24v24H0z">
+</path>
+</g>
+<path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z">
+</path>
+</svg>
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+<g fill="none">
+<path d="M0 0h24v24H0z">
+</path>
+<path d="M0 0h24v24H0z">
+</path>
+</g>
+<path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z">
+</path>
+</svg>
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+<g fill="none">
+<path d="M0 0h24v24H0z">
+</path>
+<path d="M0 0h24v24H0z">
+</path>
+</g>
+<path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z">
+</path>
+</svg>
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+<g fill="none">
+<path d="M0 0h24v24H0z">
+</path>
+<path d="M0 0h24v24H0z">
+</path>
+</g>
+<path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z">
+</path>
+</svg>
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+<path fill="none" d="M0 0h24v24H0z">
+</path>
+<path d="m22 9.24-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28z">
+</path>
+</svg>
+</span>
+</span>
+</div>
+</div>
+<div class="_detailItem_fb8d98 flex items-center text-sm mb-3">
+<div class="mr-3 font-medium">実績集めの楽しさ<!-- -->:</div>
+<div class="text-yellow">
+<span class="flex">
+<span class="flex undefined">
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+<g fill="none">
+<path d="M0 0h24v24H0z">
+</path>
+<path d="M0 0h24v24H0z">
+</path>
+</g>
+<path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z">
+</path>
+</svg>
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+<g fill="none">
+<path d="M0 0h24v24H0z">
+</path>
+<path d="M0 0h24v24H0z">
+</path>
+</g>
+<path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z">
+</path>
+</svg>
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+<g fill="none">
+<path d="M0 0h24v24H0z">
+</path>
+<path d="M0 0h24v24H0z">
+</path>
+</g>
+<path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z">
+</path>
+</svg>
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+<g fill="none">
+<path d="M0 0h24v24H0z">
+</path>
+<path d="M0 0h24v24H0z">
+</path>
+</g>
+<path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z">
+</path>
+</svg>
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+<g fill="none">
+<path d="M0 0h24v24H0z">
+</path>
+<path d="M0 0h24v24H0z">
+</path>
+</g>
+<path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z">
+</path>
+</svg>
+</span>
+</span>
+</div>
+</div>
+<div class="_detailItem_fb8d98 flex items-center text-sm mb-3">
+<div class="mr-3 font-medium">難易度<!-- -->:</div>
+<div class="text-yellow">
+<span class="flex">
+<span class="flex undefined">
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+<g fill="none">
+<path d="M0 0h24v24H0z">
+</path>
+<path d="M0 0h24v24H0z">
+</path>
+</g>
+<path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z">
+</path>
+</svg>
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+<g fill="none">
+<path d="M0 0h24v24H0z">
+</path>
+<path d="M0 0h24v24H0z">
+</path>
+</g>
+<path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z">
+</path>
+</svg>
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+<g fill="none">
+<path d="M0 0h24v24H0z">
+</path>
+<path d="M0 0h24v24H0z">
+</path>
+</g>
+<path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z">
+</path>
+</svg>
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+<g fill="none">
+<path d="M0 0h24v24H0z">
+</path>
+<path d="M0 0h24v24H0z">
+</path>
+</g>
+<path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z">
+</path>
+</svg>
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+<path fill="none" d="M0 0h24v24H0z">
+</path>
+<path d="m22 9.24-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28z">
+</path>
+</svg>
+</span>
+</span>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-bg-200">
+<div class="max-w-contents mx-auto">
+<div class="px-5 py-14">
+<div>
+<h1>よかったところ</h1>
+<ul>
+<li>戦闘のテンポが良い
+<ul>
+<li>途中でスキル構成を組み替えられる</li>
+</ul>
+</li>
+<li>サブクエストの作り込みが丁寧
+<ul>
+<li>収集要素が実績とかみ合っている</li>
+</ul>
+</li>
+</ul>
+<h2>いまいちだったところ</h2>
+<ul>
+<li>終盤のロードが長い</li>
+<li>一部の実績が運任せ</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>"
+`;
+
+exports[`PostView > テストクエスト オデッセイ の HTML が変わらないこと 1`] = `
+"<div>
+<div class="bg-bg-300">
+<div class="max-w-contents mx-auto px-5 py-8">
+<h1 class="text-2xl">テストクエスト オデッセイ</h1>
+</div>
+</div>
+<div class="bg-bg-200">
+<div class="max-w-contents mx-auto px-5 py-12">
+<iframe src="https://store.steampowered.com/widget/900001/" class="max-w-full w-[800px] h-48 mx-auto">
+</iframe>
+</div>
+</div>
+<div class="px-5 pt-12 pb-6 max-w-contents mx-auto">
+<div class="flex flex-wrap mb-3">
+<div class="_detailItem_fb8d98 flex items-center text-sm mb-3">
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" class="mr-3" height="1.5em" width="1.5em" xmlns="http://www.w3.org/2000/svg">
+<path d="M5 22h14c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2h-2V2h-2v2H9V2H7v2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2zm6-3.586-3.707-3.707 1.414-1.414L11 15.586l4.293-4.293 1.414 1.414L11 18.414zM5 7h14v2H5V7z">
+</path>
+</svg>
+<div class="mr-3 font-medium">すべおめした日<!-- -->:</div>
+<div class="text-yellow">2023-04-28</div>
+</div>
+<div class="_detailItem_fb8d98 flex items-center text-sm mb-3">
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" class="mr-3" height="1.5em" width="1.5em" xmlns="http://www.w3.org/2000/svg">
+<path d="M5 22h14c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2h-2V2h-2v2H9V2H7v2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2zm4.799-2.013H8v-1.799l4.977-4.97 1.799 1.799-4.977 4.97zm5.824-5.817-1.799-1.799L15.196 11l1.799 1.799-1.372 1.371zM5 7h14v2H5V7z">
+</path>
+</svg>
+<div class="mr-3 font-medium">最終更新日<!-- -->:</div>
+<div class="text-yellow">2023-04-28</div>
+</div>
+<div class="_detailItem_fb8d98 flex items-center text-sm mb-3">
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" class="mr-3" height="1.5em" width="1.5em" xmlns="http://www.w3.org/2000/svg">
+<path d="M256 0a256 256 0 1 1 0 512A256 256 0 1 1 256 0zM232 120l0 136c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2 280 120c0-13.3-10.7-24-24-24s-24 10.7-24 24z">
+</path>
+</svg>
+<div class="mr-3 font-medium">かかった時間<!-- -->:</div>
+<div class="text-yellow">121 h</div>
+</div>
+</div>
+<div class="flex flex-wrap mb-3">
+<div class="_detailItem_fb8d98 flex items-center text-sm mb-3">
+<div class="mr-3 font-medium">総合評価<!-- -->:</div>
+<div class="text-yellow">
+<span class="flex">
+<span class="flex undefined">
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+<g fill="none">
+<path d="M0 0h24v24H0z">
+</path>
+<path d="M0 0h24v24H0z">
+</path>
+</g>
+<path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z">
+</path>
+</svg>
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+<g fill="none">
+<path d="M0 0h24v24H0z">
+</path>
+<path d="M0 0h24v24H0z">
+</path>
+</g>
+<path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z">
+</path>
+</svg>
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+<g fill="none">
+<path d="M0 0h24v24H0z">
+</path>
+<path d="M0 0h24v24H0z">
+</path>
+</g>
+<path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z">
+</path>
+</svg>
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+<g fill="none">
+<path d="M0 0h24v24H0z">
+</path>
+<path d="M0 0h24v24H0z">
+</path>
+</g>
+<path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z">
+</path>
+</svg>
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+<g fill="none">
+<path d="M0 0h24v24H0z">
+</path>
+<path d="M0 0h24v24H0z">
+</path>
+</g>
+<path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z">
+</path>
+</svg>
+</span>
+</span>
+</div>
+</div>
+<div class="_detailItem_fb8d98 flex items-center text-sm mb-3">
+<div class="mr-3 font-medium">実績集めの楽しさ<!-- -->:</div>
+<div class="text-yellow">
+<span class="flex">
+<span class="flex undefined">
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+<g fill="none">
+<path d="M0 0h24v24H0z">
+</path>
+<path d="M0 0h24v24H0z">
+</path>
+</g>
+<path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z">
+</path>
+</svg>
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+<g fill="none">
+<path d="M0 0h24v24H0z">
+</path>
+<path d="M0 0h24v24H0z">
+</path>
+</g>
+<path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z">
+</path>
+</svg>
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+<path fill="none" d="M0 0h24v24H0z">
+</path>
+<path d="m22 9.24-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28z">
+</path>
+</svg>
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+<path fill="none" d="M0 0h24v24H0z">
+</path>
+<path d="m22 9.24-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28z">
+</path>
+</svg>
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+<path fill="none" d="M0 0h24v24H0z">
+</path>
+<path d="m22 9.24-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28z">
+</path>
+</svg>
+</span>
+</span>
+</div>
+</div>
+<div class="_detailItem_fb8d98 flex items-center text-sm mb-3">
+<div class="mr-3 font-medium">難易度<!-- -->:</div>
+<div class="text-yellow">
+<span class="flex">
+<span class="flex undefined">
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+<g fill="none">
+<path d="M0 0h24v24H0z">
+</path>
+<path d="M0 0h24v24H0z">
+</path>
+</g>
+<path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z">
+</path>
+</svg>
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+<g fill="none">
+<path d="M0 0h24v24H0z">
+</path>
+<path d="M0 0h24v24H0z">
+</path>
+</g>
+<path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z">
+</path>
+</svg>
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+<g fill="none">
+<path d="M0 0h24v24H0z">
+</path>
+<path d="M0 0h24v24H0z">
+</path>
+</g>
+<path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z">
+</path>
+</svg>
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+<g fill="none">
+<path d="M0 0h24v24H0z">
+</path>
+<path d="M0 0h24v24H0z">
+</path>
+</g>
+<path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z">
+</path>
+</svg>
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+<g fill="none">
+<path d="M0 0h24v24H0z">
+</path>
+<path d="M0 0h24v24H0z">
+</path>
+</g>
+<path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z">
+</path>
+</svg>
+</span>
+</span>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-bg-200">
+<div class="max-w-contents mx-auto">
+<div class="px-5 py-14">
+<div>
+<p>序盤はのんびり探索できるが、終盤のダンジョンで一気に難しくなる。<br>
+隠しボスが強く、装備を整え直すまで何度も全滅した。<br>
+実績は時限要素が多く、取り逃すと周回が必要になるのがつらい。</p>
+</div>
+</div>
+</div>
+</div>
+</div>"
+`;
+
+exports[`PostView > 放置ヒーロー クリッカー の HTML が変わらないこと 1`] = `
+"<div>
+<div class="bg-bg-300">
+<div class="max-w-contents mx-auto px-5 py-8">
+<h1 class="text-2xl">放置ヒーロー クリッカー</h1>
+</div>
+</div>
+<div class="bg-bg-200">
+<div class="max-w-contents mx-auto px-5 py-12">
+<iframe src="https://store.steampowered.com/widget/900003/" class="max-w-full w-[800px] h-48 mx-auto">
+</iframe>
+</div>
+</div>
+<div class="px-5 pt-12 pb-6 max-w-contents mx-auto">
+<div class="flex flex-wrap mb-3">
+<div class="_detailItem_fb8d98 flex items-center text-sm mb-3">
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" class="mr-3" height="1.5em" width="1.5em" xmlns="http://www.w3.org/2000/svg">
+<path d="M5 22h14c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2h-2V2h-2v2H9V2H7v2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2zm6-3.586-3.707-3.707 1.414-1.414L11 15.586l4.293-4.293 1.414 1.414L11 18.414zM5 7h14v2H5V7z">
+</path>
+</svg>
+<div class="mr-3 font-medium">すべおめした日<!-- -->:</div>
+<div class="text-yellow">2021-11-15</div>
+</div>
+<div class="_detailItem_fb8d98 flex items-center text-sm mb-3">
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" class="mr-3" height="1.5em" width="1.5em" xmlns="http://www.w3.org/2000/svg">
+<path d="M5 22h14c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2h-2V2h-2v2H9V2H7v2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2zm4.799-2.013H8v-1.799l4.977-4.97 1.799 1.799-4.977 4.97zm5.824-5.817-1.799-1.799L15.196 11l1.799 1.799-1.372 1.371zM5 7h14v2H5V7z">
+</path>
+</svg>
+<div class="mr-3 font-medium">最終更新日<!-- -->:</div>
+<div class="text-yellow">2021-11-15</div>
+</div>
+<div class="_detailItem_fb8d98 flex items-center text-sm mb-3">
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" class="mr-3" height="1.5em" width="1.5em" xmlns="http://www.w3.org/2000/svg">
+<path d="M256 0a256 256 0 1 1 0 512A256 256 0 1 1 256 0zM232 120l0 136c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2 280 120c0-13.3-10.7-24-24-24s-24 10.7-24 24z">
+</path>
+</svg>
+<div class="mr-3 font-medium">かかった時間<!-- -->:</div>
+<div class="text-yellow">300 h</div>
+</div>
+<div class="_detailItem_fb8d98 flex items-center text-sm mb-3">
+<svg stroke="currentColor" fill="none" stroke-width="0" viewBox="0 0 24 24" class="mr-3" height="1.5em" width="1.5em" xmlns="http://www.w3.org/2000/svg">
+<path d="M13 6H11V7C11 7.55228 11.4477 8 12 8C12.5523 8 13 7.55228 13 7V6Z" fill="currentColor">
+</path>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M6 2V4H7V7C7 9.76142 9.23858 12 12 12C9.23858 12 7 14.2386 7 17V20H6V22H18V20H17V17C17 14.2386 14.7614 12 12 12C14.7614 12 17 9.76142 17 7V4H18V2H6ZM9 4H15V7C15 8.65685 13.6569 10 12 10C10.3431 10 9 8.65685 9 7V4ZM9 17V20H15V17C15 15.3431 13.6569 14 12 14C10.3431 14 9 15.3431 9 17Z" fill="currentColor">
+</path>
+</svg>
+<div class="mr-3 font-medium">放置ゲー<!-- -->:</div>
+<div class="text-yellow">◯</div>
+</div>
+</div>
+<div class="flex flex-wrap mb-3">
+<div class="_detailItem_fb8d98 flex items-center text-sm mb-3">
+<div class="mr-3 font-medium">総合評価<!-- -->:</div>
+<div class="text-yellow">
+<span class="flex">
+<span class="flex undefined">
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+<g fill="none">
+<path d="M0 0h24v24H0z">
+</path>
+<path d="M0 0h24v24H0z">
+</path>
+</g>
+<path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z">
+</path>
+</svg>
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+<g fill="none">
+<path d="M0 0h24v24H0z">
+</path>
+<path d="M0 0h24v24H0z">
+</path>
+</g>
+<path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z">
+</path>
+</svg>
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+<path fill="none" d="M0 0h24v24H0z">
+</path>
+<path d="m22 9.24-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28z">
+</path>
+</svg>
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+<path fill="none" d="M0 0h24v24H0z">
+</path>
+<path d="m22 9.24-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28z">
+</path>
+</svg>
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+<path fill="none" d="M0 0h24v24H0z">
+</path>
+<path d="m22 9.24-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28z">
+</path>
+</svg>
+</span>
+</span>
+</div>
+</div>
+<div class="_detailItem_fb8d98 flex items-center text-sm mb-3">
+<div class="mr-3 font-medium">実績集めの楽しさ<!-- -->:</div>
+<div class="text-yellow">
+<span class="flex">
+<span class="flex undefined">
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+<g fill="none">
+<path d="M0 0h24v24H0z">
+</path>
+<path d="M0 0h24v24H0z">
+</path>
+</g>
+<path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z">
+</path>
+</svg>
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+<path fill="none" d="M0 0h24v24H0z">
+</path>
+<path d="m22 9.24-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28z">
+</path>
+</svg>
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+<path fill="none" d="M0 0h24v24H0z">
+</path>
+<path d="m22 9.24-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28z">
+</path>
+</svg>
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+<path fill="none" d="M0 0h24v24H0z">
+</path>
+<path d="m22 9.24-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28z">
+</path>
+</svg>
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+<path fill="none" d="M0 0h24v24H0z">
+</path>
+<path d="m22 9.24-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28z">
+</path>
+</svg>
+</span>
+</span>
+</div>
+</div>
+<div class="_detailItem_fb8d98 flex items-center text-sm mb-3">
+<div class="mr-3 font-medium">難易度<!-- -->:</div>
+<div class="text-yellow">
+<span class="flex">
+<span class="flex undefined">
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+<g fill="none">
+<path d="M0 0h24v24H0z">
+</path>
+<path d="M0 0h24v24H0z">
+</path>
+</g>
+<path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z">
+</path>
+</svg>
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+<path fill="none" d="M0 0h24v24H0z">
+</path>
+<path d="m22 9.24-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28z">
+</path>
+</svg>
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+<path fill="none" d="M0 0h24v24H0z">
+</path>
+<path d="m22 9.24-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28z">
+</path>
+</svg>
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+<path fill="none" d="M0 0h24v24H0z">
+</path>
+<path d="m22 9.24-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28z">
+</path>
+</svg>
+<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+<path fill="none" d="M0 0h24v24H0z">
+</path>
+<path d="m22 9.24-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28z">
+</path>
+</svg>
+</span>
+</span>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-bg-200">
+<div class="max-w-contents mx-auto">
+<div class="px-5 py-14">
+<div>
+<p>放置しているだけで実績が埋まる。<br>
+たまに強化ボタンを押すだけでよいので、他の作業と並行できた。</p>
+</div>
+</div>
+</div>
+</div>
+</div>"
+`;

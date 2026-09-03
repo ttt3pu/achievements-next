@@ -1,0 +1,44 @@
+---
+description: テストのガイドライン
+globs: **/*.test.{ts,tsx}
+alwaysApply: false
+---
+
+# テストのガイドライン
+
+## 命名
+
+`it` / `test` は日本語で、期待値が読み取れる「◯◯こと」の形。「◯◯する」だと動作の説明になり、何が保証されるのか分からない。`describe` はテスト対象の識別子（関数名・コンポーネント名）をそのまま使う。
+
+```ts
+// ❌ BAD
+describe('achievement post content rendering', () => {
+  it('escapes HTML embedded in post content', () => {});
+  it.each(posts)('%s の HTML を維持する', () => {});
+});
+
+// ✅ GOOD
+describe('renderMarkdown', () => {
+  it('本文に埋め込まれた HTML がエスケープされること', () => {});
+  it.each(posts)('%s の HTML が変わらないこと', () => {});
+});
+```
+
+変数名・関数名・コメント内の識別子は英語のままでよい。訳さない。
+
+## 何をテストするか
+
+- プロダクトの入出力を通す。入力は `tests/fixtures/` の架空データを使い、実在のゲーム名や実際のレビュー本文は持ち込まない
+- ただしフィールドの形や本文の構造は本番相当にする（seed の Markdown 構造やデータの幅に合わせる）
+- ライブラリの仕様や API カタログをなぞるテストは書かない。壊れたときにユーザー影響が出る境界だけを対象にする
+- 出力が HTML など大きなテキストならスナップショットで固定する。差分が製品影響として読めることを優先する
+
+## 配置と書き方
+
+- 実装の隣に `*.test.ts(x)` を置く。ただし `pages/` 配下は Next のルートとして扱われるため、ページのテストは `tests/` に置く
+- DOM が必要なファイルは先頭に `// @vitest-environment jsdom` を書き、`@testing-library/react` で描画・操作する
+- タイムゾーンは `vitest.config.ts` で固定済み。日付の期待値をローカル環境に合わせて書き換えない
+
+## 実行
+
+`pnpm test` / `pnpm test:update`（`pnpm exec vitest` は使わない）。テスト名を変えるとスナップショットのキーも変わるので `pnpm test:update` で更新する。
