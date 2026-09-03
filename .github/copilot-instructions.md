@@ -17,9 +17,11 @@
 - スクリプト実行: `pnpm <script>`
 - 正確なバージョンは `package.json` の `packageManager` フィールドを参照
 
-### `pnpm exec` / `npx` / `pnpm dlx` は禁止
+### よく使う品質コマンドは scripts 経由
 
-毎回の承認が必要になるため使わない。Prettier / ESLint / Stylelint / Vitest などは必ず scripts 経由（`pnpm prettier:fix`、`pnpm test`、`pnpm check` など）。必要なコマンドが無い場合は **script を追加してから** `pnpm <script>` で実行する。
+`test` / `lint` / `prettier` / `check` など、すでに用意されている・しょっちゅう使うものは `pnpm exec` / `npx` / `pnpm dlx` ではなく `pnpm <script>` で実行する（例: `pnpm check`、`pnpm prettier:fix`、`pnpm test`）。
+
+何でも script に追加しない。ワンショットや稀な用途のために scripts を増やさない。
 
 ## PR作成時の必須手順
 

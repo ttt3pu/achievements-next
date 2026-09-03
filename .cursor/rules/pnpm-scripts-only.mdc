@@ -1,26 +1,19 @@
 ---
-description: Forbid pnpm exec/npx; use package.json scripts only
+description: Use existing pnpm scripts for test/lint/prettier; do not pnpm exec those
 alwaysApply: true
 ---
 
-# pnpm scripts のみ使う
+# よく使う品質コマンドは scripts 経由
 
-`pnpm exec` / `npx` / `pnpm dlx` は**禁止**（毎回承認が必要になるため）。
+対象は **test / lint / prettier / check** など、すでに `package.json` にあるもの、または同系統でしょっちゅう使うものだけ。
 
 ## やること
 
-- 既存の `package.json` scripts を使う（`pnpm check`、`pnpm prettier:fix`、`pnpm test`、`pnpm test:update` など）
-- 必要なコマンドが scripts に無いときは、**先に script を追加してから** `pnpm <script>` で実行する
-- 一時的な回避として `pnpm exec` を使わない
+- 上記は `pnpm exec` / `npx` / `pnpm dlx` ではなく `pnpm <script>` で実行する
+  - 例: `pnpm check`、`pnpm prettier:fix`、`pnpm test`、`pnpm test:update`、`pnpm lint:js`
+- **何でも script に追加しない**。ワンショットや稀なコマンド用に script を増やさない
 
-## 対応表
+## やらないこと
 
-| やりたいこと | 使うコマンド |
-|---|---|
-| 品質一括 | `pnpm check` |
-| Prettier 確認 / 修正 | `pnpm prettier` / `pnpm prettier:fix` |
-| ESLint | `pnpm lint:js` |
-| Stylelint | `pnpm lint:style` |
-| テスト | `pnpm test` |
-| スナップショット更新 | `pnpm test:update` |
-| テスト watch | `pnpm test:watch` |
+- 既にある `prettier` / `test` / `lint:*` を `pnpm exec prettier` などで呼び直す
+- 「script が無いから追加してから実行」を常套手段にする

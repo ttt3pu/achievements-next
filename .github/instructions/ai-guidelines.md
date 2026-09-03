@@ -64,7 +64,7 @@ applyTo: '**'
 - TypeScript の型安全性を維持してください
 - React の関数コンポーネントを使用してください
 - 品質チェックは `pnpm check` を使う（個別なら `pnpm prettier` / `pnpm prettier:fix` / `pnpm test` / `pnpm test:update` など）
-- **`pnpm exec` / `npx` / `pnpm dlx` は禁止**（承認が毎回必要になるため）。足りないコマンドは `package.json` の scripts に追加してから `pnpm <script>` で実行する
+- `test` / `lint` / `prettier` / `check` などよく使うものは `pnpm exec` ではなく既存 scripts 経由。何でも script 追加はしない
 
 ### 変更を行う際の注意点
 
