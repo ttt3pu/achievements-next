@@ -4,7 +4,11 @@ description: 'Setup project with pnpm, Node.js, and dependencies'
 runs:
   using: composite
   steps:
-    - uses: pnpm/action-setup@v6
+    # pnpm v10 以前は pnpm/action-setup@v4 を使用する。
+    # 将来的に pnpm v11 以降へアップグレードした場合は後継の pnpm/setup へ移行する。
+    - uses: pnpm/action-setup@v4
+      with:
+        run_install: false
 
     - name: Use Node.js
       uses: actions/setup-node@v6
