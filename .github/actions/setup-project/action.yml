@@ -4,7 +4,7 @@ description: 'Setup project with pnpm, Node.js, and dependencies'
 runs:
   using: composite
   steps:
-    - uses: pnpm/setup@5d160c5bc68a09337ad0d5654e237e03253b5879 # v1
+    - uses: pnpm/setup@703c52620218391530e48b9e8870d5c0082e1b9b # v2
       with:
         install: false
 
