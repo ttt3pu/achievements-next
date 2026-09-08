@@ -9,5 +9,11 @@ module.exports = {
         ignoreAtRules: ['tailwind', 'apply', 'theme', 'reference'],
       },
     ],
+    'at-rule-prelude-no-invalid': [
+      true,
+      {
+        ignoreAtRules: ['apply'],
+      },
+    ],
   },
 };
