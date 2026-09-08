@@ -6,19 +6,9 @@
   "engines": {
     "node": "24"
   },
-  "packageManager": "pnpm@10.34.5",
+  "packageManager": "pnpm@12.2.1",
   "prisma": {
     "seed": "tsx prisma/seed.ts"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "@parcel/watcher",
-      "@prisma/client",
-      "@prisma/engines",
-      "esbuild",
-      "prisma",
-      "sharp"
-    ]
   },
   "scripts": {
     "dev": "next dev --hostname achievements-next.lvh.me",
