@@ -39,25 +39,18 @@ jobs:
     env:
       DATABASE_URL: postgresql://root:root@localhost:5432/attt_test
       TEST_DATABASE_URL: postgresql://root:root@localhost:5432/attt_test
-    services:
-      db:
-        image: postgres:16
-        env:
-          POSTGRES_DB: attt_test
-          POSTGRES_USER: root
-          POSTGRES_PASSWORD: root
-          TZ: 'Asia/Tokyo'
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           submodules: true
+
+      - name: Start test database
+        run: |
+          docker compose -f prisma/compose.yml up -d db
+          until docker compose -f prisma/compose.yml exec -T db pg_isready -U root; do
+            sleep 1
+          done
+          docker compose -f prisma/compose.yml exec -T db psql -U root -d postgres -c 'CREATE DATABASE attt_test' || true
 
       - uses: ./.github/actions/setup-project
 
