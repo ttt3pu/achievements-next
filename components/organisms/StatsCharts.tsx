@@ -2,7 +2,9 @@ import { AchievementPost } from '@prisma/client';
 import HoursChart from 'components/molecules/HoursChart';
 import IdleGameChart from 'components/molecules/IdleGameChart';
 import MonthlyChart from 'components/molecules/MonthlyChart';
+import MonthlyHoursChart from 'components/molecules/MonthlyHoursChart';
 import RatingChart from 'components/molecules/RatingChart';
+import YearlyHoursChart from 'components/molecules/YearlyHoursChart';
 import { ReactNode } from 'react';
 
 type Props = {
@@ -40,6 +42,12 @@ export default function StatsCharts({ posts, compact = false }: Props) {
     <div className={`grid ${compact ? 'gap-3' : 'gap-6'}`}>
       <ChartSection title="月別クリア数" compact={compact}>
         <MonthlyChart posts={posts} height={chartHeight} />
+      </ChartSection>
+      <ChartSection title="年別プレイ時間" compact={compact}>
+        <YearlyHoursChart posts={posts} height={chartHeight} />
+      </ChartSection>
+      <ChartSection title="月別プレイ時間" compact={compact}>
+        <MonthlyHoursChart posts={posts} height={chartHeight} />
       </ChartSection>
       <ChartSection title="評価分布" compact={compact}>
         <RatingChart posts={posts} height={chartHeight} />

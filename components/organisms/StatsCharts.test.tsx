@@ -25,4 +25,11 @@ describe('統計チャートの表示', () => {
     const totalHours = posts.reduce((sum, post) => sum + post.total_hours, 0);
     expect(screen.getByText(`合計: ${totalHours.toLocaleString()} 時間`)).toBeDefined();
   });
+
+  it('年別および月別のプレイ時間セクションが表示されること', () => {
+    render(<StatsCharts posts={posts} />);
+
+    expect(screen.getByRole('heading', { name: '年別プレイ時間' })).toBeDefined();
+    expect(screen.getByRole('heading', { name: '月別プレイ時間' })).toBeDefined();
+  });
 });
