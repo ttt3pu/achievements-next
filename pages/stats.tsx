@@ -28,7 +28,7 @@ type Props = {
 
 export default function Stats({ posts }: Props) {
   return (
-    <div className="px-5 pb-12">
+    <div className="px-5 pt-8 pb-12">
       <div className="max-w-contents mx-auto">
         <h1 className="text-2xl font-medium mb-8">統計</h1>
         <p className="text-sm text-bg-500 mb-6">全 {posts.length} 本のクリアデータを集計しています。</p>
