@@ -156,7 +156,7 @@ export default function Home({ posts: propsPosts }: { posts: AchievementPost[] }
 
       {/* チャートサイドバー */}
       <aside className="w-96 shrink-0 max-lg:w-full">
-        <div className="mb-3 text-xs font-medium text-bg-500 uppercase tracking-wider">統計</div>
+        <div className="mt-2 mb-3 text-xs font-medium text-bg-500 uppercase tracking-wider">統計</div>
         <StatsCharts posts={posts} compact />
       </aside>
     </div>
