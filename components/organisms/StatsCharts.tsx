@@ -12,23 +12,10 @@ type Props = {
   compact?: boolean;
 };
 
-function ChartSection({
-  title,
-  subTitle,
-  children,
-  compact,
-}: {
-  title: string;
-  subTitle?: ReactNode;
-  children: ReactNode;
-  compact?: boolean;
-}) {
+function ChartSection({ title, children, compact }: { title: string; children: ReactNode; compact?: boolean }) {
   return (
     <section className={`bg-bg-200 rounded ${compact ? 'p-3' : 'p-6'}`}>
-      <div className={`flex items-baseline justify-between ${compact ? 'mb-2' : 'mb-4'}`}>
-        <h2 className={`font-medium ${compact ? 'text-sm' : 'text-lg'}`}>{title}</h2>
-        {subTitle && <span className={`text-bg-500 font-normal ${compact ? 'text-xs' : 'text-sm'}`}>{subTitle}</span>}
-      </div>
+      <h2 className={`font-medium ${compact ? 'text-sm mb-2' : 'text-lg mb-4'}`}>{title}</h2>
       {children}
     </section>
   );
@@ -40,6 +27,12 @@ export default function StatsCharts({ posts, compact = false }: Props) {
 
   return (
     <div className={`grid ${compact ? 'gap-3' : 'gap-6'}`}>
+      <section className={`bg-bg-200 rounded ${compact ? 'p-3' : 'p-6'}`}>
+        <h2 className={`font-medium text-bg-500 ${compact ? 'text-xs mb-1' : 'text-sm mb-2'}`}>総プレイ時間</h2>
+        <div className={`font-semibold ${compact ? 'text-xl' : 'text-3xl'}`}>
+          {totalHours.toLocaleString()} <span className="text-sm font-normal text-bg-500">時間</span>
+        </div>
+      </section>
       <ChartSection title="月別クリア数" compact={compact}>
         <MonthlyChart posts={posts} height={chartHeight} />
       </ChartSection>
@@ -52,7 +45,7 @@ export default function StatsCharts({ posts, compact = false }: Props) {
       <ChartSection title="評価分布" compact={compact}>
         <RatingChart posts={posts} height={chartHeight} />
       </ChartSection>
-      <ChartSection title="プレイ時間" subTitle={`合計: ${totalHours.toLocaleString()} 時間`} compact={compact}>
+      <ChartSection title="プレイ時間" compact={compact}>
         <HoursChart posts={posts} height={chartHeight} />
       </ChartSection>
       <ChartSection title="放置ゲー比率" compact={compact}>

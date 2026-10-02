@@ -12,18 +12,20 @@ afterEach(() => {
 });
 
 describe('統計チャートの表示', () => {
-  it('プレイ時間セクションに全投稿の合計プレイ時間が表示されること', () => {
+  it('最上部の総プレイ時間セクションに全投稿の合計プレイ時間が表示されること', () => {
     render(<StatsCharts posts={posts} />);
 
+    expect(screen.getByRole('heading', { name: '総プレイ時間' })).toBeDefined();
     const totalHours = posts.reduce((sum, post) => sum + post.total_hours, 0);
-    expect(screen.getByText(`合計: ${totalHours.toLocaleString()} 時間`)).toBeDefined();
+    expect(screen.getByText(totalHours.toLocaleString())).toBeDefined();
   });
 
-  it('コンパクト表示でも合計プレイ時間が表示されること', () => {
+  it('コンパクト表示でも総プレイ時間が表示されること', () => {
     render(<StatsCharts posts={posts} compact />);
 
+    expect(screen.getByRole('heading', { name: '総プレイ時間' })).toBeDefined();
     const totalHours = posts.reduce((sum, post) => sum + post.total_hours, 0);
-    expect(screen.getByText(`合計: ${totalHours.toLocaleString()} 時間`)).toBeDefined();
+    expect(screen.getByText(totalHours.toLocaleString())).toBeDefined();
   });
 
   it('年別および月別のプレイ時間セクションが表示されること', () => {
