@@ -9,9 +9,7 @@ import type { SteamPostDetails } from 'utils/api/steamPost';
 import { steamAppIdFromInput } from 'utils/steamAppId';
 import SteamBanner from 'components/atoms/SteamBanner';
 import FormCheckbox from 'components/atoms/FormCheckbox';
-import FormDatePicker from 'components/atoms/FormDatepicker';
 import FormTextarea from 'components/atoms/FormTextarea';
-import Button from 'components/atoms/Button';
 import { PostEditSubmitPayload } from 'types/PostEditSubmitPayload';
 
 type Props = {
@@ -43,22 +41,18 @@ export default function PostView({ post, editMode, handleSubmit }: Props) {
   const [yarikomiRating, setYarikomiRating] = useState(String(post.yarikomi_rating));
   const [difficultyRating, setDifficultyRating] = useState(String(post.difficulty_rating));
   const [isIdleGame, setIsIdleGame] = useState(post.is_idle_game);
-  const [completedAt, setCompletedAt] = useState(post.completed_at);
+  const [completedAt, setCompletedAt] = useState<Date | null>(post.steam_id ? post.completed_at : null);
   const [content, setContent] = useState(post.content);
 
-  const titleEdited = useRef(Boolean(post.title));
-  const dateEdited = useRef(Boolean(post.steam_id));
-  const [steamDetails, setSteamDetails] = useState<SteamPostDetails | null>(null);
-
-  const [previewAppId, setPreviewAppId] = useState(steamAppIdFromInput(String(post.steam_id)));
+  const [importing, setImporting] = useState(false);
 
   function importDetails(details: SteamPostDetails) {
-    setPreviewAppId(details.appId);
-    if (details.imageUrl) setImageUrl(details.imageUrl);
-    setSteamDetails(details);
-    if (!titleEdited.current && details.title) setTitle(details.title);
-    if (!dateEdited.current && details.completedAt) setCompletedAt(new Date(details.completedAt));
+    setTitle(details.title ?? '');
+    setImageUrl(details.imageUrl);
+    setCompletedAt(details.completedAt ? new Date(details.completedAt) : null);
   }
+
+  const canSave = Boolean(steamAppIdFromInput(steamId) && title.trim() && completedAt && !importing);
 
   const contentHtml = renderMarkdown(content);
 
@@ -66,7 +60,7 @@ export default function PostView({ post, editMode, handleSubmit }: Props) {
   const [isSaving, setIsSaving] = useState(false);
 
   async function submit() {
-    if (saving.current || !handleSubmit) return;
+    if (saving.current || !handleSubmit || !canSave || !completedAt) return;
     const payload: PostEditSubmitPayload = {
       steam_id: steamAppIdFromInput(steamId) ?? 0,
       title,
@@ -94,130 +88,107 @@ export default function PostView({ post, editMode, handleSubmit }: Props) {
     <div>
       <div className="bg-bg-300">
         <div className="max-w-contents mx-auto px-5 py-8">
-          {editMode ? (
-            <label>
-              タイトル
-              <FormInput
-                value={title}
-                handleChange={(value) => {
-                  titleEdited.current = true;
-                  setTitle(value);
-                }}
-                className="w-full"
-              />
-            </label>
-          ) : (
-            <h1 className="text-2xl">{title}</h1>
-          )}
+          <h1 className={editMode ? 'text-2xl break-words' : 'text-2xl'}>
+            {editMode ? (post.steam_id ? '投稿の編集' : '新規投稿') : title}
+          </h1>
         </div>
       </div>
 
       <div className="bg-bg-200">
         <div className="max-w-contents mx-auto px-5 py-12">
-          {editMode && (
-            <SteamPostImport
-              value={steamId}
-              onChange={(value) => {
-                setSteamId(value);
-                setSteamDetails(null);
-                setPreviewAppId(null);
-                if (steamAppIdFromInput(value) !== steamAppIdFromInput(steamId)) setImageUrl(null);
-                if (!titleEdited.current) setTitle('');
-                if (!dateEdited.current) setCompletedAt(post.completed_at);
-              }}
-              onImported={importDetails}
-            />
-          )}
-          {editMode && imageUrl && <SteamBanner imageUrl={imageUrl} className="mb-4 max-w-full" />}
-          {editMode && steamDetails && (
-            <div className="mb-4">
-              {steamDetails.title && (
-                <p>
-                  タイトル候補: {steamDetails.title}{' '}
-                  <button
-                    type="button"
-                    onClick={() => {
-                      titleEdited.current = true;
-                      setTitle(steamDetails.title);
-                    }}
-                  >
-                    このタイトルを使う
-                  </button>
-                </p>
-              )}
-              {steamDetails.completedAt && (
-                <p>
-                  コンプ日候補: {format(new Date(steamDetails.completedAt), 'yyyy-MM-dd')}{' '}
-                  <button
-                    type="button"
-                    onClick={() => {
-                      dateEdited.current = true;
-                      setCompletedAt(new Date(steamDetails.completedAt));
-                    }}
-                  >
-                    この日付を使う
-                  </button>
-                </p>
-              )}
-              <p>コンプ日は現在の実績構成から求めた候補です。実績追加前のコンプ日とは異なる場合があります。</p>
-            </div>
-          )}
-          {(!editMode || previewAppId) && (
+          {editMode ? (
+            <section aria-labelledby="steam-info-heading" className="min-w-0 rounded border border-bg-500 p-4 sm:p-6">
+              <h2 id="steam-info-heading" className="text-xl mb-4">
+                ゲーム情報
+              </h2>
+              <SteamPostImport
+                value={steamId}
+                onChange={(value) => {
+                  if (steamAppIdFromInput(value) !== steamAppIdFromInput(steamId)) {
+                    setTitle('');
+                    setImageUrl(null);
+                    setCompletedAt(null);
+                  }
+                  setSteamId(value);
+                }}
+                onImported={importDetails}
+                onLoadingChange={setImporting}
+              />
+              <div className="grid min-w-0 gap-5 sm:grid-cols-[minmax(0,280px)_minmax(0,1fr)]">
+                <SteamBanner imageUrl={imageUrl} className="block w-full h-auto rounded object-contain" />
+                <div className="min-w-0 space-y-4">
+                  <label className="block">
+                    <span className="block mb-1 text-sm">タイトル（Steamから取得）</span>
+                    <output
+                      aria-label="タイトル"
+                      className="block w-full min-w-0 rounded bg-bg-300 px-3 py-2 break-words"
+                    >
+                      {title || '未取得'}
+                    </output>
+                  </label>
+                  <div>
+                    <p className="text-sm mb-1">すべおめした日（Steamの実績から取得）</p>
+                    <p>{completedAt ? format(new Date(completedAt), 'yyyy-MM-dd') : '未取得'}</p>
+                  </div>
+                  <p className="text-sm">
+                    コンプ日は現在の全実績の最終解除日です。実績追加前のコンプ日とは異なる場合があります。
+                  </p>
+                </div>
+              </div>
+            </section>
+          ) : (
             <iframe
-              src={`https://store.steampowered.com/widget/${editMode ? previewAppId : steamId}/`}
+              src={`https://store.steampowered.com/widget/${steamId}/`}
               className="max-w-full w-[800px] h-48 mx-auto"
             ></iframe>
           )}
         </div>
       </div>
 
-      <div className="px-5 pt-12 pb-6 max-w-contents mx-auto">
-        <div className="flex flex-wrap mb-3">
-          <DetailItem title="すべおめした日" icon="calendar-check">
-            {editMode ? (
-              <FormDatePicker
-                value={completedAt}
-                handleChange={(value) => {
-                  dateEdited.current = true;
-                  setCompletedAt(value);
-                }}
-              />
-            ) : (
-              format(new Date(completedAt), 'yyyy-MM-dd')
-            )}
-          </DetailItem>
-          <DetailItem title="最終更新日" icon="calendar-edit">
-            {format(new Date(updated_at), 'yyyy-MM-dd')}
-          </DetailItem>
-          <DetailItem title="かかった時間" icon="clock">
-            {editMode ? <FormInput value={totalHours} handleChange={setTotalHours} /> : totalHours + ' h'}
-          </DetailItem>
-          {editMode ? (
-            <DetailItem title="放置ゲー" icon="sand-clock">
-              <FormCheckbox value={isIdleGame} handleChange={setIsIdleGame} />
-            </DetailItem>
-          ) : (
-            isIdleGame && (
-              <DetailItem title="放置ゲー" icon="sand-clock">
-                ◯
-              </DetailItem>
-            )
-          )}
-        </div>
+      <div className={`px-5 ${editMode ? 'pt-8' : 'pt-12'} pb-6 max-w-contents mx-auto`}>
         {editMode ? (
-          <div className="flex flex-wrap mb-3">
-            <DetailItem title="総合評価">
-              <FormInput value={rating} handleChange={setRating} />
-            </DetailItem>
-            <DetailItem title="実績集めの楽しさ">
-              <FormInput value={yarikomiRating} handleChange={setYarikomiRating} />
-            </DetailItem>
-            <DetailItem title="難易度">
-              <FormInput value={difficultyRating} handleChange={setDifficultyRating} />
-            </DetailItem>
-          </div>
+          <section aria-labelledby="post-details-heading">
+            <h2 id="post-details-heading" className="text-xl mb-4">
+              プレイ記録
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {[
+                { label: 'かかった時間（時間）', value: totalHours, onChange: setTotalHours },
+                { label: '総合評価', value: rating, onChange: setRating },
+                { label: '実績集めの楽しさ', value: yarikomiRating, onChange: setYarikomiRating },
+                { label: '難易度', value: difficultyRating, onChange: setDifficultyRating },
+              ].map((field) => (
+                <label key={field.label} className="block min-w-0">
+                  <span className="block mb-2 text-sm">{field.label}</span>
+                  <FormInput value={field.value} handleChange={field.onChange} className="block w-full min-w-0" />
+                </label>
+              ))}
+            </div>
+            <label className="flex items-center gap-3 mt-5">
+              <FormCheckbox value={isIdleGame} handleChange={setIsIdleGame} />
+              放置ゲー
+            </label>
+          </section>
         ) : (
-          <Rating rating={rating} yarikomi_rating={yarikomiRating} difficulty_rating={difficultyRating} />
+          <>
+            <div className="flex flex-wrap mb-3">
+              <DetailItem title="すべおめした日" icon="calendar-check">
+                {format(new Date(completedAt), 'yyyy-MM-dd')}
+              </DetailItem>
+              <DetailItem title="最終更新日" icon="calendar-edit">
+                {format(new Date(updated_at), 'yyyy-MM-dd')}
+              </DetailItem>
+              <DetailItem title="かかった時間" icon="clock">
+                {totalHours + ' h'}
+              </DetailItem>
+              {isIdleGame && (
+                <DetailItem title="放置ゲー" icon="sand-clock">
+                  ◯
+                </DetailItem>
+              )}
+            </div>
+            <Rating rating={rating} yarikomi_rating={yarikomiRating} difficulty_rating={difficultyRating} />
+          </>
         )}
       </div>
 
@@ -228,9 +199,21 @@ export default function PostView({ post, editMode, handleSubmit }: Props) {
               <div>
                 <FormTextarea className="w-full" value={content} handleChange={setContent} />
                 <div className="text-center mt-7">
-                  <Button color="yellow" onClick={() => submit()} className="w-32 justify-center">
+                  {!canSave && (
+                    <p role="status" className="mb-3">
+                      {importing
+                        ? 'Steam情報を取得しています。'
+                        : '保存にはSteamからタイトルとコンプ日を取得してください。'}
+                    </p>
+                  )}
+                  <button
+                    type="button"
+                    disabled={isSaving || !canSave}
+                    onClick={() => submit()}
+                    className="w-32 rounded bg-yellow px-4 py-2 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
                     {isSaving ? '保存中…' : 'Save'}
-                  </Button>
+                  </button>
                 </div>
               </div>
             ) : (

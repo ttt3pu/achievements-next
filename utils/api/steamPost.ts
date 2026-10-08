@@ -96,7 +96,7 @@ export async function fetchSteamPostDetails(appId: number, key: string, steamId:
       result.imageUrl = imageUrl(object(item.assets));
     }
   }
-  if (!result.title) result.warnings.push('タイトルを取得できませんでした。手入力してください。');
+  if (!result.title) result.warnings.push('タイトルを取得できませんでした。時間をおいて再取得してください。');
   if (!result.imageUrl) result.warnings.push('画像を取得できませんでした。');
   if (stats.status === 'fulfilled') {
     const player = object(object(stats.value).playerstats);
@@ -121,6 +121,7 @@ export async function fetchSteamPostDetails(appId: number, key: string, steamId:
       ).toISOString();
     }
   }
-  if (!result.completedAt) result.warnings.push('コンプ日を確認できませんでした。手入力してください。');
+  if (!result.completedAt)
+    result.warnings.push('コンプ日を確認できませんでした。全実績の解除状況とSteamの公開設定を確認してください。');
   return result;
 }
