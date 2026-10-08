@@ -1,3 +1,5 @@
+import { acquireSteamSyncLease, releaseSteamSyncLease, SteamSyncPausedError } from './steamSyncThrottle';
+import { SteamRateLimitError } from './steamPost';
 import { syncSteamImageBatch } from './syncSteamImages';
 import { fetchSteamImages } from './steamPost';
 import type { AchievementPost } from '@prisma/client';
@@ -15,7 +17,10 @@ import {
   type SortKey,
 } from 'utils/api/achievementPost';
 
-vi.mock('./steamPost', () => ({ fetchSteamImages: vi.fn() }));
+vi.mock('./steamPost', async (original) => ({
+  ...(await original<typeof import('./steamPost')>()),
+  fetchSteamImages: vi.fn(),
+}));
 
 // テーブルを空にしてから流すので、開発用や本番の DB に向いていたら実行させない
 const databaseName = new URL(process.env.DATABASE_URL || 'postgresql://invalid/').pathname.slice(1);
@@ -63,6 +68,7 @@ const input: AchievementPostInput = {
 };
 
 beforeEach(async () => {
+  await prisma.$executeRaw`DELETE FROM "SteamApiThrottle"`;
   await prisma.achievementPost.deleteMany();
   await prisma.achievementPost.createMany({ data: rows });
 
@@ -174,13 +180,20 @@ describe('未登録の投稿画像の一括保存', () => {
     await prisma.achievementPost.update({ where: { id: existing.id }, data: { image_url: existingUrl } });
     vi.mocked(fetchSteamImages).mockResolvedValue(new Map([[target.steam_id, newUrl]]));
     const result = await syncSteamImageBatch(prisma, 'test-key', 0);
-    expect(result).toEqual({ processed: rows.length - 1, updated: 1, unavailable: rows.length - 2, nextCursor: null });
+    expect(result).toEqual({
+      processed: rows.length - 1,
+      updated: 1,
+      unavailable: rows.length - 2,
+      nextCursor: null,
+      waitSeconds: 2,
+    });
     expect(await prisma.achievementPost.findUnique({ where: { id: target.id } })).toEqual(
       expect.objectContaining({ ...target, image_url: newUrl }),
     );
     expect((await prisma.achievementPost.findUnique({ where: { id: existing.id } })).image_url).toBe(existingUrl);
     vi.mocked(fetchSteamImages).mockClear();
     vi.mocked(fetchSteamImages).mockResolvedValue(new Map());
+    await prisma.$executeRaw`UPDATE "SteamApiThrottle" SET next_allowed_at = NOW() - INTERVAL '1 second'`;
     await syncSteamImageBatch(prisma, 'test-key', 0);
     expect(fetchSteamImages).toHaveBeenCalledWith(
       rows.slice(2).map((row) => row.steam_id),
@@ -206,16 +219,55 @@ describe('未登録の投稿画像の一括保存', () => {
     expect(result.processed).toBe(50);
     expect(result.nextCursor).toBe(149);
     expect(vi.mocked(fetchSteamImages).mock.calls.at(-1)[0]).toHaveLength(50);
+    await prisma.$executeRaw`UPDATE "SteamApiThrottle" SET next_allowed_at = NOW() - INTERVAL '1 second'`;
     expect(await syncSteamImageBatch(prisma, 'test-key', 149)).toEqual({
       processed: 1,
       updated: 0,
       unavailable: 1,
       nextCursor: null,
+      waitSeconds: 2,
     });
   });
   it('対象がなければSteamへ問い合わせないこと', async () => {
     vi.mocked(fetchSteamImages).mockClear();
     expect((await syncSteamImageBatch(prisma, 'test-key', 2147483647)).processed).toBe(0);
     expect(fetchSteamImages).not.toHaveBeenCalled();
+  });
+});
+
+describe('サーバー間で共有する画像同期の制限', () => {
+  it('同時要求のうち1件だけが実行権を取得すること', async () => {
+    const attempts = await Promise.allSettled([
+      acquireSteamSyncLease(prisma, 'test-key'),
+      acquireSteamSyncLease(prisma, 'test-key'),
+    ]);
+    expect(attempts.filter((result) => result.status === 'fulfilled')).toHaveLength(1);
+    const failure = attempts.find((result) => result.status === 'rejected') as PromiseRejectedResult;
+    expect(failure.reason).toBeInstanceOf(SteamSyncPausedError);
+  });
+  it('解放後の待機とSteamのRetry-Afterが別の要求にも適用されること', async () => {
+    const lease = await acquireSteamSyncLease(prisma, 'test-key');
+    await releaseSteamSyncLease(prisma, lease, 120);
+    await expect(acquireSteamSyncLease(prisma, 'test-key')).rejects.toMatchObject({
+      retryAfterSeconds: expect.any(Number),
+    });
+    const [state] = await prisma.$queryRaw<
+      { seconds: number }[]
+    >`SELECT EXTRACT(EPOCH FROM (next_allowed_at - NOW()))::integer AS seconds FROM "SteamApiThrottle"`;
+    expect(state.seconds).toBeGreaterThanOrEqual(119);
+  });
+  it('失効した実行権は回復し、旧要求の解放は新要求を解除しないこと', async () => {
+    const old = await acquireSteamSyncLease(prisma, 'test-key');
+    await prisma.$executeRaw`UPDATE "SteamApiThrottle" SET lease_until = NOW() - INTERVAL '1 second', next_allowed_at = NOW() - INTERVAL '1 second'`;
+    const current = await acquireSteamSyncLease(prisma, 'test-key');
+    await releaseSteamSyncLease(prisma, old, 2);
+    await expect(acquireSteamSyncLease(prisma, 'test-key')).rejects.toBeInstanceOf(SteamSyncPausedError);
+    await releaseSteamSyncLease(prisma, current, 2);
+  });
+  it('Steamで制限されたら保存せず共有待機期限を残すこと', async () => {
+    vi.mocked(fetchSteamImages).mockRejectedValue(new SteamRateLimitError(120));
+    await expect(syncSteamImageBatch(prisma, 'test-key', 0)).rejects.toBeInstanceOf(SteamRateLimitError);
+    expect(await prisma.achievementPost.count({ where: { image_url: { not: null } } })).toBe(0);
+    await expect(syncSteamImageBatch(prisma, 'test-key', 0)).rejects.toBeInstanceOf(SteamSyncPausedError);
   });
 });

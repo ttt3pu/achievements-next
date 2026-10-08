@@ -28,10 +28,24 @@ function imageUrl(assets: JsonObject): string | null {
   return url.origin === 'https://shared.fastly.steamstatic.com' ? url.href : null;
 }
 
+export class SteamRateLimitError extends Error {
+  constructor(public retryAfterSeconds: number) {
+    super(`Steam APIの利用制限に達しました。${retryAfterSeconds}秒以上待ってから再開してください。`);
+  }
+}
+
+export function steamRetryAfterSeconds(value: string | null, now = Date.now()): number {
+  const seconds = value && /^\d+$/.test(value.trim()) ? Number(value) : value ? (Date.parse(value) - now) / 1000 : NaN;
+  return Number.isFinite(seconds) && seconds >= 0 && seconds <= 2147483647 ? Math.max(60, Math.ceil(seconds)) : 60;
+}
+
 async function request(key: string, method: string, params: Record<string, string>): Promise<unknown> {
   const url = new URL(`https://api.steampowered.com/${method}`);
   url.search = new URLSearchParams({ ...params, key }).toString();
   const response = await fetch(url, { signal: AbortSignal.timeout(8000), cache: 'no-store' });
+  if (response.status === 429 || ['25', '84'].includes(response.headers?.get('x-eresult') ?? '')) {
+    throw new SteamRateLimitError(steamRetryAfterSeconds(response.headers?.get('Retry-After') ?? null));
+  }
   if (!response.ok) throw new Error('Steam request failed');
   return response.json();
 }
@@ -43,7 +57,14 @@ export async function fetchSteamImages(appIds: number[], key: string): Promise<M
       data_request: { include_assets: true },
     }),
   });
-  const items = object(object(data).response).store_items;
+  const result = object(object(data).response);
+  const items = result.store_items;
+  if (
+    [25, 84].includes(Number(result.eresult)) ||
+    (Array.isArray(items) && items.some((item) => [25, 84].includes(Number(object(item).success))))
+  ) {
+    throw new SteamRateLimitError(60);
+  }
   const images = new Map<number, string>();
   if (Array.isArray(items))
     for (const value of items) {

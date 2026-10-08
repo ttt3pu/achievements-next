@@ -1,6 +1,9 @@
 import { imageMigrationError, type ImageMigrationPhase } from '../utils/steamImageMigrationError';
 import { createPrismaClient } from '../utils/api/createPrismaClient';
-import { fetchSteamImages } from '../utils/api/steamPost';
+import { SteamRateLimitError } from '../utils/api/steamPost';
+import { syncSteamImageBatch, SteamImageSyncError } from '../utils/api/syncSteamImages';
+import { SteamSyncPausedError } from '../utils/api/steamSyncThrottle';
+import { setTimeout } from 'node:timers/promises';
 
 async function main() {
   const apply = process.argv.includes('--apply');
@@ -30,33 +33,25 @@ async function main() {
   let prisma: ReturnType<typeof createPrismaClient>;
   try {
     prisma = createPrismaClient();
-    phase = '投稿の読み取り';
-    const posts = await prisma.achievementPost.findMany({
-      where: { image_url: null },
-      select: { id: true, steam_id: true },
-    });
-    console.log(`画像未登録: ${posts.length}件。${apply ? '保存を実行' : '確認のみ（保存しません）'}。`);
-    for (let start = 0; start < posts.length; start += 50) {
-      const batch = posts.slice(start, start + 50);
-      phase = 'Steam画像取得';
-      const images = await fetchSteamImages(
-        batch.map((post) => post.steam_id),
-        key,
+    let cursor = 0;
+    while (true) {
+      phase = '画像の保存';
+      const result = await syncSteamImageBatch(prisma, key, cursor, apply);
+      console.log(
+        `確認${result.processed}件、保存${result.updated}件、画像未取得${result.unavailable}件。${apply ? '適用' : '確認のみ'}`,
       );
-      for (const post of batch) {
-        const url = images.get(post.steam_id);
-        if (url && apply) {
-          phase = '画像の保存';
-          await prisma.achievementPost.updateMany({
-            where: { id: post.id, steam_id: post.steam_id, image_url: null },
-            data: { image_url: url },
-          });
-        }
-      }
-      console.log(`対象${batch.length}件、画像取得${images.size}件。`);
+      if (result.nextCursor === null) break;
+      cursor = result.nextCursor;
+      await setTimeout((result.waitSeconds ?? 2) * 1000);
     }
   } catch (error) {
-    console.error(imageMigrationError(error, phase));
+    console.error(
+      error instanceof SteamRateLimitError ||
+        error instanceof SteamSyncPausedError ||
+        error instanceof SteamImageSyncError
+        ? error.message
+        : imageMigrationError(error, phase),
+    );
     process.exitCode = 1;
   } finally {
     if (prisma)

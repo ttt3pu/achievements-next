@@ -5,9 +5,10 @@ import SteamImageSync from './SteamImageSync';
 afterEach(() => {
   cleanup();
   vi.unstubAllGlobals();
+  vi.useRealTimers();
 });
 function response(processed: number, updated: number, unavailable: number, nextCursor: number | null) {
-  return { ok: true, json: async () => ({ processed, updated, unavailable, nextCursor }) };
+  return { ok: true, json: async () => ({ processed, updated, unavailable, nextCursor, waitSeconds: 0 }) };
 }
 describe('管理画面からの画像一括同期', () => {
   it('表示時は同期せず、操作後にバッチを順番に処理して結果とDeploy案内を表示すること', async () => {
@@ -58,5 +59,53 @@ describe('管理画面からの画像一括同期', () => {
     fireEvent.click(screen.getByRole('button'));
     expect(fetch).toHaveBeenCalledTimes(1);
     await act(async () => finish(response(0, 0, 0, null)));
+  });
+});
+
+describe('画像同期の待機と再開', () => {
+  it('前バッチの応答から2秒経つまで次を送信しないこと', async () => {
+    vi.useFakeTimers();
+    const fetch = vi
+      .fn()
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ processed: 50, updated: 50, unavailable: 0, nextCursor: 50, waitSeconds: 2 }),
+      })
+      .mockResolvedValueOnce(response(1, 1, 0, null));
+    vi.stubGlobal('fetch', fetch);
+    render(<SteamImageSync onSynced={vi.fn().mockResolvedValue(undefined)} />);
+    await act(async () => fireEvent.click(screen.getByRole('button')));
+    expect(fetch).toHaveBeenCalledTimes(1);
+    await act(async () => vi.advanceTimersByTimeAsync(1999));
+    expect(fetch).toHaveBeenCalledTimes(1);
+    await act(async () => vi.advanceTimersByTimeAsync(1));
+    expect(fetch).toHaveBeenCalledTimes(2);
+  });
+  it('429後は待機して自動再試行せず、手動操作で停止した位置から再開すること', async () => {
+    vi.useFakeTimers();
+    const fetch = vi
+      .fn()
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ processed: 50, updated: 50, unavailable: 0, nextCursor: 50, waitSeconds: 2 }),
+      })
+      .mockResolvedValueOnce({
+        ok: false,
+        status: 429,
+        json: async () => ({ error: 'Steam利用制限', retryAfterSeconds: 60 }),
+      })
+      .mockResolvedValueOnce(response(1, 1, 0, null));
+    vi.stubGlobal('fetch', fetch);
+    render(<SteamImageSync onSynced={vi.fn().mockResolvedValue(undefined)} />);
+    await act(async () => fireEvent.click(screen.getByRole('button')));
+    await act(async () => vi.advanceTimersByTimeAsync(2000));
+    expect(fetch).toHaveBeenCalledTimes(2);
+    expect((screen.getByRole('button') as HTMLButtonElement).disabled).toBe(true);
+    await act(async () => vi.advanceTimersByTimeAsync(60000));
+    expect(fetch).toHaveBeenCalledTimes(2);
+    await act(async () => fireEvent.click(screen.getByRole('button', { name: '画像同期を再開' })));
+    expect(fetch).toHaveBeenCalledTimes(3);
+    expect(JSON.parse(fetch.mock.calls[2][1].body)).toEqual({ cursor: 50 });
+    expect(screen.getByRole('status').textContent).toContain('保存51件');
   });
 });

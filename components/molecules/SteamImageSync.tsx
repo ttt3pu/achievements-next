@@ -1,3 +1,4 @@
+import { waitForSteamSync } from 'utils/waitForSteamSync';
 import { useEffect, useRef, useState } from 'react';
 import type { SteamImageSyncResult } from 'utils/api/syncSteamImages';
 
@@ -5,6 +6,19 @@ type Props = { onSynced: () => Promise<void> };
 
 export default function SteamImageSync({ onSynced }: Props) {
   const [running, setRunning] = useState(false);
+  const [retrySeconds, setRetrySeconds] = useState(0);
+  const retryUntil = useRef(0);
+  const resume = useRef<{ cursor: number; counts: { processed: number; updated: number; unavailable: number } } | null>(
+    null,
+  );
+  useEffect(() => {
+    if (!retrySeconds) return;
+    const timer = setInterval(() => {
+      const remaining = Math.max(0, Math.ceil((retryUntil.current - Date.now()) / 1000));
+      setRetrySeconds(remaining);
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [retrySeconds]);
   const [message, setMessage] = useState('');
   const [totals, setTotals] = useState({ processed: 0, updated: 0, unavailable: 0 });
   const pending = useRef<AbortController | null>(null);
@@ -16,14 +30,15 @@ export default function SteamImageSync({ onSynced }: Props) {
   );
 
   async function sync() {
-    if (pending.current) return;
+    if (pending.current || retryUntil.current > Date.now()) return;
     const controller = new AbortController();
     pending.current = controller;
     setRunning(true);
     setMessage('画像を同期しています。');
-    const counts = { processed: 0, updated: 0, unavailable: 0 };
+    const counts = resume.current ? { ...resume.current.counts } : { processed: 0, updated: 0, unavailable: 0 };
     setTotals({ ...counts });
-    let cursor = 0;
+    let cursor = resume.current?.cursor ?? 0;
+    resume.current = null;
     try {
       while (true) {
         const response = await fetch('/api/v1/steam/sync_images', {
@@ -35,6 +50,13 @@ export default function SteamImageSync({ onSynced }: Props) {
         if (controller.signal.aborted) return;
         if (!response.ok) {
           const data = await response.json().catch(() => ({}));
+          if (response.status === 429) {
+            const seconds = Number(data.retryAfterSeconds ?? response.headers?.get('Retry-After'));
+            const wait = Number.isFinite(seconds) && seconds > 0 ? Math.ceil(seconds) : 60;
+            retryUntil.current = Date.now() + wait * 1000;
+            setRetrySeconds(wait);
+            resume.current = { cursor, counts: { ...counts } };
+          } else resume.current = null;
           throw new Error(
             typeof data.error === 'string'
               ? data.error
@@ -53,7 +75,12 @@ export default function SteamImageSync({ onSynced }: Props) {
         if (!Number.isInteger(result.nextCursor) || result.nextCursor <= cursor)
           throw new Error('同期結果を確認できませんでした。');
         cursor = result.nextCursor;
+        setMessage('次の画像取得まで待機しています。');
+        await waitForSteamSync(result.waitSeconds ?? 2, controller.signal);
+        if (controller.signal.aborted) return;
+        setMessage('画像を同期しています。');
       }
+      resume.current = null;
       setMessage('同期が完了しました。公開一覧へ反映するにはDeployを実行してください。');
     } catch (error) {
       if (controller.signal.aborted) return;
@@ -76,8 +103,19 @@ export default function SteamImageSync({ onSynced }: Props) {
 
   return (
     <div className="mb-6">
-      <button type="button" onClick={sync} disabled={running} className="px-4 py-2 bg-yellow disabled:opacity-50">
-        {running ? '画像を同期中…' : '未登録画像を一括同期'}
+      <button
+        type="button"
+        onClick={sync}
+        disabled={running || retrySeconds > 0}
+        className="px-4 py-2 bg-yellow disabled:opacity-50"
+      >
+        {running
+          ? '画像を同期中…'
+          : retrySeconds > 0
+            ? `再開まで${retrySeconds}秒`
+            : resume.current
+              ? '画像同期を再開'
+              : '未登録画像を一括同期'}
       </button>
       <p className="mt-2">画像が未登録の投稿だけを同期します。登録済みの画像・本文・評価は変更しません。</p>
       <p role="status" className="mt-2">

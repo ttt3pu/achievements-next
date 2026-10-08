@@ -1,3 +1,4 @@
+import { SteamRateLimitError } from 'utils/api/steamPost';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import handler from 'pages/api/v1/steam/sync_images';
@@ -71,4 +72,13 @@ describe('画像一括同期の管理者限定API', () => {
     const res = await invoke();
     expect(JSON.stringify(res.json.mock.calls)).not.toContain('test-secret');
   });
+});
+
+it('Steamの待機秒数を429とRetry-Afterで画面へ伝えること', async () => {
+  vi.mocked(isAdmin).mockResolvedValue(true);
+  vi.mocked(syncSteamImageBatch).mockRejectedValue(new SteamRateLimitError(120));
+  const res = await invoke();
+  expect(res.status).toHaveBeenCalledWith(429);
+  expect(res.setHeader).toHaveBeenCalledWith('Retry-After', '120');
+  expect(res.json).toHaveBeenCalledWith(expect.objectContaining({ retryAfterSeconds: 120 }));
 });

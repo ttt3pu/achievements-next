@@ -1,3 +1,5 @@
+import { SteamRateLimitError } from 'utils/api/steamPost';
+import { SteamSyncPausedError } from 'utils/api/steamSyncThrottle';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { isAdmin } from 'utils/api/isAdmin';
 import { createPrismaClient } from 'utils/api/createPrismaClient';
@@ -36,6 +38,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const result = await syncSteamImageBatch(createPrismaClient(), key, cursor);
     res.status(200).json(result);
   } catch (error) {
+    if (error instanceof SteamRateLimitError || error instanceof SteamSyncPausedError) {
+      res.setHeader('Retry-After', String(error.retryAfterSeconds));
+      res.status(429).json({ error: error.message, retryAfterSeconds: error.retryAfterSeconds });
+      return;
+    }
     res
       .status(502)
       .json({ error: error instanceof SteamImageSyncError ? error.message : imageMigrationError(error, 'DB接続') });

@@ -1,7 +1,8 @@
 export type ImageMigrationPhase = 'DB接続' | '投稿の読み取り' | 'Steam画像取得' | '画像の保存';
 
 export function imageMigrationError(error: unknown, phase: ImageMigrationPhase): string {
-  const code = error && typeof error === 'object' && 'code' in error ? error.code : undefined;
+  const source = error && typeof error === 'object' ? (error as { code?: unknown; meta?: { code?: unknown } }) : {};
+  const code = source.code === 'P2010' ? source.meta?.code : source.code;
   const advice = (() => {
     switch (code) {
       case 'P2022':
