@@ -49,27 +49,9 @@ pnpm test
 入力・保存・閲覧だけではSteam APIを呼ばない。
 画像取得には未文書化のGetItems APIを使用し、取得失敗時は手入力と代替表示で継続する。
 
-画像参照のカラムを追加するため、対象環境のDBへマイグレーションを適用してから
-アプリを起動・更新する。
-
-```sh
-direnv exec . pnpm prisma migrate deploy
-pnpm prisma generate
-```
-
-既存投稿の画像は閲覧時に取得しない。必要な環境で一度だけ以下を実行する。
-最初のコマンドは画像未登録の記事だけを対象に取得状況を確認し、DBへ保存しない。
-`--apply` は指定した `DATABASE_URL` のDBへ保存するので接続先を確認して実行する。
-
-```sh
-direnv exec . pnpm exec tsx scripts/backfill-steam-images.ts
-direnv exec . pnpm exec tsx scripts/backfill-steam-images.ts --apply
-```
-
-50件ずつまとめて画像APIへ問い合わせ、既存の画像参照を上書きしない。
-失敗時はそこで終了する。再実行しても画像未登録の記事だけを対象とする。
-画像なし・リンク切れは一覧で「画像なし」と表示する。
-
 投稿の新規作成・編集はJSONのPOSTで保存します。保存に失敗した場合はエラーを表示し、入力した内容を保持します。
 
-スキーマ変更は `ttt3pu/attt-prisma` 側のPRも必要です。そちらのマージ後にアプリ側のサブモジュール参照を更新し、新アプリの起動前に対象DBのマイグレーションを適用してください。既存投稿への画像追加はアプリ反映後に別途実行できます。公開一覧はビルド時に生成するため、画像追加後は再ビルド・再デプロイしてください。
+本番・Previewへの設定、両PRのマージ順、DB移行、画像登録と再デプロイは
+[Steam投稿補完のリリース手順](docs/operations/steam-post-release.md) を参照してください。
+Vercelへ `STEAM_WEB_API_KEY` と `STEAM_ID64` を環境ごとに設定し、新しいデプロイへ反映する必要があります。
+ローカルの `.envrc` を設定しただけでは、ホスティング側へ反映されません。
