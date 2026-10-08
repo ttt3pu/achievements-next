@@ -1,8 +1,12 @@
 // @vitest-environment jsdom
 import { act, cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import SteamImageSync from './SteamImageSync';
+beforeEach(() => {
+  vi.spyOn(window, 'confirm').mockReturnValue(true);
+});
 afterEach(() => {
+  vi.restoreAllMocks();
   cleanup();
   vi.unstubAllGlobals();
   vi.useRealTimers();
@@ -11,6 +15,20 @@ function response(processed: number, updated: number, unavailable: number, nextC
   return { ok: true, json: async () => ({ processed, updated, unavailable, nextCursor, waitSeconds: 0 }) };
 }
 describe('管理画面からの画像一括同期', () => {
+  it('確認をキャンセルした場合は通信せず、再度確認して承認した場合だけ同期すること', async () => {
+    const fetch = vi.fn().mockResolvedValue(response(1, 1, 0, null));
+    vi.stubGlobal('fetch', fetch);
+    const onSynced = vi.fn().mockResolvedValue(undefined);
+    vi.mocked(window.confirm).mockReturnValueOnce(false);
+    render(<SteamImageSync onSynced={onSynced} />);
+    fireEvent.click(screen.getByRole('button'));
+    expect(window.confirm).toHaveBeenCalledWith(expect.stringContaining('開始しますか'));
+    expect(fetch).not.toHaveBeenCalled();
+    expect(onSynced).not.toHaveBeenCalled();
+    fireEvent.click(screen.getByRole('button'));
+    await waitFor(() => expect(fetch).toHaveBeenCalledTimes(1));
+    expect(window.confirm).toHaveBeenCalledTimes(2);
+  });
   it('表示時は同期せず、操作後にバッチを順番に処理して結果とDeploy案内を表示すること', async () => {
     const fetch = vi
       .fn()
@@ -102,6 +120,10 @@ describe('画像同期の待機と再開', () => {
     expect(fetch).toHaveBeenCalledTimes(2);
     expect((screen.getByRole('button') as HTMLButtonElement).disabled).toBe(true);
     await act(async () => vi.advanceTimersByTimeAsync(60000));
+    expect(fetch).toHaveBeenCalledTimes(2);
+    vi.mocked(window.confirm).mockReturnValueOnce(false);
+    await act(async () => fireEvent.click(screen.getByRole('button', { name: '画像同期を再開' })));
+    expect(window.confirm).toHaveBeenLastCalledWith(expect.stringContaining('再開しますか'));
     expect(fetch).toHaveBeenCalledTimes(2);
     await act(async () => fireEvent.click(screen.getByRole('button', { name: '画像同期を再開' })));
     expect(fetch).toHaveBeenCalledTimes(3);

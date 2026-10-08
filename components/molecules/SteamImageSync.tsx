@@ -31,6 +31,13 @@ export default function SteamImageSync({ onSynced }: Props) {
 
   async function sync() {
     if (pending.current || retryUntil.current > Date.now()) return;
+    const action = resume.current ? '再開' : '開始';
+    if (
+      !window.confirm(
+        `未登録画像の一括同期を${action}しますか？\nSteamへ画像を問い合わせ、取得できた画像を保存します。登録済み画像・本文・評価は変更しません。\n完了後、公開一覧への反映にはDeployが必要です。`,
+      )
+    )
+      return;
     const controller = new AbortController();
     pending.current = controller;
     setRunning(true);
