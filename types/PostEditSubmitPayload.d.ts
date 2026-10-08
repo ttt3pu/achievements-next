@@ -3,6 +3,7 @@ import { AchievementPost } from '@prisma/client';
 export type PostEditSubmitPayload = Pick<
   AchievementPost,
   | 'steam_id'
+  | 'image_url'
   | 'title'
   | 'total_hours'
   | 'rating'

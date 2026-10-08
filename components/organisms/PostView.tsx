@@ -3,7 +3,11 @@ import { renderMarkdown } from 'utils/markdown';
 import Rating from 'components/molecules/Rating';
 import DetailItem from 'components/molecules/DetailItem';
 import FormInput from 'components/atoms/FormInput';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import SteamPostImport from 'components/molecules/SteamPostImport';
+import type { SteamPostDetails } from 'utils/api/steamPost';
+import { steamAppIdFromInput } from 'utils/steamAppId';
+import SteamBanner from 'components/atoms/SteamBanner';
 import FormCheckbox from 'components/atoms/FormCheckbox';
 import FormDatePicker from 'components/atoms/FormDatepicker';
 import FormTextarea from 'components/atoms/FormTextarea';
@@ -14,6 +18,7 @@ type Props = {
   post: {
     steam_id: string | number;
     title: string;
+    image_url?: string | null;
     total_hours: string | number;
     rating: string | number;
     yarikomi_rating: string | number;
@@ -24,13 +29,14 @@ type Props = {
     updated_at: Date;
   };
   editMode?: boolean;
-  handleSubmit?: (payload: PostEditSubmitPayload) => void;
+  handleSubmit?: (payload: PostEditSubmitPayload) => void | Promise<void>;
 };
 
 export default function PostView({ post, editMode, handleSubmit }: Props) {
   const { updated_at } = post;
 
   const [steamId, setSteamId] = useState(String(post.steam_id));
+  const [imageUrl, setImageUrl] = useState(post.image_url ?? null);
   const [title, setTitle] = useState(post.title);
   const [totalHours, setTotalHours] = useState(String(post.total_hours));
   const [rating, setRating] = useState(String(post.rating));
@@ -40,12 +46,31 @@ export default function PostView({ post, editMode, handleSubmit }: Props) {
   const [completedAt, setCompletedAt] = useState(post.completed_at);
   const [content, setContent] = useState(post.content);
 
+  const titleEdited = useRef(Boolean(post.title));
+  const dateEdited = useRef(Boolean(post.steam_id));
+  const [steamDetails, setSteamDetails] = useState<SteamPostDetails | null>(null);
+
+  const [previewAppId, setPreviewAppId] = useState(steamAppIdFromInput(String(post.steam_id)));
+
+  function importDetails(details: SteamPostDetails) {
+    setPreviewAppId(details.appId);
+    if (details.imageUrl) setImageUrl(details.imageUrl);
+    setSteamDetails(details);
+    if (!titleEdited.current && details.title) setTitle(details.title);
+    if (!dateEdited.current && details.completedAt) setCompletedAt(new Date(details.completedAt));
+  }
+
   const contentHtml = renderMarkdown(content);
 
-  function submit() {
+  const saving = useRef(false);
+  const [isSaving, setIsSaving] = useState(false);
+
+  async function submit() {
+    if (saving.current || !handleSubmit) return;
     const payload: PostEditSubmitPayload = {
-      steam_id: Number(steamId),
+      steam_id: steamAppIdFromInput(steamId) ?? 0,
       title,
+      image_url: imageUrl,
       total_hours: Number(totalHours),
       rating: Number(rating),
       yarikomi_rating: Number(yarikomiRating),
@@ -54,7 +79,15 @@ export default function PostView({ post, editMode, handleSubmit }: Props) {
       completed_at: completedAt,
       content,
     };
-    handleSubmit(payload);
+    saving.current = true;
+    setIsSaving(true);
+    try {
+      const result = handleSubmit(payload);
+      if (result) await result;
+    } finally {
+      saving.current = false;
+      setIsSaving(false);
+    }
   }
 
   return (
@@ -62,7 +95,17 @@ export default function PostView({ post, editMode, handleSubmit }: Props) {
       <div className="bg-bg-300">
         <div className="max-w-contents mx-auto px-5 py-8">
           {editMode ? (
-            <FormInput value={title} handleChange={setTitle} className="w-full" />
+            <label>
+              タイトル
+              <FormInput
+                value={title}
+                handleChange={(value) => {
+                  titleEdited.current = true;
+                  setTitle(value);
+                }}
+                className="w-full"
+              />
+            </label>
           ) : (
             <h1 className="text-2xl">{title}</h1>
           )}
@@ -71,11 +114,60 @@ export default function PostView({ post, editMode, handleSubmit }: Props) {
 
       <div className="bg-bg-200">
         <div className="max-w-contents mx-auto px-5 py-12">
-          {editMode && <FormInput value={steamId} handleChange={setSteamId} />}
-          <iframe
-            src={`https://store.steampowered.com/widget/${steamId}/`}
-            className="max-w-full w-[800px] h-48 mx-auto"
-          ></iframe>
+          {editMode && (
+            <SteamPostImport
+              value={steamId}
+              onChange={(value) => {
+                setSteamId(value);
+                setSteamDetails(null);
+                setPreviewAppId(null);
+                if (steamAppIdFromInput(value) !== steamAppIdFromInput(steamId)) setImageUrl(null);
+                if (!titleEdited.current) setTitle('');
+                if (!dateEdited.current) setCompletedAt(post.completed_at);
+              }}
+              onImported={importDetails}
+            />
+          )}
+          {editMode && imageUrl && <SteamBanner imageUrl={imageUrl} className="mb-4 max-w-full" />}
+          {editMode && steamDetails && (
+            <div className="mb-4">
+              {steamDetails.title && (
+                <p>
+                  タイトル候補: {steamDetails.title}{' '}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      titleEdited.current = true;
+                      setTitle(steamDetails.title);
+                    }}
+                  >
+                    このタイトルを使う
+                  </button>
+                </p>
+              )}
+              {steamDetails.completedAt && (
+                <p>
+                  コンプ日候補: {format(new Date(steamDetails.completedAt), 'yyyy-MM-dd')}{' '}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      dateEdited.current = true;
+                      setCompletedAt(new Date(steamDetails.completedAt));
+                    }}
+                  >
+                    この日付を使う
+                  </button>
+                </p>
+              )}
+              <p>コンプ日は現在の実績構成から求めた候補です。実績追加前のコンプ日とは異なる場合があります。</p>
+            </div>
+          )}
+          {(!editMode || previewAppId) && (
+            <iframe
+              src={`https://store.steampowered.com/widget/${editMode ? previewAppId : steamId}/`}
+              className="max-w-full w-[800px] h-48 mx-auto"
+            ></iframe>
+          )}
         </div>
       </div>
 
@@ -83,7 +175,13 @@ export default function PostView({ post, editMode, handleSubmit }: Props) {
         <div className="flex flex-wrap mb-3">
           <DetailItem title="すべおめした日" icon="calendar-check">
             {editMode ? (
-              <FormDatePicker value={completedAt} handleChange={setCompletedAt} />
+              <FormDatePicker
+                value={completedAt}
+                handleChange={(value) => {
+                  dateEdited.current = true;
+                  setCompletedAt(value);
+                }}
+              />
             ) : (
               format(new Date(completedAt), 'yyyy-MM-dd')
             )}
@@ -131,7 +229,7 @@ export default function PostView({ post, editMode, handleSubmit }: Props) {
                 <FormTextarea className="w-full" value={content} handleChange={setContent} />
                 <div className="text-center mt-7">
                   <Button color="yellow" onClick={() => submit()} className="w-32 justify-center">
-                    Save
+                    {isSaving ? '保存中…' : 'Save'}
                   </Button>
                 </div>
               </div>

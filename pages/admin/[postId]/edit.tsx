@@ -1,3 +1,4 @@
+import { savePost } from 'utils/savePost';
 import { GetServerSideProps } from 'next';
 import { AchievementPost } from '@prisma/client';
 import { fetchIsr } from 'utils/fetch';
@@ -23,10 +24,12 @@ type Props = {
 
 export default function PostId({ post }: Props) {
   async function submit(payload: PostEditSubmitPayload) {
-    // FIXME
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    await fetch(`/api/v1/achievement_post/${post.id}/edit?${new URLSearchParams(payload as any).toString()}`);
-    toast.success('Saved!');
+    try {
+      await savePost(`/api/v1/achievement_post/${post.id}/edit`, payload);
+      toast.success('Saved!');
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : '保存できませんでした。');
+    }
   }
 
   async function onClickedDelete() {

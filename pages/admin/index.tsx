@@ -88,7 +88,7 @@ export default function Home() {
                 </button>
                 <Link href={`/admin/${post.id}/edit`} legacyBehavior>
                   <a className="flex flex-grow">
-                    <SteamBanner steamId={post.steam_id} className="h-full w-auto" />
+                    <SteamBanner imageUrl={post.image_url} className="h-full w-auto" />
                     <div className="flex-grow bg-bg-300 flex">
                       <div className="text-gray-300 text-sm px-4">
                         <p>sort_order: {post.sort_order}</p>
