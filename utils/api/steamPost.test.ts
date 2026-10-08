@@ -1,5 +1,11 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { fetchSteamImages, fetchSteamPostDetails, parseSteamAppId } from './steamPost';
+import {
+  fetchSteamImages,
+  fetchSteamPostDetails,
+  parseSteamAppId,
+  SteamRateLimitError,
+  steamRetryAfterSeconds,
+} from './steamPost';
 
 afterEach(() => vi.unstubAllGlobals());
 function mockResponses(achievements: unknown[], storeOk = true) {
@@ -124,5 +130,29 @@ describe('既存投稿の画像移行', () => {
     expect(images.size).toBe(1);
     expect(images.get(123)).toContain('/steam/apps/123/hash/header.jpg');
     expect(mock).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('Steamの利用制限への対応', () => {
+  it('429とRetry-Afterを保持し、自動再試行しないこと', async () => {
+    const mock = vi.fn().mockResolvedValue({ ok: false, status: 429, headers: new Headers({ 'Retry-After': '120' }) });
+    vi.stubGlobal('fetch', mock);
+    await expect(fetchSteamImages([123], 'test-key')).rejects.toMatchObject({ retryAfterSeconds: 120 });
+    expect(mock).toHaveBeenCalledTimes(1);
+  });
+  it('HTTP成功でも制限ヘッダーと項目の制限コードを検知すること', async () => {
+    const mock = vi
+      .fn()
+      .mockResolvedValueOnce({ ok: true, headers: new Headers({ 'x-eresult': '84' }) })
+      .mockResolvedValueOnce({ ok: true, json: async () => ({ response: { store_items: [{ success: 25 }] } }) });
+    vi.stubGlobal('fetch', mock);
+    await expect(fetchSteamImages([123], 'test-key')).rejects.toBeInstanceOf(SteamRateLimitError);
+    await expect(fetchSteamImages([123], 'test-key')).rejects.toBeInstanceOf(SteamRateLimitError);
+  });
+  it('HTTP日時形式を解釈し、欠落や不正値では60秒以上待つこと', () => {
+    expect(steamRetryAfterSeconds('Thu, 08 Oct 2026 07:02:00 GMT', Date.parse('2026-10-08T07:00:00Z'))).toBe(120);
+    expect(steamRetryAfterSeconds(null)).toBe(60);
+    expect(steamRetryAfterSeconds('invalid')).toBe(60);
+    expect(steamRetryAfterSeconds('2')).toBe(60);
   });
 });

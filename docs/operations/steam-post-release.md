@@ -37,12 +37,12 @@ Previewで保存を試す場合は本番DBを共有せず、Preview用DBへ移�
 
 1. [Prisma側PR #230](https://github.com/ttt3pu/attt-prisma/pull/230) を先にマージする。
 2. [アプリ側PR #705](https://github.com/ttt3pu/achievements-next/pull/705) のPrisma参照を確認する。squash／rebaseマージの場合は、Prismaのマージ後コミットへ更新し、pushしてCIを通す。
-3. Vercelがそのサブモジュールを取得できること、Installで `pnpm install` のpostinstallによるPrisma Client生成が行われること、Buildが `pnpm build` で実行されることをログとプロジェクト設定で確認する。Installを独自コマンドで置き換えている場合もClient生成を省略しない。
-4. Git連携のProduction Branchと自動デプロイ設定を確認する。mainへのマージで本番デプロイが始まる構成なら、**環境変数とDB移行を先に済ませてからアプリ側をマージする**。
+3. 一括同期の共有制御を含むPR #706では、[追加のPrisma側PR #231](https://github.com/ttt3pu/attt-prisma/pull/231)も先にマージし、以下の制御テーブル移行を適用する。アプリ側は [PR #706](https://github.com/ttt3pu/achievements-next/pull/706)。
+4. Vercelがそのサブモジュールを取得できること、Installで `pnpm install` のpostinstallによるPrisma Client生成が行われること、Buildが `pnpm build` で実行されることをログとプロジェクト設定で確認する。Installを独自コマンドで置き換えている場合もClient生成を省略しない。
+5. Git連携のProduction Branchと自動デプロイ設定を確認する。mainへのマージで本番デプロイが始まる構成なら、**環境変数とDB移行を先に済ませてからアプリ側をマージする**。
 
 GitHub ActionsのCIは使い捨てDBへ移行してテストする。CI成功だけでは本番DBの移行済み・Vercelでのビルド成功を意味しない。
-PRのVercel botは2026-10-08時点でPreview Errorを報告している。
-[対象デプロイ](https://vercel.com/attt-team/achievements-next/HAx1GGvMkG8WCTj7EetNtSwE5ori) のBuild Logsで原因を確認し、解消後にPreviewを再デプロイする。エラー原因はまだ確認できていない。
+PR作成時にPreview Errorを確認したが、ユーザーからビルド成功の報告があり解消済み。リリース対象の最新デプロイの成功状態はその都度確認する。
 
 ### ビルド時のAPI参照に関する前提
 
@@ -83,13 +83,13 @@ pnpm prisma migrate deploy
 pnpm prisma migrate status
 ```
 
-`20261008030000_add_achievement_post_image` が適用済みで、保留・失敗した移行がないことを確認する。
+`20261008030000_add_achievement_post_image` と `20261008073000_add_steam_api_throttle` が適用済みで、保留・失敗した移行がないことを確認する。
 `migrate deploy` は**この1件だけでなく未適用の全マイグレーションを実行する**。
 未適用の既存移行があれば内容を確認してから実行し、今回のカラム追加だけと決めつけない。
 CI・Vercelの設定だけで自動適用されるとは扱わない。
 本番では `migrate dev`・seed・`make setup`・`make test-db` を実行しない。
 
-今回のSQLはnullableな `image_url TEXT` の追加。既存投稿はNULLとなり、画像の取得は行わない。
+今回のSQLはnullableな `image_url TEXT` と共有制御用の `SteamApiThrottle` テーブルの追加。制御テーブルはRLSが有効なため、アプリの実行DBロールでSELECT・INSERT・UPDATEが許可されることを確認する（所有者／BYPASSRLSロール以外は適切なポリシーも必要）。キーのSHA-256値・待機期限・実行識別子を保存し、キー原文は保存しない。既存投稿はNULLとなり、画像の取得は行わない。
 旧アプリと併用できる追加変更なので、**新アプリの起動前**に適用する。
 ローカルComposeのPostgreSQL16→17対応は別の作業であり、本番DBのバージョン変更は今回の手順に含めない。
 
@@ -112,19 +112,24 @@ DeploymentsでReadyと対象コミットを確認する。ビルド失敗時はB
 
 ## 5. 既存投稿の画像を追加し、公開一覧を更新する
 
-必要な場合だけ、手順3と同じ専用チェックアウト・シェルで実行する。
-`DATABASE_URL` が対象DB、`STEAM_WEB_API_KEY` が取得用キーであることを確認する。
-ホスティング側の環境変数を保存していても、この作業シェルでは別途読み込みが必要。
-移行後のPrisma ClientはInstall時の生成を使用する。
+**既存投稿の画像を表示し続けるには、この同期が必要。DBのカラム追加だけでは既存投稿の画像URLは登録されない。**
 
-```sh
-pnpm exec tsx scripts/backfill-steam-images.ts
-pnpm exec tsx scripts/backfill-steam-images.ts --apply
-```
+1. 新機能をデプロイした後、本番の管理画面へ管理者としてログインする。
+2. 「未登録画像を一括同期」を押す。サーバーの `DATABASE_URL` と `STEAM_WEB_API_KEY` を使用するため、ローカルの接続設定やコマンド実行は不要。
+3. 画面に確認・保存・取得できない画像の件数が表示される。完了までページを開いたままにする。画像未登録の投稿だけを最大50件ずつ順番に処理し、登録済み画像・本文・評価・更新日時は変更しない。
+4. 失敗したら表示された原因を確認して再実行する。保存済み画像を保持し、未登録分だけが対象となる。取得できない画像は「画像なし」のまま残る。別の日に再実行して取得できた画像だけを追加できる。
+5. 管理一覧は処理後に再読込する。**公開一覧への反映には次のDeploy操作が必要。**
 
-最初は取得確認のみ。取得結果を確認してから `--apply` で保存する。
-確認と適用は各々Steam APIへ問い合わせる。50件ごとのGetItemsで画像未登録投稿だけを取得し、登録済み画像・本文・評価は上書きしない。
-途中失敗後の再実行は未登録の投稿だけを対象とする。
+同期用APIは管理者限定のJSON POST。1バッチにつきDB読取1回、共有制御の取得・解放各1回、GetItems1回、画像が取得できた場合のみDB一括更新1回。実行を拒否する場合だけ待機状態の読取が1回追加される。対象がなければSteam APIを呼ばない。自動リトライはしない。
+通常はバッチ完了後2秒待って次を実行する。同じDB・同じキーを使う別タブ／サーバー／スクリプトの画像同期は共有排他で重複を抑止する。中断された実行状態は60秒で失効する。SteamのHTTP 429・制限コード25/84ではRetry-Afterを尊重し、未指定を含め最低60秒の待機期限を共有保存する。画面は自動再試行せず停止し、カウントダウン終了後にボタンで失敗バッチから再開する。ページを閉じた場合は未登録分から再実行できる。
+
+GetItems固有の秒間上限は公開保証されていないため、制限に必ず当たらないとは保証できない。同じキーを別DB・他アプリ・投稿補完で使う通信は、この画像同期の共有制御に含まれない。[Steam Web API規約](https://steamcommunity.com/dev/apiterms)の1日100,000回上限も共通キー全体で守る必要がある。
+
+画像取得に `STEAM_ID64` は不要。対象は所有ゲーム一覧ではなく既存投稿のApp ID。
+
+専用運用環境での実行が必要な場合は、従来の `scripts/backfill-steam-images.ts` も利用できる。
+ただしそのスクリプトは実行シェルのDB接続先を使うため、ローカル開発環境で実行しても本番画像は登録されない。
+通常の運用では管理画面から同期する。スクリプトも同じ共有制御と待機を使用し、確認のみ（`--apply`なし）でも制御テーブルの実行状態を更新する。
 
 画像登録後、Vercelで**Productionの最新リリースコミットを再ビルド・再デプロイ**する。
 管理画面のDeployボタンを使う場合は、前述の `DEPLOY_WEBHOOK_URL` の対象を確認する。

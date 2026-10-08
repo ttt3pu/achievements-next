@@ -1,10 +1,10 @@
+import SteamImageSync from 'components/molecules/SteamImageSync';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import SteamBanner from 'components/atoms/SteamBanner';
 import { AchievementPost } from '@prisma/client';
 import { RxSpaceBetweenVertically } from 'react-icons/rx';
 import Button from 'components/atoms/Button';
-import { fetchSpa } from 'utils/fetch';
 import { toast } from 'react-toastify';
 
 export default function Home() {
@@ -12,12 +12,15 @@ export default function Home() {
   const [orderingId, setOrderId] = useState<number | undefined>(undefined);
 
   async function getPosts() {
-    const postsRes = await fetchSpa<AchievementPost[]>('/api/v1/achievement_post');
+    const response = await fetch('/api/v1/achievement_post');
+    if (!response.ok) throw new Error('管理一覧を取得できませんでした。');
+    const postsRes: AchievementPost[] = await response.json();
+    if (!Array.isArray(postsRes)) throw new Error('管理一覧を取得できませんでした。');
     setPosts(postsRes);
   }
 
   useEffect(() => {
-    getPosts();
+    getPosts().catch(() => toast.error('管理一覧を取得できませんでした。'));
   }, []);
 
   function changeOrderId(orderingId: number | undefined) {
@@ -76,6 +79,7 @@ export default function Home() {
             Deploy
           </Button>
         </div>
+        <SteamImageSync onSynced={getPosts} />
         {posts.map((post, i) => {
           return (
             <div key={i} className="relative">
