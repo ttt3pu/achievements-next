@@ -174,7 +174,7 @@ GetItemsと実績APIを並列で各1回取得し、8秒でタイムアウトす�
 
 T4の実装・再開注意（2026-10-08）:
 
-- Prismaサブモジュールの `schema.prisma` と `migrations/20261008030000_add_achievement_post_image/migration.sql` を変更。`pnpm prisma generate` 済み。サブモジュールは未コミットのため、公開時はそちらの変更と親リポジトリの参照更新が必要。
+- Prismaサブモジュールの `schema.prisma` と `migrations/20261008030000_add_achievement_post_image/migration.sql` を変更。`pnpm prisma generate` 済み。T4時点では未コミットだったが、T7でコミット・PR作成と親リポジトリの参照更新を実施。Prisma側のマージ方式によっては参照の再更新が必要。
 - `utils/steamImage.ts` で画像ホスト・パスを検証し、保存値に利用。`SteamBanner.tsx` は保存URLを表示する。以前の固定CDNパス推測は廃止。画像参照は通常の投稿取得に含めるため、一覧で追加DBクエリ・Steam API問い合わせは発生しない。
 - `scripts/backfill-steam-images.ts` は画像未登録投稿だけを50件ずつGetItemsへ問い合わせる。既定は確認のみ、`--apply` で保存。登録済み画像は上書きせず、実績APIは呼ばない。実際の対象データへの実行は未実施。
 - 開発用DB・本番DBへのマイグレーションは未適用。新カラムを参照するコードの起動前にREADMEの `pnpm prisma migrate deploy` を実行する。専用テストDBだけは適用・検証済み。
