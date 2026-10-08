@@ -102,7 +102,7 @@
 - 完了済みの保存先: `docs/plans/done/`
 - 命名: 対象作業を表す kebab-case の Markdown
 
-Steam投稿補完の対象計画は [steam-post-autofill.md](docs/plans/steam-post-autofill.md)。
+Steam投稿補完の対象計画は [steam-post-autofill.md](docs/plans/done/steam-post-autofill.md)。
 
 ## 変更の進め方
 
