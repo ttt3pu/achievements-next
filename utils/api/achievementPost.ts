@@ -6,6 +6,7 @@ export type SortDirection = 'asc' | 'desc';
 
 export type AchievementPostInput = {
   steam_id: number;
+  image_url?: string | null;
   title: string;
   total_hours: number;
   rating: number;

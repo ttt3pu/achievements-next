@@ -6,7 +6,8 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'cdn.cloudflare.steamstatic.com',
+        hostname: 'shared.fastly.steamstatic.com',
+        pathname: '/store_item_assets/steam/apps/**',
       },
     ],
   },

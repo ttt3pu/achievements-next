@@ -94,6 +94,16 @@
      - **すでにマージ済みのブランチの場合**: 最新の `main` ブランチへ切り替えて `git pull origin main` を実行してから進める。
      - **まだマージされていないブランチの場合**: 一度作業を止め、現在のブランチを維持して作業するのかユーザーへ確認する。
 
+## 計画ファイルの管理
+
+計画の作成・更新・引き継ぎ、および既存計画に沿う作業では、共有 skill `ai-settings:manage-work-plan` を適用する。
+
+- 進行中の保存先: `docs/plans/`
+- 完了済みの保存先: `docs/plans/done/`
+- 命名: 対象作業を表す kebab-case の Markdown
+
+Steam投稿補完の対象計画は [steam-post-autofill.md](docs/plans/steam-post-autofill.md)。
+
 ## 変更の進め方
 
 - 最小限の変更で問題を解決する。既存の動作を壊さない

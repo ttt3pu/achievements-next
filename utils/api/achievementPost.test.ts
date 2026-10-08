@@ -47,6 +47,7 @@ function orders(posts: AchievementPost[]): { id: number; sort_order: number }[] 
 
 const input: AchievementPostInput = {
   steam_id: 900007,
+  image_url: 'https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/900007/hash/header.jpg',
   title: 'Snowfall Signal',
   total_hours: 55,
   rating: 3,

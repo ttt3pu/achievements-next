@@ -135,7 +135,7 @@ export default function Home({ posts: propsPosts }: { posts: AchievementPost[] }
                 <a
                   className={`${styles.gridItem} ${position <= 5 ? (styles[`rank${position}`] ?? '') : ''} cursor-pointer shadow rounded hover:z-10 text-white font-medium`}
                 >
-                  <SteamBanner steamId={post.steam_id} className="w-full h-full object-cover object-top" />
+                  <SteamBanner imageUrl={post.image_url} className="w-full h-full object-cover object-top" />
                   <div className={styles.footer}>
                     {sortingKey === 'sort_order' && (
                       <span className={styles.rank}>
