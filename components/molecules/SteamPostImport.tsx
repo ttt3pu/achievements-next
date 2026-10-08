@@ -7,9 +7,10 @@ type Props = {
   value: string;
   onChange: (value: string) => void;
   onImported: (details: SteamPostDetails) => void;
+  onLoadingChange: (loading: boolean) => void;
 };
 
-export default function SteamPostImport({ value, onChange, onImported }: Props) {
+export default function SteamPostImport({ value, onChange, onImported, onLoadingChange }: Props) {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
   const cache = useRef(new Map<number, SteamPostDetails>());
@@ -28,6 +29,7 @@ export default function SteamPostImport({ value, onChange, onImported }: Props) 
     pending.current?.abort();
     pending.current = null;
     setLoading(false);
+    onLoadingChange(false);
     setMessage('');
     onChange(value);
   }
@@ -49,6 +51,7 @@ export default function SteamPostImport({ value, onChange, onImported }: Props) 
     const controller = new AbortController();
     pending.current = controller;
     setLoading(true);
+    onLoadingChange(true);
     setMessage('');
     try {
       const response = await fetch(`/api/v1/steam/post_details?appid=${appId}`, { signal: controller.signal });
@@ -58,31 +61,32 @@ export default function SteamPostImport({ value, onChange, onImported }: Props) 
       if (details.appId !== appId) throw new Error('対象ゲーム不一致');
       cache.current.set(appId, details);
       onImported(details);
-      setMessage(['取得しました。入力済みのタイトル・日付は保持します。', ...details.warnings].join(' '));
+      setMessage(['取得結果をフォームに反映しました。', ...details.warnings].join(' '));
     } catch {
       if (version === generation.current && !controller.signal.aborted) {
-        setMessage('Steam情報を取得できませんでした。手入力で投稿できます。');
+        setMessage('Steam情報を取得できませんでした。時間をおいて再取得してください。');
       }
     } finally {
       if (pending.current === controller) {
         pending.current = null;
         setLoading(false);
+        onLoadingChange(false);
       }
     }
   }
 
   return (
-    <div className="mb-6">
-      <label>
+    <div className="mb-5 min-w-0">
+      <label className="block">
         SteamストアURL / App ID
-        <FormInput value={value} handleChange={change} />
+        <FormInput value={value} handleChange={change} className="block w-full min-w-0 mt-2" />
       </label>
-      <div className="flex gap-3 mt-3">
+      <div className="flex flex-wrap gap-3 mt-3">
         <button
           type="button"
           disabled={loading}
           onClick={() => importDetails()}
-          className="px-4 py-2 bg-yellow disabled:opacity-50"
+          className="rounded px-4 py-2 bg-yellow font-medium disabled:opacity-50"
         >
           {loading ? '取得中…' : 'Steamから取得'}
         </button>
@@ -90,14 +94,16 @@ export default function SteamPostImport({ value, onChange, onImported }: Props) 
           type="button"
           disabled={loading}
           onClick={() => importDetails(true)}
-          className="px-4 py-2 disabled:opacity-50"
+          className="rounded border border-bg-500 px-4 py-2 disabled:opacity-50"
         >
           再取得
         </button>
       </div>
-      <p role="status" className="mt-3">
-        {message}
-      </p>
+      {message && (
+        <p role="status" className="mt-3 break-words text-sm">
+          {message}
+        </p>
+      )}
     </div>
   );
 }

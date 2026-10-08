@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`PostView > Fictional Fantasy Remake の HTML が変わらないこと 1`] = `
+exports[`投稿の表示と編集 > Fictional Fantasy Remake の HTML が変わらないこと 1`] = `
 "<div>
 <div class="bg-bg-300">
 <div class="max-w-contents mx-auto px-5 py-8">
@@ -241,7 +241,7 @@ exports[`PostView > Fictional Fantasy Remake の HTML が変わらないこと 1
 </div>"
 `;
 
-exports[`PostView > テストクエスト オデッセイ の HTML が変わらないこと 1`] = `
+exports[`投稿の表示と編集 > テストクエスト オデッセイ の HTML が変わらないこと 1`] = `
 "<div>
 <div class="bg-bg-300">
 <div class="max-w-contents mx-auto px-5 py-8">
@@ -463,7 +463,7 @@ exports[`PostView > テストクエスト オデッセイ の HTML が変わら�
 </div>"
 `;
 
-exports[`PostView > 放置ヒーロー クリッカー の HTML が変わらないこと 1`] = `
+exports[`投稿の表示と編集 > 放置ヒーロー クリッカー の HTML が変わらないこと 1`] = `
 "<div>
 <div class="bg-bg-300">
 <div class="max-w-contents mx-auto px-5 py-8">
