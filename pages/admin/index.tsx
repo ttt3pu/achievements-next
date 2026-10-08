@@ -79,7 +79,6 @@ export default function Home() {
             Deploy
           </Button>
         </div>
-        <SteamImageSync onSynced={getPosts} />
         {posts.map((post, i) => {
           return (
             <div key={i} className="relative">
@@ -117,6 +116,12 @@ export default function Home() {
             </div>
           );
         })}
+        <details className="mt-10 border-t border-bg-500 pt-4">
+          <summary className="cursor-pointer">メンテナンス</summary>
+          <div className="mt-4">
+            <SteamImageSync onSynced={getPosts} />
+          </div>
+        </details>
       </div>
     </div>
   );

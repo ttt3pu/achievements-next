@@ -46,6 +46,10 @@
   - 依存先: T9。完了条件: 別タブ／サーバー間の重複をDBで抑止し、バッチ間隔、429待機・停止・手動再開、失効した実行状態の回復を検証する。
   - 証跡・再開メモ: Steam規約は1日100,000回だがGetItems固有の秒間上限は未文書化。通常は取得完了後2秒待機、429はRetry-Afterを尊重（未指定時60秒以上）、自動リトライなし。サーバーレス間で共有する制御テーブルをPrisma側へ追加し、先に移行する手順をPR #706へ追記する。同期のDBクエリに制御の取得・解放各1回を追加。専用テストDBで排他・失効・古い解除の拒否・共有待機を確認し、画面で2秒待機・429停止・手動再開を検証。`pnpm check` と全133テスト成功。Prisma側 [PR #231](https://github.com/ttt3pu/attt-prisma/pull/231) とアプリ側 [PR #706](https://github.com/ttt3pu/achievements-next/pull/706)へ反映。追加移行 `20261008073000_add_steam_api_throttle` をアプリ反映前に適用する。マージ・本番移行・実Steam同期・Deployは未実施。
 
+- [ ] **T11. 同期の誤操作防止を別PRで実装**
+  - 依存先: T10。完了条件: 日常操作から配置を分離し、開始・再開の確認、キャンセル時の通信なし、全品質チェックを確認して別PRを作成する。
+  - 証跡・再開メモ: 投稿一覧末尾の折りたたみメンテナンス欄へ移動し、ブラウザー標準の確認を追加。開始と429後の再開のキャンセルをDOMテストで検証する。DB・API仕様は変更しない。
+
 ## 目的・対象範囲
 
 投稿時の手入力を減らし、無理のない範囲でSteam Web APIに任せる。外部リクエストとDBクエリをなるべく増やさない。
@@ -130,7 +134,7 @@ Context7のlibrary検索とdocs取得を実施済み。参照IDは `/websites/st
 
 2026-10-08の計画文書整備時に `pnpm check` を実行。ESLint、TypeScript、Prettier、Stylelintは通過し、4テストファイルの20テストが成功した。`utils/api/achievementPost.test.ts` は `TEST_DATABASE_URL` 未設定のためスイートが失敗した。機能実装に対する検証結果ではない。
 
-実装時は [README](../../../README.md) と [AGENTS.md](../../../AGENTS.md) に従い `make test-db` で専用DBを準備し、末尾が `_test` の接続先で検証する。スキーマ変更が必要なら `prisma` サブモジュール側で行う。テストの規約は共有 `ai-settings:shared-testing-conventions` を参照する。
+実装時は [README](../../README.md) と [AGENTS.md](../../AGENTS.md) に従い `make test-db` で専用DBを準備し、末尾が `_test` の接続先で検証する。スキーマ変更が必要なら `prisma` サブモジュール側で行う。テストの規約は共有 `ai-settings:shared-testing-conventions` を参照する。
 
 ### T2の実装と検証（2026-10-08）
 
@@ -206,7 +210,7 @@ T5の実装・検証根拠（2026-10-08）:
 
 ### リリース手順
 
-正本は [Steam投稿補完のリリース手順](../../operations/steam-post-release.md)。VercelのProduction／Preview環境変数、両PRの順序、移行実行元、ビルド中のAPI参照、公開画像の再生成、確認・切戻しを記載する。最終報告では実施済みの作業と未実施の本番操作を分ける。
+正本は [Steam投稿補完のリリース手順](../operations/steam-post-release.md)。VercelのProduction／Preview環境変数、両PRの順序、移行実行元、ビルド中のAPI参照、公開画像の再生成、確認・切戻しを記載する。最終報告では実施済みの作業と未実施の本番操作を分ける。
 
 ### T7. PR作成時の検証とローカル環境
 
@@ -258,5 +262,3 @@ T6の検証証跡・利用上の留意点（2026-10-08）:
 - Vitest DOMテスト、API境界テスト、実PostgreSQLの保存テストを実行し、全13ファイル・123テスト成功。 `pnpm check` と差分確認成功。Context7 `/prisma/web` でSQLパラメーター構築を確認、Next.js同梱公式資料でPages APIのmaxDurationを確認した。
 - ローカルの移行失敗は開発DBの画像カラム不足（P2022）。通常の運用は本番管理画面から行い、ローカルからの本番接続作業は不要。従来CLIは補助として残し、接続先・失敗工程の診断を改善。
 - 既存のimage_urlカラムとサーバーのDATABASE_URL・STEAM_WEB_API_KEYを使う。追加PR #706のマージ・Productionデプロイ後、管理画面で一括同期→Deploy→公開画像を確認する。本番操作は未実施。
-
-T10までの実装・検証・PR反映の完了日: 2026-10-08。本番の反映操作はリリース手順に従って別途実施する。
