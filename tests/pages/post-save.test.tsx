@@ -6,9 +6,13 @@ import NewPost from 'pages/admin/new';
 import EditPost from 'pages/admin/[postId]/edit';
 import { achievementPosts } from 'tests/fixtures/achievement-posts';
 import { toast } from 'react-toastify';
+import MyApp from 'pages/_app';
+import Admin from 'pages/admin';
 import router from 'next/router';
-vi.mock('react-toastify', () => ({ toast: { success: vi.fn(), error: vi.fn() } }));
-vi.mock('next/router', () => ({ default: { push: vi.fn() } }));
+vi.mock('next/router', () => ({
+  default: { push: vi.fn() },
+  useRouter: () => ({ pathname: '/admin' }),
+}));
 const payload: PostEditSubmitPayload = {
   steam_id: 123,
   image_url: null,
@@ -28,12 +32,15 @@ vi.mock('components/organisms/PostView', () => ({
 }));
 afterEach(() => {
   cleanup();
+  toast.dismiss();
+  toast.clearWaitingQueue();
   vi.resetAllMocks();
+  vi.restoreAllMocks();
   vi.unstubAllGlobals();
 });
 describe.each(['新規', '編集'])('%s投稿の保存結果の通知', (kind) => {
   function show() {
-    return render(
+    const Component = () =>
       kind === '新規' ? (
         <NewPost />
       ) : (
@@ -46,15 +53,15 @@ describe.each(['新規', '編集'])('%s投稿の保存結果の通知', (kind) =
             updated_at: new Date(achievementPosts[0].updated_at),
           }}
         />
-      ),
-    );
+      );
+    return render(<MyApp Component={Component} pageProps={{ session: null }} />);
   }
   it('JSONで保存し成功確認後に完了表示すること', async () => {
     const fetch = vi.fn().mockResolvedValue({ ok: true });
     vi.stubGlobal('fetch', fetch);
     show();
     fireEvent.click(screen.getByText('Save'));
-    await waitFor(() => expect(toast.success).toHaveBeenCalledWith('Saved!'));
+    expect((await screen.findByRole('alert')).textContent).toContain('Saved!');
     expect(fetch).toHaveBeenCalledWith(
       kind === '新規' ? '/api/v1/achievement_post/new' : `/api/v1/achievement_post/${achievementPosts[0].id}/edit`,
       {
@@ -69,8 +76,14 @@ describe.each(['新規', '編集'])('%s投稿の保存結果の通知', (kind) =
     vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: false, status }));
     show();
     fireEvent.click(screen.getByText('Save'));
-    await waitFor(() => expect(toast.error).toHaveBeenCalled());
-    expect(toast.success).not.toHaveBeenCalled();
+    const messages = {
+      400: '入力内容を確認してください。',
+      401: 'ログイン状態を確認してください。',
+      409: 'このゲームの投稿は既に存在します。',
+      500: '保存できませんでした。入力を保持しています。再度お試しください。',
+    };
+    expect((await screen.findByRole('alert')).textContent).toContain(messages[status]);
+    expect(screen.queryByText('Saved!')).toBeNull();
     expect(router.push).not.toHaveBeenCalled();
     expect(screen.getByText('Save')).toBeDefined();
   });
@@ -78,8 +91,48 @@ describe.each(['新規', '編集'])('%s投稿の保存結果の通知', (kind) =
     vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new Error('offline')));
     show();
     fireEvent.click(screen.getByText('Save'));
-    await waitFor(() => expect(toast.error).toHaveBeenCalled());
-    expect(toast.success).not.toHaveBeenCalled();
+    expect((await screen.findByRole('alert')).textContent).toContain(
+      '通信に失敗しました。入力を保持しています。再度お試しください。',
+    );
+    expect(screen.queryByText('Saved!')).toBeNull();
     expect(router.push).not.toHaveBeenCalled();
+  });
+  if (kind === '編集') {
+    it('削除完了が通知欄に表示されること', async () => {
+      vi.spyOn(window, 'confirm').mockReturnValue(true);
+      const fetch = vi.fn().mockResolvedValue({ ok: true });
+      vi.stubGlobal('fetch', fetch);
+      show();
+      fireEvent.click(screen.getByRole('button', { name: 'Delete' }));
+      expect((await screen.findByRole('alert')).textContent).toContain('Deleted!');
+      expect(fetch).toHaveBeenCalledWith(`/api/v1/achievement_post/${achievementPosts[0].id}/delete`);
+      expect(router.push).toHaveBeenCalledWith('/admin');
+    });
+  }
+});
+
+describe('管理画面の通知表示', () => {
+  it.each([true, false])('デプロイ成功=%sの結果が通知欄に表示されること', async (ok) => {
+    const fetch = vi
+      .fn()
+      .mockResolvedValueOnce({ ok: true, json: async () => [] })
+      .mockResolvedValueOnce({ ok });
+    vi.stubGlobal('fetch', fetch);
+    render(<MyApp Component={Admin} pageProps={{ session: null }} />);
+    await waitFor(() => expect(fetch).toHaveBeenCalledWith('/api/v1/achievement_post'));
+    fireEvent.click(screen.getByRole('button', { name: 'Deploy' }));
+    expect((await screen.findByRole('alert')).textContent).toContain(ok ? 'Deploy started!' : 'Failed to deploy');
+    expect(fetch).toHaveBeenLastCalledWith('/api/v1/deploy', { method: 'POST' });
+    if (ok) {
+      const link = screen.getByRole('link', { name: 'https://vercel.com/attt-team/achievements-next/deployments' });
+      expect(link.getAttribute('href')).toBe('https://vercel.com/attt-team/achievements-next/deployments');
+      expect(link.getAttribute('target')).toBe('_blank');
+    }
+  });
+
+  it('管理一覧取得失敗が通知欄に表示されること', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: false }));
+    render(<MyApp Component={Admin} pageProps={{ session: null }} />);
+    expect((await screen.findByRole('alert')).textContent).toContain('管理一覧を取得できませんでした。');
   });
 });
