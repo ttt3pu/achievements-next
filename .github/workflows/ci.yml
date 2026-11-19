@@ -22,6 +22,8 @@ jobs:
 
       - run: pnpm lint:js
 
+      - run: pnpm lint:ts
+
   lint-style:
     runs-on: ubuntu-latest
     steps:
