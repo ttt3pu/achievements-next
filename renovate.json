@@ -2,6 +2,12 @@
   "extends": ["github>ttt3pu/renovate-settings"],
   "packageRules": [
     {
+      "description": "Automerge Tailwind CSS / PostCSS minor/patch when tests pass",
+      "matchPackageNames": ["tailwindcss", "@tailwindcss/postcss", "postcss"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true
+    },
+    {
       "description": "Automerge react-toastify minor/patch when tests pass",
       "matchPackageNames": ["react-toastify"],
       "matchUpdateTypes": ["minor", "patch"],
