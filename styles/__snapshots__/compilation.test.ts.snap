@@ -1,0 +1,185 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`公開画面のスタイル生成 > テーマと一覧の段組み・画像・選択状態のスタイルが生成されること 1`] = `
+{
+  "styles": [
+    {
+      "rules": [
+        {
+          "context": [],
+          "css": "html{scroll-behavior:smooth;--tw-leading:calc(var(--spacing) * 7);line-height:calc(var(--spacing) * 7);font-family:var(--font-jp);color:var(--color-white);background-color:var(--color-bg-100)}",
+        },
+      ],
+      "selector": "html",
+    },
+    {
+      "rules": [
+        {
+          "context": [],
+          "css": "body{min-height:calc(100 * var(--vh))}",
+        },
+      ],
+      "selector": "body",
+    },
+    {
+      "rules": [
+        {
+          "context": [
+            "@layer base",
+          ],
+          "css": "a{color:inherit;-webkit-text-decoration:inherit;-webkit-text-decoration:inherit;-webkit-text-decoration:inherit;text-decoration:inherit}",
+        },
+        {
+          "context": [],
+          "css": "a{color:var(--color-link);text-decoration-line:none}",
+        },
+      ],
+      "selector": "a",
+    },
+    {
+      "rules": [
+        {
+          "context": [
+            "@layer utilities",
+          ],
+          "css": ".grid-cols-4{grid-template-columns:repeat(4,minmax(0,1fr))}",
+        },
+      ],
+      "selector": ".grid-cols-4",
+    },
+    {
+      "rules": [
+        {
+          "context": [
+            "@layer utilities",
+            "@media not all and (min-width:48rem)",
+          ],
+          "css": ".max-md\\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}",
+        },
+      ],
+      "selector": ".max-md\\:grid-cols-3",
+    },
+    {
+      "rules": [
+        {
+          "context": [
+            "@layer utilities",
+            "@media not all and (min-width:40rem)",
+          ],
+          "css": ".max-sm\\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}",
+        },
+      ],
+      "selector": ".max-sm\\:grid-cols-2",
+    },
+    {
+      "rules": [
+        {
+          "context": [
+            "@layer utilities",
+            "@media not all and (min-width:64rem)",
+          ],
+          "css": ".max-lg\\:flex-col{flex-direction:column}",
+        },
+      ],
+      "selector": ".max-lg\\:flex-col",
+    },
+    {
+      "rules": [
+        {
+          "context": [
+            "@layer utilities",
+          ],
+          "css": ".bg-bg-200{background-color:var(--color-bg-200)}",
+        },
+      ],
+      "selector": ".bg-bg-200",
+    },
+    {
+      "rules": [
+        {
+          "context": [
+            "@layer utilities",
+          ],
+          "css": ".fill-yellow{fill:var(--color-yellow)}",
+        },
+      ],
+      "selector": ".fill-yellow",
+    },
+    {
+      "rules": [
+        {
+          "context": [
+            "@layer utilities",
+          ],
+          "css": ".top-\\[1px\\]{top:1px}",
+        },
+      ],
+      "selector": ".top-\\[1px\\]",
+    },
+    {
+      "rules": [
+        {
+          "context": [
+            "@layer utilities",
+          ],
+          "css": ".-rotate-180{rotate:-180deg}",
+        },
+      ],
+      "selector": ".-rotate-180",
+    },
+    {
+      "rules": [
+        {
+          "context": [
+            "@layer utilities",
+          ],
+          "css": ".object-cover{object-fit:cover}",
+        },
+      ],
+      "selector": ".object-cover",
+    },
+    {
+      "rules": [
+        {
+          "context": [
+            "@layer utilities",
+          ],
+          "css": ".max-w-contents{max-width:var(--max-width-contents)}",
+        },
+      ],
+      "selector": ".max-w-contents",
+    },
+  ],
+  "theme": {
+    "--color-bg": "#675878",
+    "--color-bg-100": "#1c2135",
+    "--color-bg-200": "#202940",
+    "--color-bg-300": "#3f3c56",
+    "--color-bg-500": "#927699",
+    "--color-black": "#000",
+    "--color-blue": "#6956dc",
+    "--color-gray-300": "oklch(87.2% .01 258.338)",
+    "--color-link": "#fff7d6",
+    "--color-link-500": "#fffbef",
+    "--color-orange": "#f87841",
+    "--color-red": "#ff3848",
+    "--color-toast-success": "var(--toastify-icon-color-success)",
+    "--color-white": "#eee",
+    "--color-yellow": "#f1c039",
+    "--font-en": ""Poppins", sans-serif",
+    "--font-jp": ""Noto Sans JP", sans-serif",
+    "--font-mono": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace",
+    "--font-sans": "-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"",
+    "--font-weight-bold": "700",
+    "--font-weight-medium": "500",
+    "--font-weight-normal": "400",
+    "--font-weight-semibold": "600",
+    "--max-width-contents": "var(--contents-width)",
+    "--max-width-contents-with-p": "calc(var(--contents-width) + 40px)",
+  },
+}
+`;
+
+exports[`公開画面のスタイル生成 > 一覧カードの順位・ホバー・モバイル表示 がテーマ参照を解決して生成されること 1`] = `".gridItem{aspect-ratio:460/215;text-decoration:none;transition:transform .2s,box-shadow .2s;display:block;position:relative;overflow:hidden}.gridItem:before{content:"";opacity:0;z-index:3;pointer-events:none;background:linear-gradient(225deg,#ffffff26 0%,#0000 55%);transition:opacity .2s;position:absolute;inset:0}@media (hover:hover){.gridItem:hover{text-decoration:none;transform:scale(1.04);box-shadow:0 6px 20px #00000080}.gridItem:hover:before{opacity:1}}.rank1{grid-area:span 2/span 2/span 2/span 2;box-shadow:0 0 0 2px #f1c039,0 4px 16px #f1c03959}.rank2{box-shadow:0 0 0 2px #b0b8c1,0 4px 12px #b0b8c140}.rank3{box-shadow:0 0 0 2px #cd7f32,0 4px 12px #cd7f3240}@media not all and (min-width:640px){.rank1,.rank2,.rank3,.rank4,.rank5{aspect-ratio:460/215;grid-area:auto/1/auto/-1}}.footer{z-index:2;pointer-events:none;background:linear-gradient(#0000,#000c);align-items:baseline;gap:.4rem;padding:.3rem .5rem;display:flex;position:absolute;bottom:0;left:0;right:0}.rank{color:#fff;text-shadow:0 1px 3px #000c;background:#0000008c;border-radius:.25rem;align-items:center;gap:.2rem;padding:.05rem .3rem;font-size:1.1rem;font-weight:700;line-height:1.1;display:inline-flex}.rank1 .rank{color:#f1c039;font-size:1.3rem}.rank2 .rank{color:#c0c8d0}.rank3 .rank{color:#cd7f32}.rankIcon{flex-shrink:0;display:block}.info{color:#ffffffe6;text-shadow:0 1px 3px #000c;background:#0000008c;border-radius:.25rem;padding:.05rem .3rem;font-size:.9rem;font-weight:700;line-height:1.1}"`;
+
+exports[`公開画面のスタイル生成 > 記事詳細の項目間の余白と区切り線 がテーマ参照を解決して生成されること 1`] = `".detailItem:not(:last-child){margin-right:calc(var(--spacing,.25rem) * 6);border-right-style:var(--tw-border-style);padding-right:calc(var(--spacing,.25rem) * 6);border-right-width:1px}@property --tw-border-style{syntax:"*";inherits:false;initial-value:solid}"`;
