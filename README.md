@@ -4,6 +4,12 @@ AI エージェント向けの指示は [AGENTS.md](AGENTS.md)。
 
 ## Commands
 
+型チェック（`pnpm lint:ts`）には TypeScript 7 を使用する。
+`typescript` は ESLint などが利用する Compiler API のために TypeScript 6 の互換パッケージを参照し、
+`@typescript/native` に TypeScript 7 を別名で導入している。
+`tsc` は7、`tsc6` は6のコマンドになる。
+Next.js のビルド時の型チェックは `typescript` の6を使用する。
+
 ### Setup
 
 ```sh
